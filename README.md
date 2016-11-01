@@ -16,6 +16,7 @@ The following **required** functionality is completed:
   * [ ] Other note
 * [ ] User can change their **Account Infomation** (name, age, phone, address)
 * [ ] User can tap on any post in results to view the detail infomation.
+* [ ] User can **buy** many books they want and checkout.
 * [ ] User can **fetch more books**.
 * [ ] User can **search for books** by title 
 

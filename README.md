@@ -8,39 +8,42 @@ Time spent: **xyz** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ ] User can **Login with Facebook** 
-* [ ] User can look through **List of books** 
+* [ ] User can **Login with Facebook**:
+  * [ ] Choose book category they like in sign up
+  * [ ] Get information from facebook
+* [ ] User can look through **List of books**:
+  * [ ] Base on category
+  * [ ]
 * [ ] User can **Post book they want to sell** which includes the following:
   * [ ] Book title, author
   * [ ] Price of the book
-  * [ ] Other note
-* [ ] User can change their **Account Infomation** (name, age, phone, address)
-* [ ] User can tap on any post in results to view the detail infomation.
+  * [ ] Category
+  * [ ] Description (text + photo)
+* [ ] User can **see their profile**:
+  * [ ] name, age, phone, address
+  * [ ] book they are selling
+  * [ ] their rating
+  
+* [ ] User can tap on any post in results to view the detail information.
 * [ ] User can **fetch more books**.
-* [ ] User can **search for books** by title 
+* [ ] User can **search for books** + filter:
+  * [ ] Search by title, author, 
+  * [ ] Filter by category, price, condition
+* [ ] User can **view other profile**:
+   * [ ] Name, phone address, name, bla bla
+   * [ ] List of book they are selling
+   * [ ] Their rating 
+   * [ ] 
+* [ ] User can **share books they have buy** via Facebook
+* [ ] Buyer can chat with seller
+* [ ] Rating the seller
+
 
 The following **optional** features are implemented:
 
-* [ ] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
-* [ ] Used the **ActionBar SearchView** or custom layout as the query box instead of an EditText
-* [ ] User can **share books they have buy** via Facebook
-* [ ] Replaced Filter Settings Activity with a lightweight modal overlay
+* [ ] Suggest book based on history
+* [ ] Review with text
 * [ ] Improved the user interface and experiment with image assets and/or styling and coloring
-
-The following **bonus** features are implemented:
-
-* [ ] Use the [RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) with the `StaggeredGridLayoutManager` to display improve the grid of image results
-* [ ] For different news articles that only have text or only have images, use [Heterogenous Layouts](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) with RecyclerView
-* [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
-* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
-* [ ] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.com/android/Drawables#vector-drawables) where appropriate.
-* [ ] Uses [retrolambda expressions](http://guides.codepath.com/android/Lambda-Expressions) to cleanup event handling blocks.
-* [ ] Leverages the popular [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) to streamline the parsing of JSON data.
-* [ ] Leverages the [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) to access the New York Times API.
-
-The following **additional** features are implemented:
-
-* [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
 

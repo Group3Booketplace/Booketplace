@@ -9,6 +9,7 @@ Time spent: **xyz** hours spent in total
 The following **required** functionality is completed:
 
 * [ ] User can **Login with Facebook** 
+* [ ] User can **select favourite categories at the first time** 
 * [ ] User can look through **List of books** 
 * [ ] User can **Post book they want to sell** which includes the following:
   * [ ] Book title, author

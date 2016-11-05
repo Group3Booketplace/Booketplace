@@ -13,7 +13,6 @@ The following **required** functionality is completed:
   * [ ] Get information from facebook
 * [ ] User can look through **List of books**:
   * [ ] Base on category
-  * [ ]
 * [ ] User can **Post book they want to sell** which includes the following:
   * [ ] Book title, author
   * [ ] Price of the book
@@ -43,7 +42,7 @@ The following **optional** features are implemented:
 
 * [ ] Suggest book based on history
 * [ ] Review with text
-* [ ] Improved the user interface and experiment with image assets and/or styling and coloring
+* [ ] Notification
 
 ## Video Walkthrough
 

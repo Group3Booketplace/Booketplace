@@ -2,8 +2,6 @@
 
 **Booketplace** is an android app that allows a user to share or sell their old books and buy old books from other users. The app utilizes [Firebase backend](http://developer.nytimes.com/docs/read/article_search_api_v2).
 
-Time spent: **xyz** hours spent in total
-
 ## User Stories
 
 The following **required** functionality is completed:

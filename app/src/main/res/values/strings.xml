@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">BooketPlace</string>
+    <string name="app_name">Booketplace</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_acc">Account</string>
+    <string name="nav_his">History</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_xx">XXXXX</string>
+    <string name="nav_yy">YYYY</string>
+    <string name="nav_zz">ZZZZ</string>
+    <string name="nav_about_us">About Us</string>
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Home</item>
+        <item>Photos</item>
+        <item>Movies</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+    </string-array>
+
 </resources>

@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(this);
         setContentView(R.layout.activity_login);
         setupFacebookLogin();
-        mAuth = FirebaseAuth.getInstance();
     }
 
     private void setupFacebookLogin() {
+        mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.btn_login);
         loginButton.setReadPermissions("user_about_me", "user_location", "user_friends", "email");
@@ -75,13 +75,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleFirebaseLogin(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    task.getResult().getUser();
 
-                    }
-                });
+                }
+            }
+        });
     }
 
 

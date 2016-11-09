@@ -1,4 +1,4 @@
-# X-factor - *Booketplace*
+#  *Booketplace*
 
 **Booketplace** is an android app that allows a user to share or sell their old books and buy old books from other users. The app utilizes [Firebase backend](http://developer.nytimes.com/docs/read/article_search_api_v2).
 
@@ -6,7 +6,7 @@
 
 The following **required** functionality is completed:
 
-* [ ] User can **Login with Facebook**:
+* [x] User can **Login with Facebook**:
   * [ ] Choose book category they like in sign up
   * [ ] Get information from facebook
 * [ ] User can look through **List of books**:

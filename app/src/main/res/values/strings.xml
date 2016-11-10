@@ -24,4 +24,7 @@
         <item>Settings</item>
     </string-array>
 
+
+    <string name="facebook_app_id">921102551367876</string>
+    <string name="fb_login_protocol_scheme">fb921102551367876</string>
 </resources>

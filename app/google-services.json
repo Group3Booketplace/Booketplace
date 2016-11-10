@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "696243471868",
+    "firebase_url": "https://booketplace-dd943.firebaseio.com",
+    "project_id": "booketplace-dd943",
+    "storage_bucket": "booketplace-dd943.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696243471868:android:c48c818339801671",
+        "android_client_info": {
+          "package_name": "com.coderschool.booketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696243471868-0da5emfgd9rkf8sbru3ge45ltglpf5pg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coderschool.booketplace",
+            "certificate_hash": "4613C3F03FCDA559C39EB74C28D913426F06BD65"
+          }
+        },
+        {
+          "client_id": "696243471868-mhaps7m4lh9mknjoimsockgatdb8cd5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1YhHNLIhDvxqWpIoL9RODKuzBhG_YsOo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696243471868-mhaps7m4lh9mknjoimsockgatdb8cd5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

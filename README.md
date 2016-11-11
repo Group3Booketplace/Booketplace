@@ -7,32 +7,32 @@
 The following **required** functionality is completed:
 
 * [x] User can **Login with Facebook**:
-  * [ ] Choose book category they like in sign up
+  * [ ] Choose manga category they like in sign up
   * [ ] Get information from facebook
-* [ ] User can look through **List of books**:
+* [ ] User can look through **List of manga**:
   * [ ] Base on category
-* [ ] User can **Post book they want to sell** which includes the following:
-  * [ ] Book title, author
-  * [ ] Price of the book
+* [ ] User can **Post manga they want to sell** which includes the following:
+  * [ ] Manga title, author
+  * [ ] Price of the manga
   * [ ] Category
   * [ ] Description (text + photo)
+  * [ ] Autotrack location
 * [ ] User can **see their profile**:
   * [ ] name, age, phone, address
-  * [ ] book they are selling
+  * [ ] manga they are selling
   * [ ] their rating
   
 * [ ] User can tap on any post in results to view the detail information.
-* [ ] User can **fetch more books**.
-* [ ] User can **search for books** + filter:
+* [ ] User can **fetch more maga**.
+* [ ] User can **search for maga** + filter:
   * [ ] Search by title, author, 
   * [ ] Filter by category, price, condition
 * [ ] User can **view other profile**:
    * [ ] Name, phone address, name, bla bla
-   * [ ] List of book they are selling
+   * [ ] List of manga they are selling
    * [ ] Their rating 
    * [ ] 
-* [ ] User can **share books they have buy** via Facebook
-* [ ] Buyer can chat with seller
+* [ ] User can **share manga they like** via Facebook
 * [ ] Rating the seller
 
 
@@ -41,6 +41,7 @@ The following **optional** features are implemented:
 * [ ] Suggest book based on history
 * [ ] Review with text
 * [ ] Notification
+* [ ] Buyer can chat with seller
 
 ## Video Walkthrough
 

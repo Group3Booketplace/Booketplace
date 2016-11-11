@@ -1,5 +1,7 @@
 package com.coderschool.booketplace.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
+import com.facebook.login.LoginManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -198,9 +201,8 @@ public class HomeActivity extends BaseActivity {
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_signout:
-                        navItemIndex = INDEX_SIGNOUT;
-                        CURRENT_TAG = TAG_SIGNOUT;
-                        // TODO: Sign out
+                        mAuth.signOut();
+                        LoginManager.getInstance().logOut();
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_about_us:
@@ -297,6 +299,12 @@ public class HomeActivity extends BaseActivity {
         return true;
     }
 
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return  intent;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
@@ -305,8 +313,12 @@ public class HomeActivity extends BaseActivity {
     @OnClick(fab)
     public void newPost(View view) {
         // Show new post fragment
-
-        replaceFragment(NewPostFragment.newInstance());
-        toolbar.setTitle(R.string.manga_sell);
+        if (mUser == null) {
+            // TODO: show a dialog said that user need to sign in first
+            startActivity(LoginActivity.getIntent(this));
+        } else {
+            replaceFragment(NewPostFragment.newInstance());
+            toolbar.setTitle(R.string.manga_sell);
+        }
     }
 }

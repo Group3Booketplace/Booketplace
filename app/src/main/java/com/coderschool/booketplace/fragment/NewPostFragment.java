@@ -1,6 +1,11 @@
 package com.coderschool.booketplace.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +16,12 @@ import android.widget.Spinner;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.model.Manga;
+import com.coderschool.booketplace.utils.BitmapUtils;
+import com.coderschool.booketplace.utils.PermissionUtils;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +32,8 @@ import butterknife.OnClick;
  */
 
 public class NewPostFragment extends BaseFragmemt {
+    private static final int RC_GALLERY = 1;
+
     @BindView(R.id.iv_manga)
     ImageView ivManga;
     @BindView(R.id.et_manga_name)
@@ -33,6 +46,9 @@ public class NewPostFragment extends BaseFragmemt {
     EditText etDescription;
     @BindView(R.id.sp_condition)
     Spinner spCondition;
+
+    private Bitmap mSelectedBitmap;
+
 
     public static NewPostFragment newInstance() {
         
@@ -52,10 +68,45 @@ public class NewPostFragment extends BaseFragmemt {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        PermissionUtils.requestLocation(mActivity);
+        PermissionUtils.requestCamera(mActivity);
+    }
+
+    @OnClick(R.id.iv_manga)
+    public void choosePicture(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+            startActivityForResult(intent, RC_GALLERY);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_GALLERY) {
+            if (data != null) {
+                Uri uri = data.getData();
+                try {
+                    mSelectedBitmap = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), uri);
+                    ivManga.setImageBitmap(BitmapUtils.resize(mSelectedBitmap, mActivity));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @OnClick(R.id.btn_sell)
     public void onSell(View view) {
-
+        Manga manga = new Manga(
+                etName.getText().toString(),
+                etAuthor.getText().toString(),
+                etPrice.getText().toString(),
+                etDescription.getText().toString(),
+                spCondition.getSelectedItem().toString(),
+                System.currentTimeMillis(),
+                new LatLng(1,1)
+        );
     }
+
 }

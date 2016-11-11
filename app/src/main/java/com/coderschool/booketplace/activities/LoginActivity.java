@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    task.getResult().getUser();
+                    startActivity(HomeActivity.getIntent(LoginActivity.this));
 
                 }
             }

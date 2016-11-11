@@ -3,27 +3,27 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_original"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="AAAA" />
+            android:title="Home" />
         <item
-            android:id="@+id/nav_real"
+            android:id="@+id/nav_account"
             android:icon="@drawable/ic_photo_library_black_24dp"
-            android:title="BBBB" />
+            android:title="My Account" />
         <item
-            android:id="@+id/nav_flow_english"
+            android:id="@+id/nav_following"
             android:icon="@drawable/ic_local_movies_black_24dp"
-            android:title="CCC" />
+            android:title="Following" />
 
         <item
-            android:id="@+id/nav_economics"
+            android:id="@+id/nav_setting"
             android:icon="@drawable/ic_notifications_black_24dp"
-            android:title="DDD" />
+            android:title="Setting" />
 
         <item
-            android:id="@+id/nav_power"
+            android:id="@+id/nav_signout"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="EEEE" />
+            android:title="Sign Out" />
 
     </group>
 

@@ -32,14 +32,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startHome() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
         //
         finish();
     }
 
     private void startLogin() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
         //
         finish();

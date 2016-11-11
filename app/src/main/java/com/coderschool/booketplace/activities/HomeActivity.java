@@ -16,12 +16,16 @@ import android.view.View;
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.HomeFragment;
+import com.coderschool.booketplace.fragment.NewPostFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.coderschool.booketplace.R.id.fab;
 
 
-public class MainActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -42,10 +46,10 @@ public class MainActivity extends BaseActivity {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
-    private static final String TAG_SETTINGS = "settings";
+    private static final String TAG_ACCOUNT = "photos";
+    private static final String TAG_FOLLOWING = "movies";
+    private static final String TAG_SETTING = "notifications";
+    private static final String TAG_SIGNOUT = "settings";
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -59,7 +63,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -169,21 +173,22 @@ public class MainActivity extends BaseActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_real:
+                    case R.id.nav_account:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
+                        CURRENT_TAG = TAG_ACCOUNT;
                         break;
-                    case R.id.nav_flow_english:
+                    case R.id.nav_following:
                         navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
+                        CURRENT_TAG = TAG_FOLLOWING;
                         break;
-                    case R.id.nav_economics:
+                    case R.id.nav_setting:
                         navItemIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
+                        CURRENT_TAG = TAG_SETTING;
                         break;
-                    case R.id.nav_power:
+                    case R.id.nav_signout:
                         navItemIndex = 4;
-                        CURRENT_TAG = TAG_SETTINGS;
+                        CURRENT_TAG = TAG_SIGNOUT;
+                        // TODO: Sign out
                         break;
                     case R.id.nav_about_us:
                         drawer.closeDrawers();
@@ -275,5 +280,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(fab)
+    public void newPost(View view) {
+        // Show new post fragment
+
+        replaceFragment(NewPostFragment.newInstance());
+        toolbar.setTitle(R.string.manga_sell);
     }
 }

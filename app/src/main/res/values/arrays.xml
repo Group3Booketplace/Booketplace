@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="condition_new">New</string>
+    <string name="condition_like_new">Like new</string>
+    <string name="condition_old">Old</string>
+    <string name="price_lo2hi">Low to high</string>
+    <string name="price_hi2lo">High to low</string>
+
+
+
     <string-array name="spinner_condition">
-        <item>New</item>
-        <item>Like New</item>
-        <item>Old</item>
+        <item>@string/condition_new</item>
+        <item>@string/condition_like_new</item>
+        <item>@string/condition_old</item>
+    </string-array>
+
+    <string-array name="price_entries">
+        <item>@string/price_hi2lo</item>
+        <item>@string/price_lo2hi</item>
+    </string-array>
+
+    <string-array name="price_entries_value">
+        <item>@string/price_hi2lo</item>
+        <item>@string/price_lo2hi</item>
+    </string-array>
+
+    <string-array name="condition_entries">
+        <item>@string/condition_new</item>
+        <item>@string/condition_like_new</item>
+        <item>@string/condition_old</item>
+    </string-array>
+
+    <string-array name="condition_entries_value">
+        <item>@string/condition_new</item>
+        <item>@string/condition_like_new</item>
+        <item>@string/condition_old</item>
     </string-array>
 </resources>

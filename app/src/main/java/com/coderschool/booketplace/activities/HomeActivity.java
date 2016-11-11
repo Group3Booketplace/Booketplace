@@ -17,11 +17,13 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
+import com.coderschool.booketplace.fragment.SettingFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.transition.Fade.IN;
 import static com.coderschool.booketplace.R.id.fab;
 
 
@@ -42,15 +44,22 @@ public class HomeActivity extends BaseActivity {
     // urls to load navigation header background image
     // and profile image
     // index to identify current nav menu item
-    public static int navItemIndex = 0;
+
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-    private static final String TAG_ACCOUNT = "photos";
-    private static final String TAG_FOLLOWING = "movies";
-    private static final String TAG_SETTING = "notifications";
-    private static final String TAG_SIGNOUT = "settings";
+    private static final String TAG_ACCOUNT = "account";
+    private static final String TAG_FOLLOWING = "following";
+    private static final String TAG_SETTING = "setting";
+    private static final String TAG_SIGNOUT = "signout";
     public static String CURRENT_TAG = TAG_HOME;
+
+    private static final int INDEX_HOME = 0;
+    private static final int INDEX_ACCOUNT = 1;
+    private static final int INDEX_FOLLOWING = 2;
+    private static final int INDEX_SETTING = 3;
+    private static final int INDEX_SIGNOUT = 4;
+    public static int navItemIndex = INDEX_HOME;
 
     // toolbar titles respected to selected nav menu item
     private String[] activityTitles;
@@ -79,7 +88,7 @@ public class HomeActivity extends BaseActivity {
         setUpNavigationView();
 
         if (savedInstanceState == null) {
-            navItemIndex = 0;
+            navItemIndex = INDEX_HOME;
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
@@ -138,11 +147,11 @@ public class HomeActivity extends BaseActivity {
 
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
-            case 0:
+            case INDEX_HOME:
                 // home
                 HomeFragment homeFragment = HomeFragment.newInstance();
                 return homeFragment;
-            case 1:
+            case INDEX_ACCOUNT:
                 HomeFragment homeFragment1 = HomeFragment.newInstance();
                 return homeFragment1;
             default:
@@ -170,26 +179,30 @@ public class HomeActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.home:
-                        navItemIndex = 0;
+                        navItemIndex = INDEX_HOME;
                         CURRENT_TAG = TAG_HOME;
                         break;
                     case R.id.nav_account:
-                        navItemIndex = 1;
+                        navItemIndex = INDEX_ACCOUNT;
                         CURRENT_TAG = TAG_ACCOUNT;
                         break;
                     case R.id.nav_following:
-                        navItemIndex = 2;
+                        navItemIndex = INDEX_FOLLOWING;
                         CURRENT_TAG = TAG_FOLLOWING;
                         break;
                     case R.id.nav_setting:
-                        navItemIndex = 3;
+                        navItemIndex = INDEX_SETTING;
                         CURRENT_TAG = TAG_SETTING;
-                        break;
+                        // TODO: show setting
+                        showSetting();
+                        drawer.closeDrawers();
+                        return true;
                     case R.id.nav_signout:
-                        navItemIndex = 4;
+                        navItemIndex = INDEX_SIGNOUT;
                         CURRENT_TAG = TAG_SIGNOUT;
                         // TODO: Sign out
-                        break;
+                        drawer.closeDrawers();
+                        return true;
                     case R.id.nav_about_us:
                         drawer.closeDrawers();
                         return true;
@@ -198,7 +211,7 @@ public class HomeActivity extends BaseActivity {
                         drawer.closeDrawers();
                         return true;
                     default:
-                        navItemIndex = 0;
+                        navItemIndex = INDEX_HOME;
                 }
 
                 //Checking if the item is in checked state or not, if not make it in checked state
@@ -236,6 +249,13 @@ public class HomeActivity extends BaseActivity {
 
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+    }
+
+    private void showSetting() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.frame, SettingFragment.newInstance())
+                .commit();
+        // TODO: clear support fragment
     }
 
     @Override

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +13,7 @@ import android.view.View;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 
 import butterknife.BindView;
@@ -30,8 +29,6 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawer;
 
     private View navHeader;
-//    private ImageView imgNavHeaderBg, imgProfile;
-//    private TextView txtName, txtWebsite;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -103,12 +100,10 @@ public class MainActivity extends BaseActivity {
         // when switching between navigation menus
         // So using runnable, the fragment is loaded with cross fade effect
         // This effect can be seen in GMail app
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                // update the main content by replacing fragments
-                replaceFragment(getHomeFragment());
-            }
+        Runnable mPendingRunnable = () -> {
+            // update the main content by replacing fragments
+            addFragment(R.id.frame, getHomeFragment());
+            //
         };
 
         // If mPendingRunnable is not null, then add to the message queue
@@ -123,15 +118,6 @@ public class MainActivity extends BaseActivity {
         invalidateOptionsMenu();
     }
 
-    public void replaceFragment(Fragment fragment) {
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-        fragmentTransaction.commitAllowingStateLoss();
-    }
-
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case 0:
@@ -139,8 +125,7 @@ public class MainActivity extends BaseActivity {
                 HomeFragment homeFragment = HomeFragment.newInstance();
                 return homeFragment;
             case 1:
-                HomeFragment homeFragment1 = HomeFragment.newInstance();
-                return homeFragment1;
+                return DetailFragment.newInstance();
             default:
                 return null;
         }
@@ -156,58 +141,53 @@ public class MainActivity extends BaseActivity {
 
     private void setUpNavigationView() {
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
 
-            // This method will trigger on item Click of navigation menu
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-                //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()) {
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.home:
-                        navItemIndex = 0;
-                        CURRENT_TAG = TAG_HOME;
-                        break;
-                    case R.id.nav_real:
-                        navItemIndex = 1;
-                        CURRENT_TAG = TAG_PHOTOS;
-                        break;
-                    case R.id.nav_flow_english:
-                        navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
-                        break;
-                    case R.id.nav_economics:
-                        navItemIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
-                        break;
-                    case R.id.nav_power:
-                        navItemIndex = 4;
-                        CURRENT_TAG = TAG_SETTINGS;
-                        break;
-                    case R.id.nav_about_us:
-                        drawer.closeDrawers();
-                        return true;
-                    case R.id.nav_privacy_policy:
-                        // launch new intent instead of loading fragment
-                        drawer.closeDrawers();
-                        return true;
-                    default:
-                        navItemIndex = 0;
-                }
-
-                //Checking if the item is in checked state or not, if not make it in checked state
-                if (menuItem.isChecked()) {
-                    menuItem.setChecked(false);
-                } else {
-                    menuItem.setChecked(true);
-                }
-                menuItem.setChecked(true);
-
-                loadHomeFragment();
-
-                return true;
+            //Check to see which item was being clicked and perform appropriate action
+            switch (menuItem.getItemId()) {
+                //Replacing the main content with ContentFragment Which is our Inbox View;
+                case R.id.home:
+                    navItemIndex = 0;
+                    CURRENT_TAG = TAG_HOME;
+                    break;
+                case R.id.nav_real:
+                    navItemIndex = 1;
+                    CURRENT_TAG = TAG_PHOTOS;
+                    break;
+                case R.id.nav_flow_english:
+                    navItemIndex = 2;
+                    CURRENT_TAG = TAG_MOVIES;
+                    break;
+                case R.id.nav_economics:
+                    navItemIndex = 3;
+                    CURRENT_TAG = TAG_NOTIFICATIONS;
+                    break;
+                case R.id.nav_power:
+                    navItemIndex = 4;
+                    CURRENT_TAG = TAG_SETTINGS;
+                    break;
+                case R.id.nav_about_us:
+                    drawer.closeDrawers();
+                    return true;
+                case R.id.nav_privacy_policy:
+                    // launch new intent instead of loading fragment
+                    drawer.closeDrawers();
+                    return true;
+                default:
+                    navItemIndex = 0;
             }
+
+            //Checking if the item is in checked state or not, if not make it in checked state
+            if (menuItem.isChecked()) {
+                menuItem.setChecked(false);
+            } else {
+                menuItem.setChecked(true);
+            }
+            menuItem.setChecked(true);
+
+            loadHomeFragment();
+
+            return true;
         });
 
 
@@ -234,46 +214,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawers();
-            return;
-        }
-
-        // This code loads home fragment when back key is pressed
-        // when user is in other fragment than home
-        if (shouldLoadHomeFragOnBackPress) {
-            // checking if user is on other navigation menu
-            // rather than home
-            if (navItemIndex != 0) {
-                navItemIndex = 0;
-                CURRENT_TAG = TAG_HOME;
-                loadHomeFragment();
-                return;
-            }
-        }
-
-        super.onBackPressed();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        // show menu only when home fragment is selected
-//        if (navItemIndex == 0) {
-//            getMenuInflater().inflate(R.menu.main, menu);
-//        }
-//
-//         when fragment is notifications, load the menu created for notifications
-//        if (navItemIndex == 3) {
-//            getMenuInflater().inflate(R.menu.notifications, menu);
-//        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        return super.onCreateOptionsMenu(menu);
     }
 }

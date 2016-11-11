@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
@@ -18,16 +19,16 @@ import butterknife.OnClick;
  * Created by duongthoai on 11/8/16.
  */
 
-public class HomeFragment extends BaseFragmemt {
+public class DetailFragment extends BaseFragmemt {
 
     @BindView(R.id.tv_home_detail)
     TextView detail;
 
-    public static HomeFragment newInstance() {
+    public static DetailFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        HomeFragment fragment = new HomeFragment();
+        DetailFragment fragment = new DetailFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,19 +44,13 @@ public class HomeFragment extends BaseFragmemt {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Toast.makeText(getBaseActivity(), "detail", Toast.LENGTH_SHORT).show();
         ButterKnife.bind(this, view);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getSupportActionBar().setTitle("Home");
-    }
-
-    @OnClick(R.id.tv_home_detail)
-    public void onDetailClicked() {
-        if(getBaseActivity() != null) {
-            getBaseActivity().replaceFragment(R.id.frame, DetailFragment.newInstance());
-        }
+        getBaseActivity().getSupportActionBar().setTitle("Detail");
     }
 }

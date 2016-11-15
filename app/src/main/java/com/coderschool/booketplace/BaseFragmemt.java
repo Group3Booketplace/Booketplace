@@ -8,17 +8,18 @@ import android.support.v4.app.Fragment;
  */
 
 public class BaseFragmemt extends Fragment {
-    private BaseActivity appCompatActivity;
+    protected BaseActivity mActivity;
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        appCompatActivity = (BaseActivity) context;
+        mActivity = (BaseActivity) context;
     }
 
 
     protected BaseActivity getBaseActivity() {
-        return appCompatActivity;
+        return mActivity;
     }
 
 }

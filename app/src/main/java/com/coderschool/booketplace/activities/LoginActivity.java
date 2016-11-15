@@ -3,7 +3,6 @@ package com.coderschool.booketplace.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -81,7 +80,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    task.getResult().getUser();
+                    startActivity(MainActivity.getIntent(LoginActivity.this));
 
                 }
             }

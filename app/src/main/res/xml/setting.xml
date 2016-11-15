@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Filter"
+        android:icon="@drawable/ic_new_post">
+        <ListPreference
+            android:key="price"
+            android:title="Price"
+            android:dialogTitle="Sort by price"
+            android:defaultValue="@string/price_lo2hi"
+            android:entries="@array/price_entries"
+            android:entryValues="@array/price_entries_value"/>
+
+        <ListPreference
+            android:key="condition"
+            android:title="Condition"
+            android:dialogTitle="Sort by condition"
+            android:defaultValue="@string/condition_like_new"
+            android:entries="@array/condition_entries"
+            android:entryValues="@array/condition_entries_value"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -25,6 +25,14 @@
     </string-array>
 
 
+
+
     <string name="facebook_app_id">921102551367876</string>
     <string name="fb_login_protocol_scheme">fb921102551367876</string>
+    <string name="manga_name">Manga name</string>
+    <string name="manga_author">Author</string>
+    <string name="manga_price">Price</string>
+    <string name="manga_description">Description</string>
+    <string name="manga_sell">Sell</string>
+    <string name="manga_condition">Condition</string>
 </resources>

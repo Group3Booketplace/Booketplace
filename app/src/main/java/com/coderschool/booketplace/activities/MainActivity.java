@@ -14,6 +14,7 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
+import com.coderschool.booketplace.fragment.MessageFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -127,6 +128,8 @@ public class MainActivity extends BaseActivity {
                 return homeFragment;
             case 1:
                 return DetailFragment.newInstance();
+            case 2:
+                return MessageFragment.newInstance();
             default:
                 return null;
         }

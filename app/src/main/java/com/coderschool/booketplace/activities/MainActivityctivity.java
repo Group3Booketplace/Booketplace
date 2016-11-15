@@ -26,11 +26,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.transition.Fade.IN;
 import static com.coderschool.booketplace.R.id.fab;
 
 
-public class HomeActivity extends BaseActivity {
+public class MainActivityctivity extends BaseActivity {
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -75,7 +74,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -300,7 +299,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     public static Intent getIntent(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, MainActivityctivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return  intent;
     }

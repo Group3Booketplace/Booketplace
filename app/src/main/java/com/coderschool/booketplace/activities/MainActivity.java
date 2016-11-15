@@ -16,12 +16,9 @@ import android.view.View;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessageFragment;
-import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
-import com.facebook.login.LoginManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,9 +49,9 @@ public class MainActivity extends BaseActivity {
     private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_MESSAGES = "messages";
     private static final String TAG_PROFLE = "profile";
-    private static final String TAG_SUBSCRIBE = "subscrible";
+    private static final String TAG_SUBSCRIBE = "subscribe";
     private static final String TAG_PEOPLE = "people";
-    private static final String TAG_SETTING = "settings";
+    private static final String TAG_SETTINGS = "settings";
     private static final String TAG_ACCOUNT = "account";
     private static final String TAG_FOLLOWING = "follwing";
 
@@ -63,7 +60,7 @@ public class MainActivity extends BaseActivity {
     private static final int INDEX_HOME = 0;
     private static final int INDEX_ACCOUNT = 1;
     private static final int INDEX_FOLLOWING = 2;
-    private static final int INDEX_SETTING = 3;
+    private static final int INDEX_SETTINGS = 3;
     private static final int INDEX_SIGNOUT = 4;
     public static int navItemIndex = INDEX_HOME;
 
@@ -146,14 +143,11 @@ public class MainActivity extends BaseActivity {
                 // home
                 HomeFragment homeFragment = HomeFragment.newInstance();
                 return homeFragment;
-            case 1:
-                return DetailFragment.newInstance();
-            case 2:
-                return MessageFragment.newInstance();
-
             case INDEX_ACCOUNT:
                 HomeFragment homeFragment1 = HomeFragment.newInstance();
                 return homeFragment1;
+            case 2: // INDEX_MESSAGE
+                return MessageFragment.newInstance();
             default:
                 return HomeFragment.newInstance();
         }

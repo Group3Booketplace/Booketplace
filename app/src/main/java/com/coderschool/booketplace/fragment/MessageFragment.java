@@ -54,10 +54,10 @@ public class MessageFragment extends BaseFragmemt {
         ButterKnife.bind(this, view);
 
         ArrayList<User> users = new ArrayList<User>();
-        users.add(User.getMessageTest());
-        users.add(User.getMessageTest());
-        users.add(User.getMessageTest());
-        users.add(User.getMessageTest());
+        users.add(User.createExampleMessage());
+        users.add(User.createExampleMessage());
+        users.add(User.createExampleMessage());
+        users.add(User.createExampleMessage());
 
         messageAdapter = new MessageAdapter(getContext(), users);
         rvMessages.setAdapter(messageAdapter);

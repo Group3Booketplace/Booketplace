@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.User;
+import com.coderschool.booketplace.views.MessageViewHolder;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Context context = parent.getContext();
         View messageView = LayoutInflater.from(context)
                 .inflate(R.layout.item_messages, parent, false);
-        return new MessageViewHolder(messageView);
+        return new MessageViewHolder(context, messageView);
     }
 
     @Override

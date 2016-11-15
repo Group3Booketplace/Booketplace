@@ -55,7 +55,7 @@ public class HomeFragment extends BaseFragmemt {
     @OnClick(R.id.tv_home_detail)
     public void onDetailClicked() {
         if(getBaseActivity() != null) {
-            getBaseActivity().replaceFragment(R.id.frame, DetailFragment.newInstance());
+            getBaseActivity().replaceFragment(R.id.frame, DetailFragment.newInstance(), false);
         }
     }
 }

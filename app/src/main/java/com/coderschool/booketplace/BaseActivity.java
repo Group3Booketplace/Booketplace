@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 /**
  * Created by duongthoai on 11/8/16.
@@ -51,19 +50,22 @@ public class BaseActivity extends AppCompatActivity {
      * @param containerId
      * @param fragment
      */
-    public void replaceFragment(int containerId, Fragment fragment) {
+    public void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack) {
         String backStateName = fragment.getClass().getName();
         String fragmentTag = backStateName;
 
 //        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStateName, 0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (fragmentManager.findFragmentByTag(fragmentTag) == null) { //fragment not in back stack, create it.
-            transaction.setCustomAnimations(R.anim.move_right_in_activity, R.anim.move_left_out_activity, R.anim.move_left_in_activity, R.anim.move_right_out_activity);
-            transaction.replace(containerId, fragment, fragmentTag);
+//        if (fragmentManager.findFragmentByTag(fragmentTag) == null) { //fragment not in back stack, create it.
+        transaction.setCustomAnimations(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+        transaction.replace(containerId, fragment, fragmentTag);
 //            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        if (addToBackStack) {
             transaction.addToBackStack(backStateName);
-            transaction.commitAllowingStateLoss();
         }
+        transaction.commitAllowingStateLoss();
+//        }
     }
 }

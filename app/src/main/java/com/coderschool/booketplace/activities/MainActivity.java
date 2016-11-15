@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity {
         // This effect can be seen in GMail app
         Runnable mPendingRunnable = () -> {
             // update the main content by replacing fragments
-            addFragment(R.id.frame, getHomeFragment());
+            replaceFragment(R.id.frame, getHomeFragment(), false);
             //
         };
 
@@ -131,7 +132,7 @@ public class MainActivity extends BaseActivity {
             case 2:
                 return MessageFragment.newInstance();
             default:
-                return null;
+                return HomeFragment.newInstance();
         }
     }
 
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity {
             //Check to see which item was being clicked and perform appropriate action
             switch (menuItem.getItemId()) {
                 //Replacing the main content with ContentFragment Which is our Inbox View;
-                case R.id.home:
+                case R.id.nav_home:
                     navItemIndex = 0;
                     CURRENT_TAG = TAG_HOME;
                     break;
@@ -228,5 +229,24 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawers();
+            return;
+        }
+        if (shouldLoadHomeFragOnBackPress) {
+            // checking if user is on other navigation menu
+            // rather than home
+            if (navItemIndex != 0) {
+                navItemIndex = 0;
+                CURRENT_TAG = TAG_HOME;
+                loadHomeFragment();
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 }

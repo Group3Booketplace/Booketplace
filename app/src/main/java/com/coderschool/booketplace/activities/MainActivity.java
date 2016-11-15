@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import static com.coderschool.booketplace.R.id.fab;
 
 
-public class MainActivityctivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -299,7 +299,7 @@ public class MainActivityctivity extends BaseActivity {
     }
 
     public static Intent getIntent(Context context) {
-        Intent intent = new Intent(context, MainActivityctivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return  intent;
     }

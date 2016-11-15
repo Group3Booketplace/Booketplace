@@ -21,7 +21,7 @@
             android:value="@string/google_map_api_key" />
 
         <activity
-            android:name=".activities.MainActivityctivity"
+            android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
         </activity>
 
         <!--<activity-->
-            <!--android:name=".activities.MainActivityctivity"-->
+            <!--android:name=".activities.MainActivity"-->
             <!--android:screenOrientation="portrait"-->
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
 

@@ -80,7 +80,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    startActivity(MainActivityctivity.getIntent(LoginActivity.this));
+                    startActivity(MainActivity.getIntent(LoginActivity.this));
 
                 }
             }

@@ -23,11 +23,13 @@ public class Book {
     private String createdDate;
     private String description;
 //    private int discount;
-    private ArrayList<String> images;
+//    private ArrayList<String> images;
 //    private Date modifiedDate;
     private String name;
     private String price;
     private Boolean sell;
+    private String user;
+    private String images;
 //    private Date publishedDate;
 //    private String publisher;
 //    private String imageHeader;
@@ -44,6 +46,8 @@ public class Book {
     public static final String NAME = "name";
     public static final String PRICE = "price";
     public static final String SELL = "sell";
+    public static final String IMAGES_URL = "images";
+    public static final String USER = "user";
 
 
     // constructor for firebase
@@ -73,6 +77,8 @@ public class Book {
         result.put(NAME, name);
         result.put(PRICE, price);
         result.put(SELL, sell);
+        result.put(USER, user);
+        result.put(IMAGES_URL, images);
 
         return result;
     }
@@ -82,6 +88,15 @@ public class Book {
 //    public long getISBN() {
 //        return ISBN;
 //    }
+
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
 
     public String getAuthor() {
         return author;
@@ -103,9 +118,9 @@ public class Book {
 //        return discount;
 //    }
 
-    public ArrayList<String> getImages() {
-        return images;
-    }
+//    public ArrayList<String> getImages() {
+//        return images;
+//    }
 
 //    public Date getModifiedDate() {
 //        return modifiedDate;

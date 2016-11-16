@@ -77,6 +77,7 @@ public class NewPostFragment extends BaseFragmemt {
     @OnClick(R.id.iv_manga)
     public void choosePicture(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
         if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
             startActivityForResult(intent, RC_GALLERY);
         }
@@ -107,7 +108,17 @@ public class NewPostFragment extends BaseFragmemt {
                 etDescription.getText().toString(),
                 etName.getText().toString(),
                 etPrice.getText().toString());
-        FirebaseApi.getInstance().writeNewBook(book);
+        FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmap, new FirebaseApi.FirebaseResultListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 
 }

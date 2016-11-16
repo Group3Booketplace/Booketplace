@@ -7,10 +7,8 @@ import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
 import com.coderschool.booketplace.utils.BitmapUtils;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -79,7 +77,7 @@ public class FirebaseApi {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 String url = taskSnapshot.getDownloadUrl().toString();
-                book.setImages(new Image(url, width, height));
+                book.addImage(new Image(url, width, height));
                 book.setUser(user.getUid());
                 bookDatabaseRef.child(key).setValue(book.toMap());
                 listener.onSuccess();

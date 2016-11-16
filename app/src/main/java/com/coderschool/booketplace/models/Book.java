@@ -29,14 +29,10 @@ public class Book {
     private String price;
     private Boolean sell;
     private String user;
-    private Image image;
+    private ArrayList<Image> images;
 //    private Date publishedDate;
 //    private String publisher;
 //    private String imageHeader;
-
-    /// more method add new here!
-    ///
-    ///
 
     // firebase key
     public static final String AUTHOR = "author";
@@ -64,6 +60,7 @@ public class Book {
         this.name = name;
         this.price = price;
         this.sell = false;
+        this.images = new ArrayList<>();
     }
 
     // write to database
@@ -78,7 +75,7 @@ public class Book {
         result.put(PRICE, price);
         result.put(SELL, sell);
         result.put(USER, user);
-        result.put(IMAGES_URL, image);
+        result.put(IMAGES_URL, images);
 
         return result;
     }
@@ -94,8 +91,8 @@ public class Book {
         this.user = user;
     }
 
-    public void setImages(Image image) {
-        this.image = image;
+    public void addImage(Image image) {
+        this.images.add(image);
     }
 
     public String getAuthor() {
@@ -134,8 +131,8 @@ public class Book {
         return price;
     }
 
-    public Image getImages() {
-        return image;
+    public ArrayList<Image> getImages() {
+        return images;
     }
 
     //    public Date getPublishedDate() {

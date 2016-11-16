@@ -37,6 +37,7 @@
     android:layout_gravity="bottom|end"
     android:layout_margin="@dimen/fab_margin"
     app:backgroundTint="@color/colorAccent"
-    android:src="@drawable/ic_new_post" />
+    android:src="@drawable/ic_new_post"
+        app:layout_behavior="com.coderschool.booketplace.utils.ScrollAwareFABehavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

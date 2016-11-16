@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
@@ -186,8 +187,8 @@ public class MainActivity extends BaseActivity {
                     drawer.closeDrawers();
                     return true;
                 case R.id.nav_signout:
-                    mAuth.signOut();
-                    LoginManager.getInstance().logOut();
+                    FirebaseApi.getInstance().logout();
+                    startActivity(LoginActivity.getIntent(this));
                     drawer.closeDrawers();
                     return true;
                 case R.id.nav_about_us:
@@ -298,11 +299,11 @@ public class MainActivity extends BaseActivity {
     @OnClick(fab)
     public void newPost(View view) {
         // Show new post fragment
-        if (mUser == null) {
+        if (FirebaseApi.getInstance().getUser() == null) {
             // TODO: show a dialog said that user need to sign in first
             startActivity(LoginActivity.getIntent(this));
         } else {
-//            replaceFragment(NewPostFragment.newInstance());
+            replaceFragment(R.id.frame, NewPostFragment.newInstance(), true);
             toolbar.setTitle(R.string.manga_sell);
         }
     }

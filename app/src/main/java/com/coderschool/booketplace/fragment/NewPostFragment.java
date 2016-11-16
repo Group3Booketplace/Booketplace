@@ -16,11 +16,14 @@ import android.widget.Spinner;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.api.FirebaseApi;
+import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.utils.BitmapUtils;
 import com.coderschool.booketplace.utils.PermissionUtils;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,6 +101,13 @@ public class NewPostFragment extends BaseFragmemt {
     @OnClick(R.id.btn_sell)
     public void onSell(View view) {
         // TODO: post to firebase
+        Book book = new Book(
+                etAuthor.getText().toString(),
+                spCondition.getSelectedItem().toString(),
+                etDescription.getText().toString(),
+                etName.getText().toString(),
+                etPrice.getText().toString());
+        FirebaseApi.getInstance().writeNewBook(book);
     }
 
 }

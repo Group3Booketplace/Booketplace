@@ -1,42 +1,87 @@
 package com.coderschool.booketplace.models;
 
+import com.coderschool.booketplace.utils.DateUtils;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by vinh on 11/15/16.
  */
 
+@IgnoreExtraProperties
 public class Book {
 
-    private long ISBN;
+    // property
+//    private long ISBN;
     private String author;
     private String condition;
-    private Date createdDate;
+    private String createdDate;
     private String description;
-    private int discount;
+//    private int discount;
     private ArrayList<String> images;
-    private Date modifiedDate;
+//    private Date modifiedDate;
     private String name;
-    private double price;
-    private Date publishedDate;
-    private String publisher;
-    private String imageHeader;
+    private String price;
+    private Boolean sell;
+//    private Date publishedDate;
+//    private String publisher;
+//    private String imageHeader;
 
     /// more method add new here!
     ///
     ///
 
+    // firebase key
+    public static final String AUTHOR = "author";
+    public static final String CONDITION = "condition";
+    public static final String DESCRIPTION = "description";
+    public static final String CREATED_DATE = "createdDate";
+    public static final String NAME = "name";
+    public static final String PRICE = "price";
+    public static final String SELL = "sell";
 
 
+    // constructor for firebase
+    public Book() {}
+
+    // construct to create new book
 
 
+    public Book(String author, String condition, String description, String name, String price) {
+        this.author = author;
+        this.condition = condition.toLowerCase();
+        this.createdDate = DateUtils.getStringDate();
+        this.description = description;
+        this.name = name;
+        this.price = price;
+        this.sell = false;
+    }
+
+    // write to database
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put(AUTHOR, author);
+        result.put(CONDITION, condition);
+        result.put(DESCRIPTION, description);
+        result.put(CREATED_DATE, createdDate);
+        result.put(NAME, name);
+        result.put(PRICE, price);
+        result.put(SELL, sell);
+
+        return result;
+    }
 
     ////
 
-    public long getISBN() {
-        return ISBN;
-    }
+//    public long getISBN() {
+//        return ISBN;
+//    }
 
     public String getAuthor() {
         return author;
@@ -46,7 +91,7 @@ public class Book {
         return condition;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
@@ -54,37 +99,37 @@ public class Book {
         return description;
     }
 
-    public int getDiscount() {
-        return discount;
-    }
+//    public int getDiscount() {
+//        return discount;
+//    }
 
     public ArrayList<String> getImages() {
         return images;
     }
 
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
+//    public Date getModifiedDate() {
+//        return modifiedDate;
+//    }
 
     public String getName() {
         return name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public Date getPublishedDate() {
-        return publishedDate;
-    }
+//    public Date getPublishedDate() {
+//        return publishedDate;
+//    }
 
-    public String getPublisher() {
-        return publisher;
-    }
+//    public String getPublisher() {
+//        return publisher;
+//    }
 
-    public String getImageHeader() {
-        return imageHeader;
-    }
+//    public String getImageHeader() {
+//        return imageHeader;
+//    }
 }
 
 

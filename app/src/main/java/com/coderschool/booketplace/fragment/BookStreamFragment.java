@@ -25,6 +25,7 @@ public class BookStreamFragment extends BaseFragmemt {
     @BindView(R.id.rvBooks)
     RecyclerView rvBooks;
     private BookAdapter mAdapter;
+    private StaggeredGridLayoutManager mLayoutManager;
 
     public static BookStreamFragment newInstance() {
 
@@ -50,7 +51,10 @@ public class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         mAdapter = new BookAdapter(FirebaseApi.getInstance().getBookDatabaseRef());
-        rvBooks.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
+
     }
 }

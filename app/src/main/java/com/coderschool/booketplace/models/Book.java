@@ -29,7 +29,7 @@ public class Book {
     private String price;
     private Boolean sell;
     private String user;
-    private String images;
+    private Image image;
 //    private Date publishedDate;
 //    private String publisher;
 //    private String imageHeader;
@@ -78,7 +78,7 @@ public class Book {
         result.put(PRICE, price);
         result.put(SELL, sell);
         result.put(USER, user);
-        result.put(IMAGES_URL, images);
+        result.put(IMAGES_URL, image);
 
         return result;
     }
@@ -94,8 +94,8 @@ public class Book {
         this.user = user;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setImages(Image image) {
+        this.image = image;
     }
 
     public String getAuthor() {
@@ -134,8 +134,8 @@ public class Book {
         return price;
     }
 
-    public String getImages() {
-        return images;
+    public Image getImages() {
+        return image;
     }
 
     //    public Date getPublishedDate() {

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.models.Image;
 import com.coderschool.booketplace.utils.BitmapUtils;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,12 +68,18 @@ public class FirebaseApi {
 
     public void writeNewBook(Book book, Bitmap bitmap, FirebaseResultListener listener) {
         String key = bookDatabaseRef.push().getKey();
-        UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(bitmap));
+
+        Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
+
+        UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+
+        int width = resizedBitmap.getWidth();
+        int height = resizedBitmap.getHeight();
         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 String url = taskSnapshot.getDownloadUrl().toString();
-                book.setImages(url);
+                book.setImages(new Image(url, width, height));
                 book.setUser(user.getUid());
                 bookDatabaseRef.child(key).setValue(book.toMap());
                 listener.onSuccess();

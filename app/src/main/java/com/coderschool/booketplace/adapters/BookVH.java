@@ -33,7 +33,7 @@ public class BookVH extends RecyclerView.ViewHolder {
     public void bind(Book book) {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
-        Picasso.with(itemView.getContext()).load(book.getImages()).into(ivBook);
+        Picasso.with(itemView.getContext()).load(book.getImages().getUrl()).into(ivBook);
     }
 
 }

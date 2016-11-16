@@ -101,4 +101,8 @@ public class FirebaseApi {
     public FirebaseDatabase getDatabase() {
         return database;
     }
+
+    public DatabaseReference getBookDatabaseRef() {
+        return bookDatabaseRef;
+    }
 }

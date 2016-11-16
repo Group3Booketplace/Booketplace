@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * Post new book to database
  * Created by DatTran on 11/11/16.
  */
 
@@ -101,7 +102,6 @@ public class NewPostFragment extends BaseFragmemt {
 
     @OnClick(R.id.btn_sell)
     public void onSell(View view) {
-        // TODO: post to firebase
         Book book = new Book(
                 etAuthor.getText().toString(),
                 spCondition.getSelectedItem().toString(),

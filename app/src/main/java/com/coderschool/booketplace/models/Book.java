@@ -134,7 +134,11 @@ public class Book {
         return price;
     }
 
-//    public Date getPublishedDate() {
+    public String getImages() {
+        return images;
+    }
+
+    //    public Date getPublishedDate() {
 //        return publishedDate;
 //    }
 

@@ -23,7 +23,7 @@ public class BitmapUtils {
 
     public static byte[] steamFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
         return baos.toByteArray();
     }
 

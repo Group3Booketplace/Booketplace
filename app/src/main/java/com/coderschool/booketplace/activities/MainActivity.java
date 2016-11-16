@@ -18,6 +18,7 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 
 import com.coderschool.booketplace.api.FirebaseApi;
+import com.coderschool.booketplace.fragment.BookStreamFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessageFragment;
@@ -145,7 +146,7 @@ public class MainActivity extends BaseActivity {
         switch (navItemIndex) {
             case INDEX_HOME:
                 // home
-                HomeFragment homeFragment = HomeFragment.newInstance();
+                BookStreamFragment homeFragment = BookStreamFragment.newInstance();
                 return homeFragment;
             case INDEX_ACCOUNT:
                 HomeFragment homeFragment1 = HomeFragment.newInstance();

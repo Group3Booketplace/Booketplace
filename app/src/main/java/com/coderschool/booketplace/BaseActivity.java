@@ -76,18 +76,10 @@ public class BaseActivity extends AppCompatActivity {
         transaction.commitAllowingStateLoss();
     }
 
-    protected FirebaseAuth mAuth;
-    protected FirebaseUser mUser;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-        setupFirebase();
     }
 
-    private void setupFirebase() {
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-    }
 }

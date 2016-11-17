@@ -17,16 +17,11 @@ public class User {
     private double ratingOverall;
     private String uid;
     private ArrayList<Rating> ratings;
-    private ArrayList<Book> ownerBook;
-    private ArrayList<Book> subscribedBook;
-    private ArrayList<User> following;
-    private ArrayList<User> follower;
+    private ArrayList<Book> ownerBooks;
+    private ArrayList<Book> subscribedBooks;
+    private ArrayList<User> followings;
+    private ArrayList<User> followers;
     private ArrayList<Message> messages;
-
-    /// more method add new here!
-    ///
-    ///
-
 
     public static User createExampleMessage() {
         User user = new User();
@@ -35,8 +30,32 @@ public class User {
         return user;
     }
 
+    // firebase key
+    public static final String ADDRESS = "address";
+    public static final String AVATAR = "avatar";
+    public static final String BIRTHDAY = "birthday";
+    public static final String EMAIL = "email";
+    public static final String GENDER = "gender";
+    public static final String NAME = "name";
+    public static final String PHONE = "phone";
+    public static final String RATING_OVERALL = "ratingOverall";
+    public static final String RATINGS = "ratings";
+    public static final String OWNER_BOOKS = "ownerBooks";
+    public static final String SUBSCRIBED_BOOK = "subscribedBooks";
+    public static final String FOLLOWINGS = "followings";
+    public static final String FOLLOWERS = "followers";
+    public static final String MESSAGES = "messages";
 
+    // constructor for firebase
+    public User() {}
 
+    // own constructor
+
+    public User(String avatar, String email, String name) {
+        this.avatar = avatar;
+        this.email = email;
+        this.name = name;
+    }
 
     ////
 
@@ -80,20 +99,20 @@ public class User {
         return ratings;
     }
 
-    public ArrayList<Book> getOwnerBook() {
-        return ownerBook;
+    public ArrayList<Book> getOwnerBooks() {
+        return ownerBooks;
     }
 
-    public ArrayList<Book> getSubscribedBook() {
-        return subscribedBook;
+    public ArrayList<Book> getSubscribedBooks() {
+        return subscribedBooks;
     }
 
-    public ArrayList<User> getFollowing() {
-        return following;
+    public ArrayList<User> getFollowings() {
+        return followings;
     }
 
-    public ArrayList<User> getFollower() {
-        return follower;
+    public ArrayList<User> getFollowers() {
+        return followers;
     }
 
     public ArrayList<Message> getMessages() {

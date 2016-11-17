@@ -17,5 +17,6 @@ public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
     @Override
     protected void populateViewHolder(BookVH viewHolder, Book model, int position) {
         viewHolder.bind(model);
+
     }
 }

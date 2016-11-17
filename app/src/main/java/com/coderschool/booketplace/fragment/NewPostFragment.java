@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +19,9 @@ import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.utils.BitmapUtils;
 import com.coderschool.booketplace.utils.PermissionUtils;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +48,7 @@ public class NewPostFragment extends BaseFragmemt {
     @BindView(R.id.sp_condition)
     Spinner spCondition;
 
-    private Bitmap mSelectedBitmap;
+    private ArrayList<Bitmap> mSelectedBitmaps;
 
 
     public static NewPostFragment newInstance() {
@@ -73,6 +71,7 @@ public class NewPostFragment extends BaseFragmemt {
         ButterKnife.bind(this, view);
         PermissionUtils.requestLocation(mActivity);
         PermissionUtils.requestCamera(mActivity);
+        mSelectedBitmaps = new ArrayList<>();
     }
 
     @OnClick(R.id.iv_manga)
@@ -91,8 +90,9 @@ public class NewPostFragment extends BaseFragmemt {
             if (data != null) {
                 Uri uri = data.getData();
                 try {
-                    mSelectedBitmap = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), uri);
-                    ivManga.setImageBitmap(BitmapUtils.resize(mSelectedBitmap, mActivity));
+
+                    mSelectedBitmaps.add(MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), uri));
+                    ivManga.setImageBitmap(BitmapUtils.resize(mSelectedBitmaps.get(0), mActivity));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -107,8 +107,9 @@ public class NewPostFragment extends BaseFragmemt {
                 spCondition.getSelectedItem().toString(),
                 etDescription.getText().toString(),
                 etName.getText().toString(),
-                etPrice.getText().toString());
-        FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmap, new FirebaseApi.FirebaseResultListener() {
+                etPrice.getText().toString(),
+                FirebaseApi.getInstance().getUser().getUid());
+        FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmaps, new FirebaseApi.FirebaseResultListener() {
             @Override
             public void onSuccess() {
                 // TODO: finish uploading

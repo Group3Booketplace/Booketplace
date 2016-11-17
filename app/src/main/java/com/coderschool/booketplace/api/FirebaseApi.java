@@ -2,6 +2,7 @@ package com.coderschool.booketplace.api;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
@@ -16,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.ArrayList;
 
 /**
  * Created by dattran on 11/16/16.
@@ -64,30 +67,40 @@ public class FirebaseApi {
         bookStorageRef = storage.getReference().child(BOOKS);
     }
 
-    public void writeNewBook(Book book, Bitmap bitmap, FirebaseResultListener listener) {
+    public void writeNewBook(Book book, ArrayList<Bitmap> bitmaps, FirebaseResultListener listener) {
         String key = bookDatabaseRef.push().getKey();
+        book.setKey(key);
+        for (int i = 0; i < bitmaps.size(); i++) {
+            Bitmap bitmap = bitmaps.get(i);
 
-        Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
+            Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
 
-        UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+            UploadTask task = bookStorageRef.child(key).child(String.valueOf(i)).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
 
-        int width = resizedBitmap.getWidth();
-        int height = resizedBitmap.getHeight();
-        task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                String url = taskSnapshot.getDownloadUrl().toString();
-                book.addImage(new Image(url, width, height));
-                book.setUser(user.getUid());
-                bookDatabaseRef.child(key).setValue(book.toMap());
-                listener.onSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            int width = resizedBitmap.getWidth();
+            int height = resizedBitmap.getHeight();
+
+            book.addImage(new Image(width, height));
+            task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
+//                    listener.onSuccess();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
                     listener.onFail();
-            }
-        });
+                }
+            });
+            bookDatabaseRef.child(key).setValue(book);
+        }
+
+
+    }
+
+    public StorageReference getImageStorageRef(String key) {
+        return bookStorageRef.child(key).child("0");
     }
 
     public void logout() {

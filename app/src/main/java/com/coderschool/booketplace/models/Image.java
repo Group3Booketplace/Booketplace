@@ -8,21 +8,21 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Image {
-    private String url;
+//    private String url;
     private int width;
     private int height;
 
     public Image() {}
 
-    public Image(String url, int width, int height) {
-        this.url = url;
+    public Image(int width, int height) {
+//        this.url = url;
         this.width = width;
         this.height = height;
     }
 
-    public String getUrl() {
-        return url;
-    }
+//    public String getUrl() {
+//        return url;
+//    }
 
     public int getWidth() {
         return width;

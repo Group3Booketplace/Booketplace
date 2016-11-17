@@ -5,7 +5,6 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,22 +16,22 @@ import java.util.Map;
 public class Book {
 
     // property
-//    private long ISBN;
+    private String ISBN_10;
     private String author;
     private String condition;
     private String createdDate;
     private String description;
-//    private int discount;
-//    private ArrayList<String> images;
-//    private Date modifiedDate;
+    private int discount;
+    private String modifiedDate;
     private String name;
     private String price;
     private Boolean sell;
     private String user;
     private ArrayList<Image> images;
-//    private Date publishedDate;
-//    private String publisher;
-//    private String imageHeader;
+    private String publishedDate;
+    private String publisher;
+    private String imageHeader;
+    private String key;
 
     // firebase key
     public static final String AUTHOR = "author";
@@ -52,7 +51,7 @@ public class Book {
     // construct to create new book
 
 
-    public Book(String author, String condition, String description, String name, String price) {
+    public Book(String author, String condition, String description, String name, String price, String user) {
         this.author = author;
         this.condition = condition.toLowerCase();
         this.createdDate = DateUtils.getStringDate();
@@ -61,6 +60,12 @@ public class Book {
         this.price = price;
         this.sell = false;
         this.images = new ArrayList<>();
+        this.user = user;
+        this.publisher = "NXB Tre";
+        this.publishedDate = "Wed Nov 16 13:17:12 +07:00 2016";
+        this.imageHeader = "https://nothing.in.here";
+        this.modifiedDate = "Wed Nov 16 13:17:12 +07:00 2016";
+        this.ISBN_10 = "0439708184";
     }
 
     // write to database
@@ -83,16 +88,18 @@ public class Book {
     ////
 
 //    public long getISBN() {
-//        return ISBN;
+//        return ISBN_10;
 //    }
-
-
-    public void setUser(String user) {
-        this.user = user;
-    }
 
     public void addImage(Image image) {
         this.images.add(image);
+    }
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getAuthor() {

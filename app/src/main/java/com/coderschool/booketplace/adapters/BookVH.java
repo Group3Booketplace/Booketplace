@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.squareup.picasso.Picasso;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +34,11 @@ public class BookVH extends RecyclerView.ViewHolder {
     public void bind(Book book) {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
-        Picasso.with(itemView.getContext()).load(book.getImages().getUrl()).into(ivBook);
+        Glide.with(itemView.getContext())
+                .using(new FirebaseImageLoader())
+                .load(FirebaseApi.getInstance().getImageStorageRef(book.getKey()))
+                .into(ivBook);
+//        Picasso.with(itemView.getContext()).load(book.getImages().get(0).getUrl()).into(ivBook);
     }
 
 }

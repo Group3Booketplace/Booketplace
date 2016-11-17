@@ -1,6 +1,10 @@
 package com.coderschool.booketplace.models;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by vinh on 11/15/16.
@@ -15,7 +19,7 @@ public class User {
     private String name;
     private String phone;
     private double ratingOverall;
-    private String uid;
+//    private String uid;
     private ArrayList<Rating> ratings;
     private ArrayList<Book> ownerBooks;
     private ArrayList<Book> subscribedBooks;
@@ -51,13 +55,72 @@ public class User {
 
     // own constructor
 
-    public User(String avatar, String email, String name) {
+    public User(FirebaseUser user) {
+        this.avatar = user.getPhotoUrl().toString();
+        this.email = user.getEmail();
+        this.name = user.getDisplayName();
+        this.ratingOverall = 0;
+        this.ownerBooks = new ArrayList<>();
+        this.ratings = new ArrayList<>();
+        this.followers = new ArrayList<>();
+        this.followings = new ArrayList<>();
+        this.subscribedBooks = new ArrayList<>();
+        this.messages = new ArrayList<>();
+
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put(AVATAR, avatar);
+        result.put(EMAIL, email);
+        result.put(NAME, name);
+        result.put(BIRTHDAY, birthday);
+        result.put(ADDRESS, address);
+        result.put(GENDER, gender);
+        result.put(PHONE, phone);
+        result.put(RATING_OVERALL, ratingOverall);
+        result.put(RATINGS, ratings);
+        result.put(OWNER_BOOKS, ownerBooks);
+        result.put(FOLLOWERS, followers);
+        result.put(FOLLOWINGS, followings);
+        result.put(SUBSCRIBED_BOOK, subscribedBooks);
+        result.put(MESSAGES, messages);
+
+        return result;
+    }
+
+    /**
+     * setter
+     */
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
-        this.email = email;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    ////
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * getter
+     */
 
     public String getAddress() {
         return address;
@@ -91,9 +154,9 @@ public class User {
         return ratingOverall;
     }
 
-    public String getUid() {
-        return uid;
-    }
+//    public String getUid() {
+//        return uid;
+//    }
 
     public ArrayList<Rating> getRatings() {
         return ratings;

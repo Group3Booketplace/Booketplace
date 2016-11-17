@@ -16,7 +16,7 @@ import java.util.Map;
 public class Book {
 
     // property
-    private String ISBN_10;
+    private String isbn_10;
     private String author;
     private String condition;
     private String createdDate;
@@ -43,6 +43,13 @@ public class Book {
     public static final String SELL = "sell";
     public static final String IMAGES_URL = "images";
     public static final String USER = "user";
+    public static final String ISBN_10 = "isbn_10";
+    public static final String DISCOUNT = "discount";
+    public static final String MODIFIED_DATE = "modifiedDate";
+    public static final String PUBLISHED_DATE = "publishDate";
+    public static final String PUBLISHER = "publisher";
+    public static final String KEY = "key";
+    public static final String IMAGE_HEADER = "imageHeader";
 
 
     // constructor for firebase
@@ -61,11 +68,13 @@ public class Book {
         this.sell = false;
         this.images = new ArrayList<>();
         this.user = user;
+        // mock data
         this.publisher = "NXB Tre";
+        this.discount = 99;
         this.publishedDate = "Wed Nov 16 13:17:12 +07:00 2016";
         this.imageHeader = "https://nothing.in.here";
         this.modifiedDate = "Wed Nov 16 13:17:12 +07:00 2016";
-        this.ISBN_10 = "0439708184";
+        this.isbn_10 = "0439708184";
     }
 
     // write to database
@@ -81,6 +90,13 @@ public class Book {
         result.put(SELL, sell);
         result.put(USER, user);
         result.put(IMAGES_URL, images);
+        result.put(KEY, key);
+        result.put(MODIFIED_DATE, modifiedDate);
+        result.put(PUBLISHED_DATE, publishedDate);
+        result.put(PUBLISHER, publisher);
+        result.put(ISBN_10, isbn_10);
+        result.put(DISCOUNT, discount);
+        result.put(IMAGE_HEADER, imageHeader);
 
         return result;
     }
@@ -118,18 +134,6 @@ public class Book {
         return description;
     }
 
-//    public int getDiscount() {
-//        return discount;
-//    }
-
-//    public ArrayList<String> getImages() {
-//        return images;
-//    }
-
-//    public Date getModifiedDate() {
-//        return modifiedDate;
-//    }
-
     public String getName() {
         return name;
     }
@@ -142,17 +146,37 @@ public class Book {
         return images;
     }
 
-    //    public Date getPublishedDate() {
-//        return publishedDate;
-//    }
+    public String getIsbn_10() {
+        return isbn_10;
+    }
 
-//    public String getPublisher() {
-//        return publisher;
-//    }
+    public int getDiscount() {
+        return discount;
+    }
 
-//    public String getImageHeader() {
-//        return imageHeader;
-//    }
+    public String getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public Boolean getSell() {
+        return sell;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getImageHeader() {
+        return imageHeader;
+    }
 }
 
 

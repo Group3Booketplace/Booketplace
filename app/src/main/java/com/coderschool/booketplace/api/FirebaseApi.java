@@ -93,10 +93,8 @@ public class FirebaseApi {
                     listener.onFail();
                 }
             });
-            bookDatabaseRef.child(key).setValue(book);
         }
-
-
+        bookDatabaseRef.child(key).setValue(book.toMap());
     }
 
     public StorageReference getImageStorageRef(String key) {

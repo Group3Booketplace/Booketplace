@@ -6,10 +6,15 @@ import android.util.Log;
 
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
+import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.BitmapUtils;
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,18 +35,25 @@ public class FirebaseApi {
     // singleton firebase instance
     private static volatile FirebaseApi sInstance;
 
-    // firebase property
+    /**
+     * firebase property
+     */
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference bookDatabaseRef;
+    private DatabaseReference userDatabaseRef;
     private FirebaseStorage storage;
     private StorageReference bookStorageRef;
 
+
     // firebase key
     private static final String BOOKS = "books";
+    private static final String USERS = "users";
 
-    // interface to return result
+    /**
+     * interface for asynchronous networking
+     */
     public interface FirebaseResultListener {
         public void onSuccess();
         public void onFail();
@@ -58,15 +70,25 @@ public class FirebaseApi {
         return sInstance;
     }
 
+    /**
+     * private constructor for singleton
+     */
     private FirebaseApi() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         bookDatabaseRef = database.getReference().child(BOOKS);
+        userDatabaseRef = database.getReference().child(USERS);
         storage = FirebaseStorage.getInstance();
         bookStorageRef = storage.getReference().child(BOOKS);
     }
 
+    /**
+     * Write new book to database
+      * @param book
+     * @param bitmaps
+     * @param listener
+     */
     public void writeNewBook(Book book, ArrayList<Bitmap> bitmaps, FirebaseResultListener listener) {
         String key = bookDatabaseRef.push().getKey();
         book.setKey(key);
@@ -81,26 +103,49 @@ public class FirebaseApi {
             int height = resizedBitmap.getHeight();
 
             book.addImage(new Image(width, height));
-            task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
+            task.addOnSuccessListener(taskSnapshot -> {
+                Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
 //                    listener.onSuccess();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    listener.onFail();
-                }
-            });
+            }).addOnFailureListener(e -> listener.onFail());
         }
         bookDatabaseRef.child(key).setValue(book.toMap());
     }
 
-    public StorageReference getImageStorageRef(String key) {
-        return bookStorageRef.child(key).child("0");
+
+    public StorageReference getBookImageStorage(String key, int position) {
+        return bookStorageRef.child(key).child(String.valueOf(position));
     }
 
+    public void writeUser(FirebaseUser firebaseUser) {
+        User user = new User(firebaseUser);
+        String uid = firebaseUser.getUid();
+        userDatabaseRef.child(uid).setValue(user.toMap());
+    }
+
+    /**
+     * login to firebase using facebook credential
+     * @param token
+     * @param listener
+     */
+    public void loginWithFacebook(AccessToken token, FirebaseResultListener listener) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.getResult() != null) {
+                            writeUser(task.getResult().getUser());
+                            listener.onSuccess();
+                        } else {
+                            listener.onFail();
+                        }
+                    }
+                });
+    }
+
+    /**
+     * log out off firebase
+     */
     public void logout() {
         auth.signOut();
         LoginManager.getInstance().logOut();

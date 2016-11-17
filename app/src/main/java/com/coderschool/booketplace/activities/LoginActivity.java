@@ -2,12 +2,12 @@ package com.coderschool.booketplace.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.api.FirebaseApi;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -15,20 +15,12 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends BaseActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     LoginButton loginButton;
     private CallbackManager mCallbackManager;
-    private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +37,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void setupFacebookLogin() {
-        mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.btn_login);
         loginButton.setReadPermissions("user_about_me", "user_location", "user_friends", "email");
@@ -75,13 +66,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void handleFirebaseLogin(AccessToken token) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        FirebaseApi.getInstance().loginWithFacebook(token, new FirebaseApi.FirebaseResultListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    startActivity(MainActivity.getIntent(LoginActivity.this));
-                }
+            public void onSuccess() {
+                startActivity(MainActivity.getIntent(LoginActivity.this));
+            }
+
+            @Override
+            public void onFail() {
+
             }
         });
     }

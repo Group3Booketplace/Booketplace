@@ -36,7 +36,7 @@ public class BookVH extends RecyclerView.ViewHolder {
         tvPrice.setText(book.getPrice());
         Glide.with(itemView.getContext())
                 .using(new FirebaseImageLoader())
-                .load(FirebaseApi.getInstance().getImageStorageRef(book.getKey()))
+                .load(FirebaseApi.getInstance().getBookImageStorage(book.getKey(), 0))
                 .into(ivBook);
 //        Picasso.with(itemView.getContext()).load(book.getImages().get(0).getUrl()).into(ivBook);
     }

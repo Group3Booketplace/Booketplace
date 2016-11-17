@@ -14,7 +14,7 @@ import android.view.View;
 public class ScrollAwareFABehavior extends FloatingActionButton.Behavior {
 
     public ScrollAwareFABehavior(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ScrollAwareFABehavior extends FloatingActionButton.Behavior {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
             child.hide();
-        } else if (dyConsumed < 0 && child.getVisibility() == View.INVISIBLE) {
+        } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
             child.show();
         }
     }

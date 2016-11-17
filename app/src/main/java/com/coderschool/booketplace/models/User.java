@@ -23,17 +23,14 @@ public class User {
     private ArrayList<User> follower;
     private ArrayList<Message> messages;
 
-    /// more method add new here!
-    ///
-    ///
-
-
     public static User createExampleMessage() {
         User user = new User();
         user.avatar = "http://a.vnexpress.net/avatar/c60x60/6/51/4/8439423672_1422255146.jpg";
         user.name = "Anonymous";
         return user;
     }
+
+
 
 
 

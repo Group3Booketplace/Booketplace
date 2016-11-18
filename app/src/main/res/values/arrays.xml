@@ -5,6 +5,8 @@
     <string name="condition_old">Old</string>
     <string name="price_lo2hi">Low to high</string>
     <string name="price_hi2lo">High to low</string>
+    <string name="vnd">vnd</string>
+    <string name="us_dollar">$</string>
 
 
 
@@ -12,6 +14,11 @@
         <item>@string/condition_new</item>
         <item>@string/condition_like_new</item>
         <item>@string/condition_old</item>
+    </string-array>
+
+    <string-array name="spinner_currency">
+        <item>@string/vnd</item>
+        <item>@string/us_dollar</item>
     </string-array>
 
     <string-array name="price_entries">

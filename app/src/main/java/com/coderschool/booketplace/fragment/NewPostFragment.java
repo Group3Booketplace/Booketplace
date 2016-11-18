@@ -35,17 +35,17 @@ import butterknife.OnClick;
 public class NewPostFragment extends BaseFragmemt {
     private static final int RC_GALLERY = 1;
 
-    @BindView(R.id.iv_manga)
+    @BindView(R.id.ivBook)
     ImageView ivManga;
-    @BindView(R.id.et_manga_name)
+    @BindView(R.id.etBookName)
     EditText etName;
-    @BindView(R.id.et_manga_author)
+    @BindView(R.id.etBookAuthor)
     EditText etAuthor;
-    @BindView(R.id.et_manga_price)
+    @BindView(R.id.etBookPrice)
     EditText etPrice;
-    @BindView(R.id.et_manga_description)
+    @BindView(R.id.etBookDescription)
     EditText etDescription;
-    @BindView(R.id.sp_condition)
+    @BindView(R.id.spCondition)
     Spinner spCondition;
 
     private ArrayList<Bitmap> mSelectedBitmaps;
@@ -74,7 +74,7 @@ public class NewPostFragment extends BaseFragmemt {
         mSelectedBitmaps = new ArrayList<>();
     }
 
-    @OnClick(R.id.iv_manga)
+    @OnClick(R.id.ivBook)
     public void choosePicture(View view) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");

@@ -32,6 +32,7 @@ public class Book {
     private String publisher;
     private String imageHeader;
     private String key;
+    private String currency;
 
     // firebase key
     public static final String AUTHOR = "author";
@@ -50,6 +51,7 @@ public class Book {
     public static final String PUBLISHER = "publisher";
     public static final String KEY = "key";
     public static final String IMAGE_HEADER = "imageHeader";
+    public static final String CURRENCY = "currency";
 
 
     // constructor for firebase
@@ -97,6 +99,7 @@ public class Book {
         result.put(ISBN_10, isbn_10);
         result.put(DISCOUNT, discount);
         result.put(IMAGE_HEADER, imageHeader);
+        result.put(CURRENCY, currency);
 
         return result;
     }

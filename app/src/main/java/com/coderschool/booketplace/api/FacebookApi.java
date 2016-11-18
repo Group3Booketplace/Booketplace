@@ -46,9 +46,8 @@ public class FacebookApi {
         });
 
         Bundle bundle = new Bundle();
-        bundle.putString("birthday", "gender");
+        bundle.putString("fields", "gender, location, birthday");
         request.setParameters(bundle);
         request.executeAsync();
-
     }
 }

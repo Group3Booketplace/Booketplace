@@ -2,8 +2,8 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +25,7 @@ public class BookStreamFragment extends BaseFragmemt {
     @BindView(R.id.rvBooks)
     RecyclerView rvBooks;
     private BookAdapter mAdapter;
-    private StaggeredGridLayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
 
     public static BookStreamFragment newInstance() {
 
@@ -51,10 +51,8 @@ public class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         mAdapter = new BookAdapter(FirebaseApi.getInstance().getBookDatabaseRef());
-        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
-
     }
 }

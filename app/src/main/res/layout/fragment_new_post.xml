@@ -153,11 +153,11 @@
 
         <Button
             android:id="@+id/btn_sell"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/ivBookDimen"
             android:layout_height="wrap_content"
             android:text="Sell"
-            android:layout_marginBottom="@dimen/base_margin"
             android:layout_below="@id/etBookLocationFrame"
+            android:layout_centerHorizontal="true"
             android:background="@color/colorAccent"/>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

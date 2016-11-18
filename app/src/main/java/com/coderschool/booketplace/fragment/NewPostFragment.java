@@ -43,10 +43,13 @@ public class NewPostFragment extends BaseFragmemt {
     EditText etAuthor;
     @BindView(R.id.etBookPrice)
     EditText etPrice;
+    @BindView(R.id.spCurrency)
+    Spinner spCurrency;
     @BindView(R.id.etBookDescription)
     EditText etDescription;
     @BindView(R.id.spCondition)
     Spinner spCondition;
+
 
     private ArrayList<Bitmap> mSelectedBitmaps;
 
@@ -108,6 +111,7 @@ public class NewPostFragment extends BaseFragmemt {
                 etDescription.getText().toString(),
                 etName.getText().toString(),
                 etPrice.getText().toString(),
+                spCurrency.getSelectedItem().toString(),
                 FirebaseApi.getInstance().getUser().getUid());
         FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmaps, new FirebaseApi.FirebaseResultListener() {
             @Override

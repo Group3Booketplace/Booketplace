@@ -60,13 +60,14 @@ public class Book {
     // construct to create new book
 
 
-    public Book(String author, String condition, String description, String name, String price, String user) {
+    public Book(String author, String condition, String description, String name, String price, String currency, String user) {
         this.author = author;
         this.condition = condition.toLowerCase();
         this.createdDate = DateUtils.getStringDate();
         this.description = description;
         this.name = name;
         this.price = price;
+        this.currency = currency;
         this.sell = false;
         this.images = new ArrayList<>();
         this.user = user;

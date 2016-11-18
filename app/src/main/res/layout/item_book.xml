@@ -15,16 +15,16 @@
             android:id="@+id/ivFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp">
+            android:layout_margin="4dp">
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/ivBook"
-                android:layout_width="128dp"
-                android:layout_height="128dp"
-                android:scaleType="fitCenter"
+                android:layout_width="@dimen/ivBookDimen"
+                android:layout_height="@dimen/ivBookDimen"
+                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/book_placeholder"/>
         </FrameLayout>

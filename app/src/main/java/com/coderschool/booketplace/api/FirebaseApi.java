@@ -24,6 +24,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dattran on 11/16/16.
@@ -108,7 +110,11 @@ public class FirebaseApi {
 //                    listener.onSuccess();
             }).addOnFailureListener(e -> listener.onFail());
         }
-        bookDatabaseRef.child(key).setValue(book.toMap());
+        Map<String, Object> bookValue = book.toMap();
+        Map<String, Object> childUpdate = new HashMap<>();
+        childUpdate.put("/books/" + key, bookValue);
+        childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
+        database.getReference().updateChildren(childUpdate);
     }
 
 

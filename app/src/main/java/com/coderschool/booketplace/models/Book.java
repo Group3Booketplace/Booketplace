@@ -51,7 +51,6 @@ public class Book {
     public static final String PUBLISHER = "publisher";
     public static final String KEY = "key";
     public static final String IMAGE_HEADER = "imageHeader";
-    public static final String CURRENCY = "currency";
 
 
     // constructor for firebase
@@ -66,8 +65,7 @@ public class Book {
         this.createdDate = DateUtils.getStringDate();
         this.description = description;
         this.name = name;
-        this.price = price;
-        this.currency = currency;
+        this.price = price + " " + currency;
         this.sell = false;
         this.images = new ArrayList<>();
         this.user = user;
@@ -100,7 +98,6 @@ public class Book {
         result.put(ISBN_10, isbn_10);
         result.put(DISCOUNT, discount);
         result.put(IMAGE_HEADER, imageHeader);
-        result.put(CURRENCY, currency);
 
         return result;
     }

@@ -2,6 +2,7 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.adapters.PhotoAdapter;
 import com.coderschool.booketplace.models.Book;
 
 import org.parceler.Parcels;
@@ -32,6 +34,10 @@ public class DetailFragment extends BaseFragmemt {
     RecyclerView rvPhoto;
     @BindView(R.id.tvDescription)
     TextView tvDescription;
+
+    private LinearLayoutManager mLayoutManager;
+    private PhotoAdapter mAdapter;
+
 
     public static DetailFragment newInstance(Book book) {
 
@@ -62,6 +68,10 @@ public class DetailFragment extends BaseFragmemt {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
         tvDescription.setText(book.getDescription());
+        mAdapter = new PhotoAdapter(mActivity, book.getKey(), book.getImages().size());
+        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
+        rvPhoto.setAdapter(mAdapter);
+        rvPhoto.setLayoutManager(mLayoutManager);
     }
 
     @Override

@@ -4,6 +4,8 @@ import com.coderschool.booketplace.utils.DateUtils;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
  */
 
 @IgnoreExtraProperties
+@Parcel
 public class Book {
 
     // property

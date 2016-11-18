@@ -12,7 +12,6 @@ import com.coderschool.booketplace.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by duongthoai on 11/8/16.
@@ -20,7 +19,7 @@ import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragmemt {
 
-    @BindView(R.id.tv_home_detail)
+    @BindView(R.id.tvName)
     TextView detail;
 
     public static HomeFragment newInstance() {
@@ -52,10 +51,10 @@ public class HomeFragment extends BaseFragmemt {
         getBaseActivity().getSupportActionBar().setTitle("Home");
     }
 
-    @OnClick(R.id.tv_home_detail)
-    public void onDetailClicked() {
-        if(getBaseActivity() != null) {
-            getBaseActivity().replaceFragment(R.id.frame, DetailFragment.newInstance(), false);
-        }
-    }
+//    @OnClick(R.id.tvName)
+//    public void onDetailClicked() {
+//        if(getBaseActivity() != null) {
+//            getBaseActivity().replaceFragment(R.id.frame, DetailFragment.newInstance(), false);
+//        }
+//    }
 }

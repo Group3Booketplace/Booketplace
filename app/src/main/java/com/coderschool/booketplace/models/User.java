@@ -11,6 +11,7 @@ import java.util.Map;
  * Created by vinh on 11/15/16.
  */
 
+
 public class User {
     private String address;
     private String avatar;

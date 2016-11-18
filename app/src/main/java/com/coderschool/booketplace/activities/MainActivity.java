@@ -16,7 +16,6 @@ import android.view.View;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
-
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.BookStreamFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
@@ -24,6 +23,11 @@ import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessageFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
+import com.coderschool.booketplace.utils.Event;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,6 +104,18 @@ public class MainActivity extends BaseActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
     }
 
     /***
@@ -330,5 +346,10 @@ public class MainActivity extends BaseActivity {
             replaceFragment(R.id.frame, NewPostFragment.newInstance(), true);
             toolbar.setTitle(R.string.manga_sell);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.ItemBookClick event) {
+        replaceFragment(R.id.frame, DetailFragment.newInstance(event.getBook()), true);
     }
 }

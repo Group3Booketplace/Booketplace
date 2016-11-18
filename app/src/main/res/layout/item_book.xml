@@ -6,16 +6,19 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:padding="4dp"
+    android:id="@+id/itemBook"
+    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:elevation="4dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="4dp">
         <FrameLayout
             android:id="@+id/ivFrame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_marginRight="4dp">
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,20 +53,27 @@
             android:layout_toRightOf="@id/ivFrame"
             android:textColor="@android:color/background_dark"
             tools:text="Bán Apple iPad Air 2 Wi-fi + Cellular 64Gb... Máy màu vàng (Gold); dung lượng 64Gb; đang dùng iOS 10.1.1 mượt mà. Hàng phân phối cho thị trường" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvTime"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" -->
+            <!--android:layout_toRightOf="@id/ivFrame"-->
+            <!--android:layout_below="@id/tvDescription"-->
+            <!--tools:text="Sell by Tran "/>-->
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="99000"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/tvDescription"
-            android:textColor="@android:color/holo_red_dark" />
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/holo_green_dark" />
         <TextView
             android:id="@+id/tvCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/ivFrame"
-            android:layout_below="@id/tvDescription"
+            android:layout_alignParentBottom="true"
             tools:text="7 min ago"
             android:textColor="@android:color/darker_gray"/>
     </RelativeLayout>

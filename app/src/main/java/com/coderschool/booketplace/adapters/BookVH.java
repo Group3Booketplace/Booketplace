@@ -9,10 +9,14 @@ import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.utils.Event;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by dattran on 11/16/16.
@@ -29,6 +33,7 @@ public class BookVH extends RecyclerView.ViewHolder {
     TextView tvDescription;
     @BindView(R.id.tvCondition)
     TextView tvCondition;
+    Book book;
 
     public BookVH(View itemView) {
         super(itemView);
@@ -36,6 +41,7 @@ public class BookVH extends RecyclerView.ViewHolder {
     }
 
     public void bind(Book book) {
+        this.book = book;
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
         tvDescription.setText(book.getDescription());
@@ -44,6 +50,11 @@ public class BookVH extends RecyclerView.ViewHolder {
                 .using(new FirebaseImageLoader())
                 .load(FirebaseApi.getInstance().getBookImageStorage(book.getKey(), 0))
                 .into(ivBook);
+    }
+
+    @OnClick(R.id.itemBook)
+    public void onItemClick() {
+        EventBus.getDefault().post(new Event.ItemBookClick(book));
     }
 
 }

@@ -3,11 +3,14 @@ package com.coderschool.booketplace.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
+import org.parceler.Parcel;
+
 /**
  * Created by dattran on 11/16/16.
  */
 
 @IgnoreExtraProperties
+@Parcel
 public class Image {
 //    private String url;
     @PropertyName("width")

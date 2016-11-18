@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/base_margin">
 
         <ImageView
@@ -50,6 +50,11 @@
             android:orientation="horizontal"
             android:weightSum="3"
             android:layout_below="@id/ivBook">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_price"
+                android:layout_gravity="center"/>
             <EditText
                 android:id="@+id/etBookPrice"
                 android:layout_width="0dp"
@@ -71,38 +76,80 @@
                />
         </LinearLayout>
 
-
-        <EditText
-            android:id="@+id/etBookDescription"
+        <LinearLayout
+            android:id="@+id/etBookDescriptionFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="My book is ..."
-            android:inputType="text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:lines="3"
-            android:ellipsize="end"
-            android:layout_below="@id/currencyFrame"
-            tools:text="Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."/>
+            android:orientation="horizontal"
+            android:layout_below="@id/currencyFrame">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_description"/>
+            <EditText
+                android:id="@+id/etBookDescription"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="My book is ..."
+                android:inputType="text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:minLines="3"
+                android:ellipsize="end"
+                tools:text="Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."/>
+        </LinearLayout>
 
-        <Spinner
-            android:id="@+id/spCondition"
+
+        <LinearLayout
+            android:id="@+id/spConditionFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/etBookDescription"
-            android:entries="@array/spinner_condition">
-        </Spinner>
+            android:orientation="horizontal"
+            android:layout_below="@id/etBookDescriptionFrame"
+            android:weightSum="2">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_condition"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Condition"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/background_dark"/>
+            <Spinner
+                android:id="@+id/spCondition"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:entries="@array/spinner_condition"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/etBookLocation"
+        <LinearLayout
+            android:id="@+id/etBookLocationFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="I live in ... "
-            android:inputType="number"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:maxLines="1"
-            android:ellipsize="middle"
-            android:layout_below="@id/spCondition"
-            tools:text="Ho Chi Minh" />
+            android:orientation="horizontal"
+            android:layout_below="@id/spConditionFrame">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_location"/>
+            <EditText
+                android:id="@+id/etBookLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="I live in ... "
+                android:inputType="number"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:maxLines="1"
+                android:ellipsize="middle"
+                tools:text="Ho Chi Minh" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btn_sell"
@@ -110,7 +157,7 @@
             android:layout_height="wrap_content"
             android:text="Sell"
             android:layout_marginBottom="@dimen/base_margin"
-            android:layout_below="@id/etBookLocation"
+            android:layout_below="@id/etBookLocationFrame"
             android:background="@color/colorAccent"/>
     </RelativeLayout>
 </android.support.v4.widget.NestedScrollView>

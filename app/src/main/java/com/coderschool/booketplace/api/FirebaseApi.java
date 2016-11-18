@@ -1,7 +1,6 @@
 package com.coderschool.booketplace.api;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.coderschool.booketplace.models.Book;
@@ -10,10 +9,7 @@ import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.BitmapUtils;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -122,10 +118,11 @@ public class FirebaseApi {
         return bookStorageRef.child(key).child(String.valueOf(position));
     }
 
-    public void writeUser(FirebaseUser firebaseUser) {
+    public void writeUser(FirebaseUser firebaseUser, AccessToken token) {
         User user = new User(firebaseUser);
         String uid = firebaseUser.getUid();
         userDatabaseRef.child(uid).setValue(user.toMap());
+//        FacebookApi.getInstance().getUserInfo(token);
     }
 
     /**
@@ -136,15 +133,12 @@ public class FirebaseApi {
     public void loginWithFacebook(AccessToken token, FirebaseResultListener listener) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.getResult() != null) {
-                            listener.onSuccess();
-                            writeUser(task.getResult().getUser());
-                        } else {
-                            listener.onFail();
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.getResult() != null) {
+                        listener.onSuccess();
+                        writeUser(task.getResult().getUser(), token);
+                    } else {
+                        listener.onFail();
                     }
                 });
     }

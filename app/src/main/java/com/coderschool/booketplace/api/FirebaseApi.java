@@ -134,8 +134,8 @@ public class FirebaseApi {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.getResult() != null) {
-                            writeUser(task.getResult().getUser());
                             listener.onSuccess();
+                            writeUser(task.getResult().getUser());
                         } else {
                             listener.onFail();
                         }

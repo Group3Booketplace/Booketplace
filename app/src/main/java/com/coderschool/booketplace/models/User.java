@@ -1,5 +1,6 @@
 package com.coderschool.booketplace.models;
 
+import com.coderschool.booketplace.api.FacebookUser;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class User {
     private String name;
     private String phone;
     private double ratingOverall;
+    private String location;
 //    private String uid;
     private ArrayList<Rating> ratings;
     private ArrayList<Book> ownerBooks;
@@ -49,6 +51,7 @@ public class User {
     public static final String FOLLOWINGS = "followings";
     public static final String FOLLOWERS = "followers";
     public static final String MESSAGES = "messages";
+    public static final String LOCATION = "location";
 
     // constructor for firebase
     public User() {}
@@ -86,6 +89,7 @@ public class User {
         result.put(FOLLOWINGS, followings);
         result.put(SUBSCRIBED_BOOK, subscribedBooks);
         result.put(MESSAGES, messages);
+        result.put(LOCATION, location);
 
         return result;
     }
@@ -93,6 +97,12 @@ public class User {
     /**
      * setter
      */
+
+    public void setUser(FacebookUser user) {
+        this.birthday = user.getBirthday();
+        this.gender = user.getGender();
+        this.location = user.getLocation().getName();
+    }
 
     public void setAddress(String address) {
         this.address = address;

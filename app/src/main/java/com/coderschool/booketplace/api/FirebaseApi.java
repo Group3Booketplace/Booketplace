@@ -121,8 +121,20 @@ public class FirebaseApi {
     public void writeUser(FirebaseUser firebaseUser, AccessToken token) {
         User user = new User(firebaseUser);
         String uid = firebaseUser.getUid();
-        userDatabaseRef.child(uid).setValue(user.toMap());
-//        FacebookApi.getInstance().getUserInfo(token);
+
+        FacebookApi.getInstance().getUserInfo(token, new FacebookApi.FacebookApiResult() {
+            @Override
+            public void onSuccess(Object object) {
+                FacebookUser fbUser = (FacebookUser) object;
+                user.setUser(fbUser);
+                userDatabaseRef.child(uid).setValue(user.toMap());
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
     }
 
     /**

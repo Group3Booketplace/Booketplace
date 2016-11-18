@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -37,11 +39,14 @@ public class FacebookApi {
 
     }
 
-    public void getUserInfo(AccessToken accessToken) {
+    public void getUserInfo(AccessToken accessToken, FacebookApiResult result) {
         GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 // Pass data back
+                Gson gson = new GsonBuilder().create();
+                FacebookUser fbUser = gson.fromJson(object.toString(), FacebookUser.class);
+                result.onSuccess(fbUser);
             }
         });
 

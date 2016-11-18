@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
     private void setupFacebookLogin() {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.btn_login);
-        loginButton.setReadPermissions("user_about_me", "user_location", "user_friends", "email");
+        loginButton.setReadPermissions("user_about_me", "user_location", "user_friends", "email", "user_birthday");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

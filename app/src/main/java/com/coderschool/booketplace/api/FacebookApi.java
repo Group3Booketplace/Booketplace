@@ -31,6 +31,10 @@ public class FacebookApi {
         return sInstance;
     }
 
+    public static final String[] permission = new String[] {
+        "user_about_me", "user_location", "user_friends", "email", "user_birthday"
+    };
+
     public interface FacebookApiResult {
         public void onSuccess(Object object);
         public void onFail();

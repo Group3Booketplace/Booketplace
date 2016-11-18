@@ -51,7 +51,7 @@ public class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         mAdapter = new BookAdapter(FirebaseApi.getInstance().getBookDatabaseRef());
-        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true);
+        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
     }

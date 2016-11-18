@@ -6,5 +6,7 @@
     <dimen name="manga_dimen">256dp</dimen>
     <dimen name="base_margin">16dp</dimen>
     <dimen name="division_height">1dp</dimen>
-    <dimen name="ivBookDimen">128dp</dimen>
+    <dimen name="ivBookDimen">96dp</dimen>
+    <dimen name="ivBookHeight">170dp</dimen>
+    <dimen name="ivBookWidth">96dp</dimen>
 </resources>

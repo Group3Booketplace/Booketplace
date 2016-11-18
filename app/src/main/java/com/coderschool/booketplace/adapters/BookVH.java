@@ -25,6 +25,10 @@ public class BookVH extends RecyclerView.ViewHolder {
     TextView tvName;
     @BindView(R.id.tvPrice)
     TextView tvPrice;
+    @BindView(R.id.tvDescription)
+    TextView tvDescription;
+    @BindView(R.id.tvCondition)
+    TextView tvCondition;
 
     public BookVH(View itemView) {
         super(itemView);
@@ -34,11 +38,12 @@ public class BookVH extends RecyclerView.ViewHolder {
     public void bind(Book book) {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
+        tvDescription.setText(book.getDescription());
+        tvCondition.setText(book.getCondition());
         Glide.with(itemView.getContext())
                 .using(new FirebaseImageLoader())
                 .load(FirebaseApi.getInstance().getBookImageStorage(book.getKey(), 0))
                 .into(ivBook);
-//        Picasso.with(itemView.getContext()).load(book.getImages().get(0).getUrl()).into(ivBook);
     }
 
 }

@@ -22,8 +22,8 @@
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/ivBook"
-                android:layout_width="@dimen/ivBookDimen"
-                android:layout_height="@dimen/ivBookDimen"
+                android:layout_width="@dimen/ivBookWidth"
+                android:layout_height="@dimen/ivBookHeight"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/book_placeholder"/>
@@ -36,14 +36,35 @@
             tools:text="Naruto"
             android:layout_toRightOf="@id/ivFrame"
             android:textStyle="bold"
-            android:textColor="@android:color/background_dark"/>
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_toRightOf="@id/ivFrame"
+            android:textColor="@android:color/background_dark"
+            tools:text="Bán Apple iPad Air 2 Wi-fi + Cellular 64Gb... Máy màu vàng (Gold); dung lượng 64Gb; đang dùng iOS 10.1.1 mượt mà. Hàng phân phối cho thị trường" />
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="99000"
-            android:layout_toRightOf="@id/ivFrame"
-            android:layout_below="@id/tvName"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tvDescription"
             android:textColor="@android:color/holo_red_dark" />
+        <TextView
+            android:id="@+id/tvCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivFrame"
+            android:layout_below="@id/tvDescription"
+            tools:text="7 min ago"
+            android:textColor="@android:color/darker_gray"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

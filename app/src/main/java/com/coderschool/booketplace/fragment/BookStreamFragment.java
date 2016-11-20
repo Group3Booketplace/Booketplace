@@ -12,6 +12,8 @@ import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.BookAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
+import com.coderschool.booketplace.listener.OnItemListener;
+import com.coderschool.booketplace.models.Book;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,10 +53,18 @@ public class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         mAdapter = new BookAdapter(FirebaseApi.getInstance().getBookDatabaseRef());
+        mAdapter.setOnItemListener(book -> {
+            showBookDetail(book);
+        });
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
 
+    }
+
+    private void showBookDetail(Book book) {
+        DetailFragment detailFragment = DetailFragment.newInstance(book);
+        replaceFragment(detailFragment);
     }
 }

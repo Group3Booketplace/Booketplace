@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.models.Book;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,14 +21,17 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends BaseFragmemt {
 
+    private static final String BOOK_KEY = "book_key";
+
     @BindView(R.id.tv_home_detail)
     TextView detail;
 
-    public static DetailFragment newInstance() {
+    public static DetailFragment newInstance(Book book) {
 
         Bundle args = new Bundle();
 
         DetailFragment fragment = new DetailFragment();
+        args.putParcelable(BOOK_KEY, book);
         fragment.setArguments(args);
         return fragment;
     }

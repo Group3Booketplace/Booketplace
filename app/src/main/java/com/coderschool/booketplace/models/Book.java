@@ -1,5 +1,8 @@
 package com.coderschool.booketplace.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.coderschool.booketplace.utils.DateUtils;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -14,7 +17,7 @@ import java.util.Map;
  */
 
 @IgnoreExtraProperties
-public class Book {
+public class Book implements Parcelable {
 
     // property
 //    private long ISBN;
@@ -149,6 +152,48 @@ public class Book {
 //    public String getImageHeader() {
 //        return imageHeader;
 //    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.author);
+        dest.writeString(this.condition);
+        dest.writeString(this.createdDate);
+        dest.writeString(this.description);
+        dest.writeString(this.name);
+        dest.writeString(this.price);
+        dest.writeValue(this.sell);
+        dest.writeString(this.user);
+        dest.writeParcelable(this.image, flags);
+    }
+
+    protected Book(Parcel in) {
+        this.author = in.readString();
+        this.condition = in.readString();
+        this.createdDate = in.readString();
+        this.description = in.readString();
+        this.name = in.readString();
+        this.price = in.readString();
+        this.sell = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.user = in.readString();
+        this.image = in.readParcelable(Image.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 }
 
 

@@ -22,7 +22,7 @@ public class User {
     private String phone;
     private double ratingOverall;
     private String location;
-//    private String uid;
+    private String uid;
     private ArrayList<Rating> ratings;
     private ArrayList<Book> ownerBooks;
     private ArrayList<Book> subscribedBooks;
@@ -53,6 +53,7 @@ public class User {
     public static final String FOLLOWERS = "followers";
     public static final String MESSAGES = "messages";
     public static final String LOCATION = "location";
+    public static final String UID = "uid";
 
     // constructor for firebase
     public User() {}
@@ -71,6 +72,8 @@ public class User {
         this.subscribedBooks = new ArrayList<>();
         this.messages = new ArrayList<>();
 
+        // add more
+        this.uid = user.getUid();
     }
 
     public Map<String, Object> toMap() {
@@ -92,6 +95,9 @@ public class User {
         result.put(MESSAGES, messages);
         result.put(LOCATION, location);
 
+        // add more
+        result.put(UID, uid);
+
         return result;
     }
 
@@ -102,7 +108,7 @@ public class User {
     public void setUser(FacebookUser user) {
         this.birthday = user.getBirthday();
         this.gender = user.getGender();
-        this.location = user.getLocation().getName();
+//        this.location = user.getLocation().getName();
     }
 
     public void setAddress(String address) {
@@ -165,9 +171,9 @@ public class User {
         return ratingOverall;
     }
 
-//    public String getUid() {
-//        return uid;
-//    }
+    public String getUid() {
+        return uid;
+    }
 
     public ArrayList<Rating> getRatings() {
         return ratings;

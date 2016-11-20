@@ -11,6 +11,7 @@ import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.MessageItem;
 import com.coderschool.booketplace.views.MessageOwnItemViewHolder;
 import com.coderschool.booketplace.views.MessageUserItemViewHolder;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,8 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context mContext;
     private ArrayList<MessageItem> messageItems;
 
+    private FirebaseAuth auth;
+
     public MessageItemAdapter(Context context, ArrayList<MessageItem> messageItems) {
         this.messageItems = messageItems;
         this.mContext = context;
@@ -33,7 +36,8 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (messageItems.get(position).isOwner()) {
+        String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (messageItems.get(position).getUser().getUid().equals(currentUid)) {
             return OWN_MESSAGE_ITEM;
         } else {
             return FRIEND_MESSAGE_ITEM;
@@ -79,10 +83,10 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private void configureFriendViewHolder(MessageUserItemViewHolder viewHolder, int position) {
         MessageItem messageItem = messageItems.get(position);
         if (messageItem != null) {
-            viewHolder.getTvContent().setText(messageItem.getMessage());
-            viewHolder.getTvDate().setText(messageItem.getDate().toString());
+            viewHolder.getTvContent().setText(messageItem.getContent());
+            viewHolder.getTvDate().setText(messageItem.getDate());
             Glide.with(mContext)
-                    .load(messageItem.getAvatar())
+                    .load(messageItem.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());
         }
     }
@@ -90,10 +94,10 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private void configureOwnViewHolder(MessageOwnItemViewHolder viewHolder, int position) {
         MessageItem messageItem = messageItems.get(position);
         if (messageItem != null) {
-            viewHolder.getTvContent().setText(messageItem.getMessage());
+            viewHolder.getTvContent().setText(messageItem.getContent());
             viewHolder.getTvDate().setText(messageItem.getDate().toString());
             Glide.with(mContext)
-                    .load(messageItem.getAvatar())
+                    .load(messageItem.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());
         }
     }

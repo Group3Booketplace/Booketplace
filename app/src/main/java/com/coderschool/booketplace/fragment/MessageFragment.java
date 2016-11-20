@@ -32,8 +32,8 @@ import butterknife.ButterKnife;
 
 public class MessageFragment extends BaseFragmemt {
 
-    public static final String MESSENGER = "mUsers-messenger";
-    public static final String USERS = "mUsers";
+    public static final String MESSENGER = "users-messenger";
+    public static final String USERS = "users";
 
     @BindView(R.id.rvMessages)
     RecyclerView rvMessages;

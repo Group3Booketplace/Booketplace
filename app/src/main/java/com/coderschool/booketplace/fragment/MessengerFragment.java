@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageFragment extends BaseFragmemt {
+public class MessengerFragment extends BaseFragmemt {
 
     public static final String MESSENGER = "users-messenger";
     public static final String USERS = "users";
@@ -47,10 +47,10 @@ public class MessageFragment extends BaseFragmemt {
     ArrayList<User> mUsers;
     MessageAdapter aMessgengers;
 
-    public static MessageFragment newInstance() {
+    public static MessengerFragment newInstance() {
         Bundle args = new Bundle();
 
-        MessageFragment fragment = new MessageFragment();
+        MessengerFragment fragment = new MessengerFragment();
         fragment.setArguments(args);
         return fragment;
     }

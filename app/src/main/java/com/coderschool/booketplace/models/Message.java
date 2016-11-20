@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Message {
     private User user;
     private String userUid;
-    private ArrayList<MessageItem> messageItems;
+    private ArrayList<Chat> chats;
 
     /// more method add new here!
     ///
@@ -30,7 +30,7 @@ public class Message {
         return userUid;
     }
 
-    public ArrayList<MessageItem> getMessageItems() {
-        return messageItems;
+    public ArrayList<Chat> getChats() {
+        return chats;
     }
 }

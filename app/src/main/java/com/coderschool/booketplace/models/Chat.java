@@ -3,14 +3,14 @@ package com.coderschool.booketplace.models;
 /**
  * Created by vinh on 11/15/16.
  */
-public class MessageItem {
+public class Chat {
 
     private String uid;
     private String content;
     private String date;
     private User user;
 
-    public MessageItem() {
+    public Chat() {
 
     }
 

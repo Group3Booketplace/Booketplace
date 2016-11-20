@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.MessageItemAdapter;
-import com.coderschool.booketplace.models.MessageItem;
+import com.coderschool.booketplace.models.Chat;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,8 +35,10 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
 
+    ValueEventListener chatEventListener;
+
     String uniqueKey;
-    ArrayList<MessageItem> messageItems;
+    ArrayList<Chat> chats;
     MessageItemAdapter messageItemAdapter;
 
     @Override
@@ -60,29 +62,29 @@ public class ChatActivity extends AppCompatActivity {
                 .getReference()
                 .child(USERS);
 
-        messageItems = new ArrayList<>();
-        messageItemAdapter = new MessageItemAdapter(this, messageItems);
+        chats = new ArrayList<>();
+        messageItemAdapter = new MessageItemAdapter(this, chats);
         rvMessageItem.setAdapter(messageItemAdapter);
         rvMessageItem.setLayoutManager(new LinearLayoutManager(this));
-        rvMessageItem.scrollToPosition(messageItems.size() - 1);
+        rvMessageItem.scrollToPosition(chats.size() - 1);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mChatDatabaseRef.addValueEventListener(new ValueEventListener() {
+        chatEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot query : dataSnapshot.getChildren()) {
-                    final MessageItem messageItem = query.getValue(MessageItem.class);
-                    mUserDatabaseRef.child(messageItem.getUid())
+                    final Chat chat = query.getValue(Chat.class);
+                    mUserDatabaseRef.child(chat.getUid())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
-                                    messageItem.setUser(user);
-                                    messageItems.add(messageItem);
-                                    messageItemAdapter.notifyItemInserted(messageItems.size() - 1);
+                                    chat.setUser(user);
+                                    chats.add(chat);
+                                    messageItemAdapter.notifyItemInserted(chats.size() - 1);
                                 }
 
                                 @Override
@@ -97,6 +99,15 @@ public class ChatActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        mChatDatabaseRef.addValueEventListener(chatEventListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mChatDatabaseRef.removeEventListener(chatEventListener);
     }
 }
+

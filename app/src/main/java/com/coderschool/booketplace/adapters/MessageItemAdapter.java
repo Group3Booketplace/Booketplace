@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.models.MessageItem;
+import com.coderschool.booketplace.models.Chat;
 import com.coderschool.booketplace.views.MessageOwnItemViewHolder;
 import com.coderschool.booketplace.views.MessageUserItemViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,19 +25,19 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final int OWN_MESSAGE_ITEM = 1;
 
     private Context mContext;
-    private ArrayList<MessageItem> messageItems;
+    private ArrayList<Chat> chats;
 
     private FirebaseAuth auth;
 
-    public MessageItemAdapter(Context context, ArrayList<MessageItem> messageItems) {
-        this.messageItems = messageItems;
+    public MessageItemAdapter(Context context, ArrayList<Chat> chats) {
+        this.chats = chats;
         this.mContext = context;
     }
 
     @Override
     public int getItemViewType(int position) {
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        if (messageItems.get(position).getUser().getUid().equals(currentUid)) {
+        if (chats.get(position).getUser().getUid().equals(currentUid)) {
             return OWN_MESSAGE_ITEM;
         } else {
             return FRIEND_MESSAGE_ITEM;
@@ -81,30 +81,30 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void configureFriendViewHolder(MessageUserItemViewHolder viewHolder, int position) {
-        MessageItem messageItem = messageItems.get(position);
-        if (messageItem != null) {
-            viewHolder.getTvContent().setText(messageItem.getContent());
-            viewHolder.getTvDate().setText(messageItem.getDate());
+        Chat chat = chats.get(position);
+        if (chat != null) {
+            viewHolder.getTvContent().setText(chat.getContent());
+            viewHolder.getTvDate().setText(chat.getDate());
             Glide.with(mContext)
-                    .load(messageItem.getUser().getAvatar())
+                    .load(chat.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());
         }
     }
 
     private void configureOwnViewHolder(MessageOwnItemViewHolder viewHolder, int position) {
-        MessageItem messageItem = messageItems.get(position);
-        if (messageItem != null) {
-            viewHolder.getTvContent().setText(messageItem.getContent());
-            viewHolder.getTvDate().setText(messageItem.getDate().toString());
+        Chat chat = chats.get(position);
+        if (chat != null) {
+            viewHolder.getTvContent().setText(chat.getContent());
+            viewHolder.getTvDate().setText(chat.getDate().toString());
             Glide.with(mContext)
-                    .load(messageItem.getUser().getAvatar())
+                    .load(chat.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());
         }
     }
 
     @Override
     public int getItemCount() {
-        return this.messageItems.size();
+        return this.chats.size();
     }
 }
 

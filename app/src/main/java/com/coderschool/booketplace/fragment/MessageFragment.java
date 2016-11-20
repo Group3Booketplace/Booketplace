@@ -13,6 +13,13 @@ import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.MessageAdapter;
 import com.coderschool.booketplace.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -25,13 +32,22 @@ import butterknife.ButterKnife;
 
 public class MessageFragment extends BaseFragmemt {
 
+    public static final String MESSENGER = "mUsers-messenger";
+    public static final String USERS = "mUsers";
+
     @BindView(R.id.rvMessages)
     RecyclerView rvMessages;
 
-    MessageAdapter messageAdapter;
+
+    DatabaseReference mMessengerDatabaseRef;
+    DatabaseReference mUserDatabaseRef;
+    FirebaseAuth auth;
+    FirebaseUser user;
+
+    ArrayList<User> mUsers;
+    MessageAdapter aMessgengers;
 
     public static MessageFragment newInstance() {
-
         Bundle args = new Bundle();
 
         MessageFragment fragment = new MessageFragment();
@@ -39,10 +55,25 @@ public class MessageFragment extends BaseFragmemt {
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        mMessengerDatabaseRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(MESSENGER)
+                .child(user.getUid());
+        mUserDatabaseRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(USERS);
+    }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_message, container, false);
         return v;
     }
@@ -53,15 +84,40 @@ public class MessageFragment extends BaseFragmemt {
         Toast.makeText(getBaseActivity(), "Messages", Toast.LENGTH_SHORT).show();
         ButterKnife.bind(this, view);
 
-        ArrayList<User> users = new ArrayList<User>();
-        users.add(User.createExampleMessage());
-        users.add(User.createExampleMessage());
-        users.add(User.createExampleMessage());
-        users.add(User.createExampleMessage());
+        mUsers = new ArrayList<>();
 
-        messageAdapter = new MessageAdapter(getContext(), users);
-        rvMessages.setAdapter(messageAdapter);
+        aMessgengers = new MessageAdapter(getContext(), mUsers);
+        rvMessages.setAdapter(aMessgengers);
         rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mMessengerDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot query : dataSnapshot.getChildren()) {
+                    // for current solution with simple object on query
+                    String uid = query.child("uid").getValue().toString();
+                    mUserDatabaseRef.child(uid)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    mUsers.add(user);
+                                    aMessgengers.notifyItemChanged(mUsers.size() - 1);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -70,3 +126,4 @@ public class MessageFragment extends BaseFragmemt {
         getBaseActivity().getSupportActionBar().setTitle("Messages");
     }
 }
+

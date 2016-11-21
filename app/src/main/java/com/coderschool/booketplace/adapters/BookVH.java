@@ -9,8 +9,13 @@ import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.models.User;
+import com.coderschool.booketplace.utils.DateUtils;
 import com.coderschool.booketplace.utils.Event;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,6 +38,8 @@ public class BookVH extends RecyclerView.ViewHolder {
     TextView tvDescription;
     @BindView(R.id.tvCondition)
     TextView tvCondition;
+    @BindView(R.id.tvSeller)
+    TextView tvSeller;
     Book book;
 
     public BookVH(View itemView) {
@@ -50,6 +57,18 @@ public class BookVH extends RecyclerView.ViewHolder {
                 .using(new FirebaseImageLoader())
                 .load(FirebaseApi.getInstance().getBookImageStorage(book.getKey(), 0))
                 .into(ivBook);
+        FirebaseApi.getInstance().getUserDatabaseRef().child(book.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                tvSeller.setText("Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate()));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @OnClick(R.id.itemBook)

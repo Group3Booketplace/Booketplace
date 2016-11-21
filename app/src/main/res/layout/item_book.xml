@@ -53,13 +53,16 @@
             android:layout_toRightOf="@id/ivFrame"
             android:textColor="@android:color/background_dark"
             tools:text="Bán Apple iPad Air 2 Wi-fi + Cellular 64Gb... Máy màu vàng (Gold); dung lượng 64Gb; đang dùng iOS 10.1.1 mượt mà. Hàng phân phối cho thị trường" />
-        <!--<TextView-->
-            <!--android:id="@+id/tvTime"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" -->
-            <!--android:layout_toRightOf="@id/ivFrame"-->
-            <!--android:layout_below="@id/tvDescription"-->
-            <!--tools:text="Sell by Tran "/>-->
+        <TextView
+            android:id="@+id/tvSeller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivFrame"
+            android:layout_below="@id/tvDescription"
+            tools:text="Sell by Tran Quang Dat Today at 10:30pm "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/darker_gray"/>
+
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"

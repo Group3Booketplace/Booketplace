@@ -1,5 +1,7 @@
 package com.coderschool.booketplace.models;
 
+import android.os.Parcelable;
+
 import com.coderschool.booketplace.utils.DateUtils;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -16,7 +18,7 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 @Parcel
-public class Book {
+public class Book implements Parcelable {
 
     // property
     private String isbn_10;
@@ -181,6 +183,65 @@ public class Book {
     public String getImageHeader() {
         return imageHeader;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeString(this.isbn_10);
+        dest.writeString(this.author);
+        dest.writeString(this.condition);
+        dest.writeString(this.createdDate);
+        dest.writeString(this.description);
+        dest.writeInt(this.discount);
+        dest.writeString(this.modifiedDate);
+        dest.writeString(this.name);
+        dest.writeString(this.price);
+        dest.writeValue(this.sell);
+        dest.writeString(this.user);
+        dest.writeList(this.images);
+        dest.writeString(this.publishedDate);
+        dest.writeString(this.publisher);
+        dest.writeString(this.imageHeader);
+        dest.writeString(this.key);
+        dest.writeString(this.currency);
+    }
+
+    protected Book(android.os.Parcel in) {
+        this.isbn_10 = in.readString();
+        this.author = in.readString();
+        this.condition = in.readString();
+        this.createdDate = in.readString();
+        this.description = in.readString();
+        this.discount = in.readInt();
+        this.modifiedDate = in.readString();
+        this.name = in.readString();
+        this.price = in.readString();
+        this.sell = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.user = in.readString();
+        this.images = new ArrayList<Image>();
+        in.readList(this.images, Image.class.getClassLoader());
+        this.publishedDate = in.readString();
+        this.publisher = in.readString();
+        this.imageHeader = in.readString();
+        this.key = in.readString();
+        this.currency = in.readString();
+    }
+
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+        @Override
+        public Book createFromParcel(android.os.Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 }
 
 

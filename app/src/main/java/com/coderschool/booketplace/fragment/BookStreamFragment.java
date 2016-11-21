@@ -12,6 +12,8 @@ import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.BookAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
+import com.coderschool.booketplace.listener.OnItemListener;
+import com.coderschool.booketplace.models.Book;
 import com.google.firebase.database.DatabaseReference;
 
 import butterknife.BindView;
@@ -30,6 +32,12 @@ public class BookStreamFragment extends BaseFragmemt {
     RecyclerView rvBooks;
     private BookAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBaseActivity().getSupportActionBar().setTitle("Book list");
+    }
 
     public static BookStreamFragment newInstance(String parent, String child) {
 
@@ -63,6 +71,7 @@ public class BookStreamFragment extends BaseFragmemt {
                 .child(bundle.getString(PARENT))
                 .child(bundle.getString(CHILD));
         mAdapter = new BookAdapter(reference);
+        mAdapter.setOnItemListener(book -> replaceFragment(DetailFragment.newInstance(book)));
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);

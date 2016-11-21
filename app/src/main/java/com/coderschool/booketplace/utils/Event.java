@@ -30,4 +30,8 @@ public class Event {
         }
     }
 
+    public static class UserItemClick {
+
+    }
+
 }

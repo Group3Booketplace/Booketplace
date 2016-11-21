@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,8 +99,7 @@ public class DetailFragment extends BaseFragmemt {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                tvSeller.setText("Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate()));
-                ratingBar.setRating(user.getRatingOverall());
+                setUser(user, book);
             }
 
             @Override
@@ -105,6 +107,17 @@ public class DetailFragment extends BaseFragmemt {
 
             }
         });
+    }
+
+    private void setUser(User user, Book book) {
+        ForegroundColorSpan accentColor = new ForegroundColorSpan(mActivity.getResources().getColor(R.color.colorAccent));
+        String seller = "Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate());
+        SpannableString spannableString = new SpannableString(seller);
+        spannableString.setSpan(accentColor, 8, user.getName().length() + 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        tvSeller.setText(spannableString);
+        ratingBar.setRating(user.getRatingOverall());
     }
 
     @Override

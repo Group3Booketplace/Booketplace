@@ -207,6 +207,9 @@ public class MainActivity extends BaseActivity {
                 case R.id.nav_profile:
                     navItemIndex = INDEX_PROFILE;
                     CURRENT_TAG = TAG_PROFLE;
+                    replaceFragment(R.id.frame,
+                            UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid()),
+                            true);
                     break;
 //                case R.id.nav_subscribe:
 //                    navItemIndex = 4;

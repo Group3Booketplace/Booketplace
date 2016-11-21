@@ -178,4 +178,8 @@ public class FirebaseApi {
     public DatabaseReference getBookDatabaseRef() {
         return bookDatabaseRef;
     }
+
+    public DatabaseReference getUserDatabaseRef() {
+        return userDatabaseRef;
+    }
 }

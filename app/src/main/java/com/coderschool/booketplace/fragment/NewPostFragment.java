@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
@@ -117,11 +118,13 @@ public class NewPostFragment extends BaseFragmemt {
             @Override
             public void onSuccess() {
                 // TODO: finish uploading
+                mActivity.getSupportFragmentManager().beginTransaction().remove(NewPostFragment.this).commit();
             }
 
             @Override
             public void onFail() {
                 // TODO: prompt error
+                Toast.makeText(mActivity, "Can't upload", Toast.LENGTH_SHORT).show();
             }
         });
     }

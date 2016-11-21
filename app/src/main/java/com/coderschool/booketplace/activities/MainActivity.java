@@ -23,6 +23,7 @@ import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
+import com.coderschool.booketplace.fragment.UserProfileFragment;
 import com.coderschool.booketplace.utils.Event;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,22 +56,25 @@ public class MainActivity extends BaseActivity {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-    private static final String TAG_NOTIFICATIONS = "notifications";
+//    private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_MESSAGES = "messages";
     private static final String TAG_PROFLE = "profile";
-    private static final String TAG_SUBSCRIBE = "subscribe";
-    private static final String TAG_PEOPLE = "people";
+//    private static final String TAG_SUBSCRIBE = "subscribe";
+//    private static final String TAG_PEOPLE = "people";
+    private static final String TAG_FOLLOWING = "following";
     private static final String TAG_SETTINGS = "settings";
-    private static final String TAG_ACCOUNT = "account";
-    private static final String TAG_FOLLOWING = "follwing";
+//    private static final String TAG_ACCOUNT = "account";
+
 
     public static String CURRENT_TAG = TAG_HOME;
 
     private static final int INDEX_HOME = 0;
-    private static final int INDEX_ACCOUNT = 1;
-    private static final int INDEX_FOLLOWING = 2;
-    private static final int INDEX_SETTINGS = 3;
-    private static final int INDEX_SIGNOUT = 4;
+    private static final int INDEX_MESSAGE = 1;
+//    private static final int INDEX_ACCOUNT = 1;
+    private static final int INDEX_PROFILE = 2;
+    private static final int INDEX_FOLLOWING = 3;
+    private static final int INDEX_SETTINGS = 4;
+    private static final int INDEX_SIGNOUT = 5;
     public static int navItemIndex = INDEX_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -161,14 +165,12 @@ public class MainActivity extends BaseActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case INDEX_HOME:
-                // home
-                BookStreamFragment homeFragment = BookStreamFragment.newInstance();
-                return homeFragment;
-            case INDEX_ACCOUNT:
-                HomeFragment homeFragment1 = HomeFragment.newInstance();
-                return homeFragment1;
-            case 2: // INDEX_MESSAGE
+                return BookStreamFragment.newInstance();
+            case INDEX_MESSAGE:
                 return MessengerFragment.newInstance();
+            case INDEX_PROFILE: // INDEX_MESSAGE
+                return UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid());
+            // TODO: Setting & Following
             default:
                 return HomeFragment.newInstance();
         }
@@ -191,35 +193,35 @@ public class MainActivity extends BaseActivity {
             switch (menuItem.getItemId()) {
                 //Replacing the main content with ContentFragment Which is our Inbox View;
                 case R.id.nav_home:
-                    navItemIndex = 0;
+                    navItemIndex = INDEX_HOME;
                     CURRENT_TAG = TAG_HOME;
                     break;
-                case R.id.nav_notifications:
-                    navItemIndex = 1;
-                    CURRENT_TAG = TAG_NOTIFICATIONS;
-                    break;
+//                case R.id.nav_notifications:
+//                    navItemIndex = 1;
+//                    CURRENT_TAG = TAG_NOTIFICATIONS;
+//                    break;
                 case R.id.nav_messages:
-                    navItemIndex = 2;
+                    navItemIndex = INDEX_MESSAGE;
                     CURRENT_TAG = TAG_MESSAGES;
                     break;
                 case R.id.nav_profile:
-                    navItemIndex = 3;
+                    navItemIndex = INDEX_PROFILE;
                     CURRENT_TAG = TAG_PROFLE;
                     break;
-                case R.id.nav_subscribe:
-                    navItemIndex = 4;
-                    CURRENT_TAG = TAG_SUBSCRIBE;
-                    break;
-                case R.id.nav_people:
-                    navItemIndex = 5;
-                    CURRENT_TAG = TAG_PEOPLE;
-                    break;
-                case R.id.nav_settings:
-                    navItemIndex = 6;
-                    CURRENT_TAG = TAG_SETTINGS;
-                    break;
+//                case R.id.nav_subscribe:
+//                    navItemIndex = 4;
+//                    CURRENT_TAG = TAG_SUBSCRIBE;
+//                    break;
+//                case R.id.nav_people:
+//                    navItemIndex = 5;
+//                    CURRENT_TAG = TAG_PEOPLE;
+//                    break;
+//                case R.id.nav_settings:
+//                    navItemIndex = INDEX_SETTINGS;
+//                    CURRENT_TAG = TAG_SETTINGS;
+//                    break;
 
-                case R.id.nav_setting:
+                case R.id.nav_settings:
                     navItemIndex = INDEX_SETTINGS;
                     CURRENT_TAG = TAG_SETTINGS;
                     // TODO: show setting
@@ -232,6 +234,7 @@ public class MainActivity extends BaseActivity {
                     drawer.closeDrawers();
                     return true;
                 case R.id.nav_about_us:
+                    // TODO: show webview
                     drawer.closeDrawers();
                     return true;
                 default:

@@ -20,7 +20,7 @@ public class User {
     private String gender;
     private String name;
     private String phone;
-    private double ratingOverall;
+    private float ratingOverall;
     private String location;
     private String uid;
     private ArrayList<Rating> ratings;
@@ -167,7 +167,7 @@ public class User {
         return phone;
     }
 
-    public double getRatingOverall() {
+    public float getRatingOverall() {
         return ratingOverall;
     }
 
@@ -197,5 +197,9 @@ public class User {
 
     public ArrayList<Message> getMessages() {
         return messages;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

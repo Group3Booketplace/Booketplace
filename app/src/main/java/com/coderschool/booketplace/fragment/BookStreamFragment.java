@@ -12,6 +12,7 @@ import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.BookAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
+import com.google.firebase.database.DatabaseReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,14 +23,19 @@ import butterknife.ButterKnife;
  */
 
 public class BookStreamFragment extends BaseFragmemt {
+    private static final String PARENT = "parent";
+    private static final String CHILD = "child";
+
     @BindView(R.id.rvBooks)
     RecyclerView rvBooks;
     private BookAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
 
-    public static BookStreamFragment newInstance() {
+    public static BookStreamFragment newInstance(String parent, String child) {
 
         Bundle args = new Bundle();
+        args.putString(PARENT, parent);
+        args.putString(CHILD, child);
 
         BookStreamFragment fragment = new BookStreamFragment();
         fragment.setArguments(args);
@@ -50,7 +56,13 @@ public class BookStreamFragment extends BaseFragmemt {
     }
 
     private void setupAdapter() {
-        mAdapter = new BookAdapter(FirebaseApi.getInstance().getBookDatabaseRef());
+        Bundle bundle = getArguments();
+        DatabaseReference reference = FirebaseApi
+                .getInstance()
+                .getDatabaseReference()
+                .child(bundle.getString(PARENT))
+                .child(bundle.getString(CHILD));
+        mAdapter = new BookAdapter(reference);
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);

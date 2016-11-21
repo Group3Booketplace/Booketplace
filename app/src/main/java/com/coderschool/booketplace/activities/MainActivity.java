@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case INDEX_HOME:
-                return BookStreamFragment.newInstance();
+                return BookStreamFragment.newInstance(FirebaseApi.BOOKS, "");
             case INDEX_MESSAGE:
                 return MessengerFragment.newInstance();
             case INDEX_PROFILE: // INDEX_MESSAGE

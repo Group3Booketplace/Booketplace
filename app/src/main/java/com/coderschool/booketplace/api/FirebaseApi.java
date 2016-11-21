@@ -39,6 +39,7 @@ public class FirebaseApi {
     private FirebaseAuth auth;
     private FirebaseUser user;
     private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
     private DatabaseReference bookDatabaseRef;
     private DatabaseReference userDatabaseRef;
     private FirebaseStorage storage;
@@ -46,8 +47,9 @@ public class FirebaseApi {
 
 
     // firebase key
-    private static final String BOOKS = "books";
-    private static final String USERS = "users";
+    public static final String BOOKS = "books";
+    public static final String USERS = "users";
+    public static final String USER_BOOKS = "user-books";
 
     /**
      * interface for asynchronous networking
@@ -77,6 +79,7 @@ public class FirebaseApi {
         database = FirebaseDatabase.getInstance();
         bookDatabaseRef = database.getReference().child(BOOKS);
         userDatabaseRef = database.getReference().child(USERS);
+        databaseReference = database.getReference();
         storage = FirebaseStorage.getInstance();
         bookStorageRef = storage.getReference().child(BOOKS);
     }
@@ -181,5 +184,9 @@ public class FirebaseApi {
 
     public DatabaseReference getUserDatabaseRef() {
         return userDatabaseRef;
+    }
+
+    public DatabaseReference getDatabaseReference() {
+        return databaseReference;
     }
 }

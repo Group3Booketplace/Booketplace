@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.coderschool.booketplace.BaseFragmemt;
@@ -43,6 +44,8 @@ public class UserProfileFragment extends BaseFragmemt {
     TextView tvName;
     @BindView(R.id.tvLocation)
     TextView tvLocation;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
 
     @Nullable
     @Override
@@ -59,13 +62,16 @@ public class UserProfileFragment extends BaseFragmemt {
 
     private void setupUser() {
         String uid = getArguments().getString(UID);
+        ratingBar.setNumStars(5);
         FirebaseApi.getInstance().getUserDatabaseRef().child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 Picasso.with(mActivity).load(user.getAvatar()).into(ivProfile);
                 tvName.setText(user.getName());
-                tvLocation.setText(user.getAddress());
+                tvLocation.setText(user.getLocation());
+                ratingBar.setRating(user.getRatingOverall());
+
             }
 
             @Override
@@ -73,5 +79,10 @@ public class UserProfileFragment extends BaseFragmemt {
 
             }
         });
+        getChildFragmentManager()
+                .beginTransaction()
+                .add(R.id.containder, BookStreamFragment.newInstance(FirebaseApi.USER_BOOKS, uid), uid)
+                .commit();
     }
+
 }

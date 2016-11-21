@@ -355,4 +355,9 @@ public class MainActivity extends BaseActivity {
     public void onEvent(Event.ItemBookClick event) {
         replaceFragment(R.id.frame, DetailFragment.newInstance(event.getBook()), true);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEven(Event.UserClick event) {
+        replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
+    }
 }

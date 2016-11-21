@@ -7,17 +7,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.PhotoAdapter;
+import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.models.User;
+import com.coderschool.booketplace.utils.DateUtils;
+import com.coderschool.booketplace.utils.Event;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by duongthoai on 11/8/16.
@@ -34,6 +44,12 @@ public class DetailFragment extends BaseFragmemt {
     RecyclerView rvPhoto;
     @BindView(R.id.tvDescription)
     TextView tvDescription;
+    @BindView(R.id.tvSeller)
+    TextView tvSeller;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
+
+    private Book book;
 
     private LinearLayoutManager mLayoutManager;
     private PhotoAdapter mAdapter;
@@ -64,7 +80,7 @@ public class DetailFragment extends BaseFragmemt {
     }
 
     private void setupBook() {
-        Book book = Parcels.unwrap(getArguments().getParcelable(EXTRA_BOOK));
+        book = Parcels.unwrap(getArguments().getParcelable(EXTRA_BOOK));
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
         tvDescription.setText(book.getDescription());
@@ -72,6 +88,23 @@ public class DetailFragment extends BaseFragmemt {
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         rvPhoto.setAdapter(mAdapter);
         rvPhoto.setLayoutManager(mLayoutManager);
+        getUser(book);
+    }
+
+    private void getUser(Book book) {
+        FirebaseApi.getInstance().getUserDatabaseRef().child(book.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                tvSeller.setText("Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate()));
+                ratingBar.setRating(user.getRatingOverall());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -79,4 +112,11 @@ public class DetailFragment extends BaseFragmemt {
         super.onResume();
         getBaseActivity().getSupportActionBar().setTitle("Detail");
     }
+
+    @OnClick(R.id.tvSeller)
+    public void onUser() {
+        EventBus.getDefault().post(new Event.UserClick(book.getUser()));
+    }
+
+
 }

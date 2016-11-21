@@ -18,4 +18,16 @@ public class Event {
         }
     }
 
+    public static class UserClick {
+        String uid;
+
+        public UserClick(String uid) {
+            this.uid = uid;
+        }
+
+        public String getUser() {
+            return uid;
+        }
+    }
+
 }

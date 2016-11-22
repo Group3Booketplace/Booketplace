@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageViewHolder extends RecyclerView.ViewHolder {
+public class MessengerViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivAvatar)
     ImageView ivAvatar;
@@ -24,7 +24,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
 
-    public MessageViewHolder(Context context, View itemView) {
+    public MessengerViewHolder(Context context, View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.context = context;

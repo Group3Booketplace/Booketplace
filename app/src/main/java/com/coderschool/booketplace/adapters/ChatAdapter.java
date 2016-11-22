@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.Chat;
-import com.coderschool.booketplace.views.MessageOwnItemViewHolder;
-import com.coderschool.booketplace.views.MessageUserItemViewHolder;
+import com.coderschool.booketplace.views.ChatOwnItemViewHolder;
+import com.coderschool.booketplace.views.ChatUserItemViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int FRIEND_MESSAGE_ITEM = 0;
     private final int OWN_MESSAGE_ITEM = 1;
@@ -27,9 +27,7 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context mContext;
     private ArrayList<Chat> chats;
 
-    private FirebaseAuth auth;
-
-    public MessageItemAdapter(Context context, ArrayList<Chat> chats) {
+    public ChatAdapter(Context context, ArrayList<Chat> chats) {
         this.chats = chats;
         this.mContext = context;
     }
@@ -54,12 +52,12 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case OWN_MESSAGE_ITEM:
                 View vOwnerMessageItem
                         = inflater.inflate(R.layout.item_own_message, parent, false);
-                viewHolder = new MessageOwnItemViewHolder(vOwnerMessageItem);
+                viewHolder = new ChatOwnItemViewHolder(vOwnerMessageItem);
                 break;
             case FRIEND_MESSAGE_ITEM:
                 View vFriendMessageItem
                         = inflater.inflate(R.layout.item_friend_message, parent, false);
-                viewHolder = new MessageUserItemViewHolder(vFriendMessageItem);
+                viewHolder = new ChatUserItemViewHolder(vFriendMessageItem);
                 break;
         }
 
@@ -70,17 +68,17 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case OWN_MESSAGE_ITEM:
-                MessageOwnItemViewHolder vhOwnItem = (MessageOwnItemViewHolder) holder;
+                ChatOwnItemViewHolder vhOwnItem = (ChatOwnItemViewHolder) holder;
                 configureOwnViewHolder(vhOwnItem, position);
                 break;
             case FRIEND_MESSAGE_ITEM:
-                MessageUserItemViewHolder vhUserItem = (MessageUserItemViewHolder) holder;
+                ChatUserItemViewHolder vhUserItem = (ChatUserItemViewHolder) holder;
                 configureFriendViewHolder(vhUserItem, position);
                 break;
         }
     }
 
-    private void configureFriendViewHolder(MessageUserItemViewHolder viewHolder, int position) {
+    private void configureFriendViewHolder(ChatUserItemViewHolder viewHolder, int position) {
         Chat chat = chats.get(position);
         if (chat != null) {
             viewHolder.getTvContent().setText(chat.getContent());
@@ -91,7 +89,7 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    private void configureOwnViewHolder(MessageOwnItemViewHolder viewHolder, int position) {
+    private void configureOwnViewHolder(ChatOwnItemViewHolder viewHolder, int position) {
         Chat chat = chats.get(position);
         if (chat != null) {
             viewHolder.getTvContent().setText(chat.getContent());

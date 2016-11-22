@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.adapters.MessageItemAdapter;
+import com.coderschool.booketplace.adapters.ChatAdapter;
 import com.coderschool.booketplace.models.Chat;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,7 +39,7 @@ public class ChatActivity extends AppCompatActivity {
 
     String uniqueKey;
     ArrayList<Chat> chats;
-    MessageItemAdapter messageItemAdapter;
+    ChatAdapter chatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class ChatActivity extends AppCompatActivity {
                 .child(USERS);
 
         chats = new ArrayList<>();
-        messageItemAdapter = new MessageItemAdapter(this, chats);
-        rvMessageItem.setAdapter(messageItemAdapter);
+        chatAdapter = new ChatAdapter(this, chats);
+        rvMessageItem.setAdapter(chatAdapter);
         rvMessageItem.setLayoutManager(new LinearLayoutManager(this));
         rvMessageItem.scrollToPosition(chats.size() - 1);
     }
@@ -84,7 +84,7 @@ public class ChatActivity extends AppCompatActivity {
                                     User user = dataSnapshot.getValue(User.class);
                                     chat.setUser(user);
                                     chats.add(chat);
-                                    messageItemAdapter.notifyItemInserted(chats.size() - 1);
+                                    chatAdapter.notifyItemInserted(chats.size() - 1);
                                 }
 
                                 @Override

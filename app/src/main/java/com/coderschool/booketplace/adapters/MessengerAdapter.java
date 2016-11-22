@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.models.User;
-import com.coderschool.booketplace.views.MessageViewHolder;
+import com.coderschool.booketplace.views.MessengerViewHolder;
 
 import java.util.ArrayList;
 
@@ -19,14 +19,14 @@ import java.util.ArrayList;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static String EXTRA_CHAT = "chat";
 
     private ArrayList<User> mUsers;
     private Context mContext;
 
-    public MessageAdapter(Context context, ArrayList<User> users) {
+    public MessengerAdapter(Context context, ArrayList<User> users) {
         this.mContext = context;
         this.mUsers = users;
     }
@@ -40,19 +40,19 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         Context context = parent.getContext();
         View messageView = LayoutInflater.from(context)
                 .inflate(R.layout.item_messages, parent, false);
-        return new MessageViewHolder(context, messageView);
+        return new MessengerViewHolder(context, messageView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final User user = mUsers.get(position);
 
-        ((MessageViewHolder)viewHolder).getUsername().setText(user.getName());
+        ((MessengerViewHolder)viewHolder).getUsername().setText(user.getName());
         Glide.with(mContext)
                 .load(user.getAvatar())
-                .into(((MessageViewHolder)viewHolder).getAvatar());
+                .into(((MessengerViewHolder)viewHolder).getAvatar());
 
-        ((MessageViewHolder)viewHolder).itemView
+        ((MessengerViewHolder)viewHolder).itemView
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

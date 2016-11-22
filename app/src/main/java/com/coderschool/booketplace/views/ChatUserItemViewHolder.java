@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageUserItemViewHolder extends RecyclerView.ViewHolder {
+public class ChatUserItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivAvatar)
     ImageView ivAvatar;
@@ -23,7 +23,7 @@ public class MessageUserItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvDate)
     TextView tvDate;
 
-    public MessageUserItemViewHolder(View itemView) {
+    public ChatUserItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

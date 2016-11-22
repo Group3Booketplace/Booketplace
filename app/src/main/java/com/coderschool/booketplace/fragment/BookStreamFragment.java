@@ -62,9 +62,15 @@ public class BookStreamFragment extends BaseFragmemt {
                 .getDatabaseReference()
                 .child(bundle.getString(PARENT))
                 .child(bundle.getString(CHILD));
-        mAdapter = new BookAdapter(reference);
+        mAdapter = new BookAdapter(reference.orderByKey().limitToLast(10));
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(new BookAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+            }
+        });
     }
 }

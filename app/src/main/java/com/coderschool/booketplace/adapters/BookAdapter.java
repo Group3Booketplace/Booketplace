@@ -10,6 +10,15 @@ import com.google.firebase.database.Query;
  */
 
 public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
+
+    public interface OnLoadMoreListener {
+        public void onLoadMore();
+    }
+
+    private OnLoadMoreListener mLoadMoreListener;
+    public void setOnLoadMoreListener(OnLoadMoreListener listener) {
+        mLoadMoreListener = listener;
+    }
     public BookAdapter(Query ref) {
         super(Book.class, R.layout.item_book, BookVH.class, ref);
     }
@@ -17,5 +26,8 @@ public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
     @Override
     protected void populateViewHolder(BookVH viewHolder, Book model, int position) {
         viewHolder.bind(model);
+        if (position == getItemCount() && mLoadMoreListener != null) {
+            mLoadMoreListener.onLoadMore();
+        }
     }
 }

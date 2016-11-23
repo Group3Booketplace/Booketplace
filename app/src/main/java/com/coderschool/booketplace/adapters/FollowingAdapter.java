@@ -54,9 +54,18 @@ public class FollowingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        listener = (OnFollowingUserListener) getContext();
+                        listener.setFollwingUserSelected(user.getUid());
                         // // TODO: 11/23/16 call user profile
                     }
                 });
+    }
+
+
+    private OnFollowingUserListener listener;
+
+    public interface OnFollowingUserListener {
+        public void setFollwingUserSelected(String link);
     }
 
     @Override

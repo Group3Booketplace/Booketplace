@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.BookStreamFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
@@ -38,7 +39,7 @@ import butterknife.OnClick;
 import static com.coderschool.booketplace.R.id.fab;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements FollowingAdapter.OnFollowingUserListener {
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
@@ -360,5 +361,17 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEven(Event.UserClick event) {
         replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
+    }
+
+    @Override
+    public void setFollwingUserSelected(String link) {
+        Runnable mPendingRunnable = () -> {
+            replaceFragment(R.id.frame, UserProfileFragment.newInstance(link), false);
+        };
+
+        // If mPendingRunnable is not null, then add to the message queue
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
     }
 }

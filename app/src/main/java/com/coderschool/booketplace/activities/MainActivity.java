@@ -56,10 +56,10 @@ public class MainActivity extends BaseActivity {
 
     // tags used to attach the fragments
     private static final String TAG_HOME = "home";
-//    private static final String TAG_NOTIFICATIONS = "notifications";
+    //    private static final String TAG_NOTIFICATIONS = "notifications";
     private static final String TAG_MESSAGES = "messages";
     private static final String TAG_PROFLE = "profile";
-//    private static final String TAG_SUBSCRIBE = "subscribe";
+    //    private static final String TAG_SUBSCRIBE = "subscribe";
 //    private static final String TAG_PEOPLE = "people";
     private static final String TAG_FOLLOWING = "following";
     private static final String TAG_SETTINGS = "settings";
@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
 
     private static final int INDEX_HOME = 0;
     private static final int INDEX_MESSAGE = 1;
-//    private static final int INDEX_ACCOUNT = 1;
+    //    private static final int INDEX_ACCOUNT = 1;
     private static final int INDEX_PROFILE = 2;
     private static final int INDEX_FOLLOWING = 3;
     private static final int INDEX_SETTINGS = 4;
@@ -83,6 +83,8 @@ public class MainActivity extends BaseActivity {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
     @Override
@@ -108,6 +110,24 @@ public class MainActivity extends BaseActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
+
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true); // show back button
+                toolbar.setNavigationOnClickListener(v -> onBackPressed());
+                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+            } else {
+                //show hamburger
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                actionBarDrawerToggle.syncState();
+                toolbar.setNavigationOnClickListener(v -> {
+                    drawer.openDrawer(GravityCompat.START);
+                });
+                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            }
+        });
+
     }
 
     @Override
@@ -170,7 +190,6 @@ public class MainActivity extends BaseActivity {
                 return MessengerFragment.newInstance();
             case INDEX_PROFILE: // INDEX_MESSAGE
                 return UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid());
-            // TODO: Setting & Following
             default:
                 return HomeFragment.newInstance();
         }
@@ -196,10 +215,6 @@ public class MainActivity extends BaseActivity {
                     navItemIndex = INDEX_HOME;
                     CURRENT_TAG = TAG_HOME;
                     break;
-//                case R.id.nav_notifications:
-//                    navItemIndex = 1;
-//                    CURRENT_TAG = TAG_NOTIFICATIONS;
-//                    break;
                 case R.id.nav_messages:
                     navItemIndex = INDEX_MESSAGE;
                     CURRENT_TAG = TAG_MESSAGES;
@@ -211,19 +226,6 @@ public class MainActivity extends BaseActivity {
                             UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid()),
                             true);
                     break;
-//                case R.id.nav_subscribe:
-//                    navItemIndex = 4;
-//                    CURRENT_TAG = TAG_SUBSCRIBE;
-//                    break;
-//                case R.id.nav_people:
-//                    navItemIndex = 5;
-//                    CURRENT_TAG = TAG_PEOPLE;
-//                    break;
-//                case R.id.nav_settings:
-//                    navItemIndex = INDEX_SETTINGS;
-//                    CURRENT_TAG = TAG_SETTINGS;
-//                    break;
-
                 case R.id.nav_settings:
                     navItemIndex = INDEX_SETTINGS;
                     CURRENT_TAG = TAG_SETTINGS;
@@ -237,7 +239,6 @@ public class MainActivity extends BaseActivity {
                     drawer.closeDrawers();
                     return true;
                 case R.id.nav_about_us:
-                    // TODO: show webview
                     drawer.closeDrawers();
                     return true;
                 default:
@@ -266,7 +267,7 @@ public class MainActivity extends BaseActivity {
         });
 
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -317,24 +318,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        // show menu only when home fragment is selected
-//        if (navItemIndex == 0) {
-//            getMenuInflater().inflate(R.menu.main, menu);
-//        }
-//
-//         when fragment is notifications, load the menu created for notifications
-//        if (navItemIndex == 3) {
-//            getMenuInflater().inflate(R.menu.notifications, menu);
-//        }
         return true;
     }
 
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        return  intent;
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 
     @Override

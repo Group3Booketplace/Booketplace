@@ -42,6 +42,12 @@ public class BookStreamFragment extends BaseFragmemt {
         return fragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBaseActivity().getSupportActionBar().setTitle("Book list");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

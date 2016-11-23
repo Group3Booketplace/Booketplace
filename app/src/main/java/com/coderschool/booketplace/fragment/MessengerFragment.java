@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.adapters.MessengerAdapter;
+import com.coderschool.booketplace.adapters.MessageAdapter;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +45,7 @@ public class MessengerFragment extends BaseFragmemt {
     FirebaseUser user;
 
     ArrayList<User> mUsers;
-    MessengerAdapter aMessgengers;
+    MessageAdapter aMessgengers;
 
     public static MessengerFragment newInstance() {
         Bundle args = new Bundle();
@@ -86,7 +86,7 @@ public class MessengerFragment extends BaseFragmemt {
 
         mUsers = new ArrayList<>();
 
-        aMessgengers = new MessengerAdapter(getContext(), mUsers);
+        aMessgengers = new MessageAdapter(getContext(), mUsers);
         rvMessages.setAdapter(aMessgengers);
         rvMessages.setLayoutManager(new LinearLayoutManager(getContext()));
 

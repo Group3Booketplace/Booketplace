@@ -1,9 +1,6 @@
 package com.coderschool.booketplace.adapters;
 
-import android.view.View;
-
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.listener.OnItemListener;
 import com.coderschool.booketplace.models.Book;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
@@ -13,17 +10,6 @@ import com.google.firebase.database.Query;
  */
 
 public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
-
-    public interface OnLoadMoreListener {
-        public void onLoadMore();
-    }
-
-    private OnLoadMoreListener mLoadMoreListener;
-    public void setOnLoadMoreListener(OnLoadMoreListener listener) {
-        mLoadMoreListener = listener;
-    }
-    private OnItemListener mOnItemListener;
-
     public BookAdapter(Query ref) {
         super(Book.class, R.layout.item_book, BookVH.class, ref);
     }
@@ -31,18 +17,5 @@ public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
     @Override
     protected void populateViewHolder(BookVH viewHolder, Book model, int position) {
         viewHolder.bind(model);
-        if (position == getItemCount() && mLoadMoreListener != null) {
-            mLoadMoreListener.onLoadMore();
-        }
-        viewHolder.itemView.setOnClickListener(v -> {
-            if (mOnItemListener != null) {
-                mOnItemListener.onItemClick(model);
-            }
-        });
     }
-
-    public void setOnItemListener(OnItemListener listener) {
-        mOnItemListener = listener;
-    }
-
 }

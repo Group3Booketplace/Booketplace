@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.adapters.MessengerAdapter;
+import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,16 +27,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by vinh on 11/15/16.
+ * Created by vinh on 11/23/16.
  */
 
-public class MessengerFragment extends BaseFragmemt {
+public class FollowingFragment extends BaseFragmemt {
 
-    public static final String MESSENGER = "users-messenger";
+    public static final String MESSENGER = "users-followings";
     public static final String USERS = "users";
 
-    @BindView(R.id.rvMessengers)
-    RecyclerView rvMessengers;
+    @BindView(R.id.rvFollowings)
+    RecyclerView rvFollowings;
 
 
     DatabaseReference mMessengerDatabaseRef;
@@ -45,12 +45,12 @@ public class MessengerFragment extends BaseFragmemt {
     FirebaseUser user;
 
     ArrayList<User> mUsers;
-    MessengerAdapter aMessgengers;
+    FollowingAdapter aFollowings;
 
-    public static MessengerFragment newInstance() {
+    public static FollowingFragment newInstance() {
         Bundle args = new Bundle();
 
-        MessengerFragment fragment = new MessengerFragment();
+        FollowingFragment fragment = new FollowingFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,21 +74,20 @@ public class MessengerFragment extends BaseFragmemt {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_messenger, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_following, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(getBaseActivity(), "Messenger", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseActivity(), "Followings", Toast.LENGTH_SHORT).show();
         ButterKnife.bind(this, view);
 
         mUsers = new ArrayList<>();
 
-        aMessgengers = new MessengerAdapter(getContext(), mUsers);
-        rvMessengers.setAdapter(aMessgengers);
-        rvMessengers.setLayoutManager(new LinearLayoutManager(getContext()));
+        aFollowings = new FollowingAdapter(getContext(), mUsers);
+        rvFollowings.setAdapter(aFollowings);
+        rvFollowings.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mMessengerDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -102,7 +101,7 @@ public class MessengerFragment extends BaseFragmemt {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
                                     mUsers.add(user);
-                                    aMessgengers.notifyItemChanged(mUsers.size() - 1);
+                                    aFollowings.notifyItemChanged(mUsers.size() - 1);
                                 }
 
                                 @Override
@@ -123,7 +122,7 @@ public class MessengerFragment extends BaseFragmemt {
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getSupportActionBar().setTitle("Messages");
+        getBaseActivity().getSupportActionBar().setTitle("Followings");
     }
 }
 

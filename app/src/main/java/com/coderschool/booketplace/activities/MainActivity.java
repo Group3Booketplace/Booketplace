@@ -19,6 +19,7 @@ import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.BookStreamFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
+import com.coderschool.booketplace.fragment.FollowingFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
 import com.coderschool.booketplace.fragment.NewPostFragment;
@@ -171,6 +172,8 @@ public class MainActivity extends BaseActivity {
             case INDEX_PROFILE: // INDEX_MESSAGE
                 return UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid());
             // TODO: Setting & Following
+            case INDEX_FOLLOWING:
+                return FollowingFragment.newInstance();
             default:
                 return HomeFragment.newInstance();
         }
@@ -223,7 +226,10 @@ public class MainActivity extends BaseActivity {
 //                    navItemIndex = INDEX_SETTINGS;
 //                    CURRENT_TAG = TAG_SETTINGS;
 //                    break;
-
+                case R.id.nav_following:
+                    navItemIndex = INDEX_FOLLOWING;
+                    CURRENT_TAG = TAG_FOLLOWING;
+                    break;
                 case R.id.nav_settings:
                     navItemIndex = INDEX_SETTINGS;
                     CURRENT_TAG = TAG_SETTINGS;

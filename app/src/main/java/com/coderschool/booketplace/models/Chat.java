@@ -1,9 +1,18 @@
 package com.coderschool.booketplace.models;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by vinh on 11/15/16.
  */
 public class Chat {
+
+    private static String UID = "uid";
+    private static String CONTENT = "content";
+    private static String DATE = "date";
 
     private String uid;
     private String content;
@@ -12,6 +21,22 @@ public class Chat {
 
     public Chat() {
 
+    }
+
+    public Chat(String uid, String content, String date) {
+        this.uid = uid;
+        this.content = content;
+        this.date = date;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put(UID, uid);
+        result.put(CONTENT, content);
+        result.put(DATE, date);
+
+        return result;
     }
 
     public void setUid(String uid) {

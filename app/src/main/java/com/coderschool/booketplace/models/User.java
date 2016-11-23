@@ -26,9 +26,6 @@ public class User {
     private ArrayList<Rating> ratings;
     private ArrayList<Book> ownerBooks;
     private ArrayList<Book> subscribedBooks;
-    private ArrayList<User> followings;
-    private ArrayList<User> followers;
-    private ArrayList<Message> messages;
 
     public static User createExampleMessage() {
         User user = new User();
@@ -49,9 +46,6 @@ public class User {
     public static final String RATINGS = "ratings";
     public static final String OWNER_BOOKS = "ownerBooks";
     public static final String SUBSCRIBED_BOOK = "subscribedBooks";
-    public static final String FOLLOWINGS = "followings";
-    public static final String FOLLOWERS = "followers";
-    public static final String MESSAGES = "messages";
     public static final String LOCATION = "location";
     public static final String UID = "uid";
 
@@ -67,10 +61,7 @@ public class User {
         this.ratingOverall = 0;
         this.ownerBooks = new ArrayList<>();
         this.ratings = new ArrayList<>();
-        this.followers = new ArrayList<>();
-        this.followings = new ArrayList<>();
         this.subscribedBooks = new ArrayList<>();
-        this.messages = new ArrayList<>();
 
         // add more
         this.uid = user.getUid();
@@ -89,10 +80,7 @@ public class User {
         result.put(RATING_OVERALL, ratingOverall);
         result.put(RATINGS, ratings);
         result.put(OWNER_BOOKS, ownerBooks);
-        result.put(FOLLOWERS, followers);
-        result.put(FOLLOWINGS, followings);
         result.put(SUBSCRIBED_BOOK, subscribedBooks);
-        result.put(MESSAGES, messages);
         result.put(LOCATION, location);
 
         // add more
@@ -185,18 +173,6 @@ public class User {
 
     public ArrayList<Book> getSubscribedBooks() {
         return subscribedBooks;
-    }
-
-    public ArrayList<User> getFollowings() {
-        return followings;
-    }
-
-    public ArrayList<User> getFollowers() {
-        return followers;
-    }
-
-    public ArrayList<Message> getMessages() {
-        return messages;
     }
 
     public String getLocation() {

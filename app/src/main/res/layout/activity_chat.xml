@@ -7,10 +7,19 @@
     tools:context="com.coderschool.booketplace.activities.ChatActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMessageItem"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rvMessageItem">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/itemChatBar"
+        android:layout_alignParentTop="true">
 
     </android.support.v7.widget.RecyclerView>
 
+    <include
+        android:id="@+id/itemChatBar"
+        layout="@layout/item_chat_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
+

@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.models.User;
-import com.coderschool.booketplace.views.MessengerViewHolder;
+import com.coderschool.booketplace.views.MessageViewHolder;
 
 import java.util.ArrayList;
 
@@ -39,20 +39,20 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View messageView = LayoutInflater.from(context)
-                .inflate(R.layout.item_messages, parent, false);
-        return new MessengerViewHolder(context, messageView);
+                .inflate(R.layout.item_messenger, parent, false);
+        return new MessageViewHolder(context, messageView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final User user = mUsers.get(position);
 
-        ((MessengerViewHolder)viewHolder).getUsername().setText(user.getName());
+        ((MessageViewHolder)viewHolder).getUsername().setText(user.getName());
         Glide.with(mContext)
                 .load(user.getAvatar())
-                .into(((MessengerViewHolder)viewHolder).getAvatar());
+                .into(((MessageViewHolder)viewHolder).getAvatar());
 
-        ((MessengerViewHolder)viewHolder).itemView
+        ((MessageViewHolder)viewHolder).itemView
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -328,8 +328,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-<<<<<<< HEAD
-=======
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
@@ -344,7 +342,6 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
         });
->>>>>>> dat/search
         return true;
     }
 

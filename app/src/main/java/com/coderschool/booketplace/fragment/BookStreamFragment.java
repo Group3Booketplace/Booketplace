@@ -12,7 +12,7 @@ import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.BookAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,13 +57,16 @@ public class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         Bundle bundle = getArguments();
-        DatabaseReference reference = FirebaseApi
+        Query reference = FirebaseApi
                 .getInstance()
                 .getDatabaseReference()
                 .child(bundle.getString(PARENT))
                 .child(bundle.getString(CHILD));
+//                .endAt("Mon Nov 21 18:49:20 +07:00 2016")
+//                .limitToLast(25);
         mAdapter = new BookAdapter(reference);
-        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true);
+        mLayoutManager.setStackFromEnd(true);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
     }

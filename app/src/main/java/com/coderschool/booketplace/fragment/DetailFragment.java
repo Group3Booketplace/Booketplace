@@ -57,7 +57,6 @@ public class DetailFragment extends BaseFragmemt {
     private LinearLayoutManager mLayoutManager;
     private PhotoAdapter mAdapter;
 
-
     public static DetailFragment newInstance(Book book) {
 
         Bundle args = new Bundle();

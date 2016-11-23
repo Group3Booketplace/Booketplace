@@ -12,10 +12,12 @@ import com.google.firebase.database.Query;
 public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
     public BookAdapter(Query ref) {
         super(Book.class, R.layout.item_book, BookVH.class, ref);
+
     }
 
     @Override
     protected void populateViewHolder(BookVH viewHolder, Book model, int position) {
         viewHolder.bind(model);
+
     }
 }

@@ -50,6 +50,8 @@ public class NewPostFragment extends BaseFragmemt {
     EditText etDescription;
     @BindView(R.id.spCondition)
     Spinner spCondition;
+    @BindView(R.id.etBookLocation)
+    EditText etLocation;
 
 
     private ArrayList<Bitmap> mSelectedBitmaps;
@@ -127,6 +129,39 @@ public class NewPostFragment extends BaseFragmemt {
                 Toast.makeText(mActivity, "Can't upload", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean isFormValid() {
+        boolean result = true;
+        if (mSelectedBitmaps == null) {
+            Toast.makeText(mActivity, "You must choose a picture", Toast.LENGTH_SHORT).show();
+            result = false;
+        }
+
+        if (etName.getText().toString().isEmpty()) {
+            etName.setError(getString(R.string.require));
+            result = false;
+        }
+
+        if (etAuthor.getText().toString().isEmpty()) {
+            etAuthor.setError(getString(R.string.require));
+            result = false;
+        }
+
+        if (etPrice.getText().toString().isEmpty()) {
+            etPrice.setError(getString(R.string.require));
+            result = false;
+        }
+        if (etDescription.getText().toString().isEmpty()) {
+            etDescription.setError(getString(R.string.require));
+            result = false;
+        }
+        if (etLocation.getText().toString().isEmpty()) {
+            etLocation.setError(getString(R.string.require));
+            result = false;
+        }
+
+        return result;
     }
 
 }

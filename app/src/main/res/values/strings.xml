@@ -35,4 +35,5 @@
     <string name="manga_description">Description</string>
     <string name="manga_sell">Sell</string>
     <string name="manga_condition">Condition</string>
+    <string name="require">Require</string>
 </resources>

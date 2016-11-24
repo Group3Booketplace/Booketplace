@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        android:title="I wanna sell sth"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        />
     <ImageView
         android:id="@+id/ivBook"
         android:layout_width="@dimen/ivBookDimen"
@@ -14,6 +25,7 @@
         android:src="@drawable/gallery_placeholder"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_below="@id/toolbar"
         android:layout_marginLeft="@dimen/base_margin"
         android:layout_marginTop="@dimen/base_margin"/>
 
@@ -63,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_condition"/>
+            android:src="@drawable/ic_category"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"

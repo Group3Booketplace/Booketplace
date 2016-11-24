@@ -363,7 +363,6 @@ public class MainActivity extends BaseActivity {
             startActivity(LoginActivity.getIntent(this));
         } else {
             startActivity(NewPostActivity.getIntent(this));
-            toolbar.setTitle(R.string.manga_sell);
         }
     }
 

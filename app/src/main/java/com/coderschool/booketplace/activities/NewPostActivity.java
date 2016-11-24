@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,6 +49,8 @@ public class NewPostActivity extends BaseActivity {
     Spinner spCondition;
     @BindView(R.id.etBookLocation)
     EditText etLocation;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     private Bitmap mSelectedBitmap;
 
     @Override
@@ -55,6 +58,7 @@ public class NewPostActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
     }
 
     public static Intent getIntent(Context context) {

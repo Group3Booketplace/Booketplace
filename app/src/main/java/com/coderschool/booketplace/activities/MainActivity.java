@@ -24,7 +24,6 @@ import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.FollowingFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
-import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
 import com.coderschool.booketplace.fragment.UserProfileFragment;
 import com.coderschool.booketplace.utils.Event;
@@ -363,7 +362,7 @@ public class MainActivity extends BaseActivity {
             // TODO: show a dialog said that user need to sign in first
             startActivity(LoginActivity.getIntent(this));
         } else {
-            replaceFragment(R.id.frame, NewPostFragment.newInstance(), true);
+            startActivity(NewPostActivity.getIntent(this));
             toolbar.setTitle(R.string.manga_sell);
         }
     }

@@ -19,7 +19,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,28 +86,24 @@ public class FirebaseApi {
     /**
      * Write new book to database
       * @param book
-     * @param bitmaps
+     * @param bitmap
      * @param listener
      */
-    public void writeNewBook(Book book, ArrayList<Bitmap> bitmaps, FirebaseResultListener listener) {
+    public void writeNewBook(Book book, Bitmap bitmap, FirebaseResultListener listener) {
         String key = bookDatabaseRef.push().getKey();
         book.setKey(key);
-        for (int i = 0; i < bitmaps.size(); i++) {
-            Bitmap bitmap = bitmaps.get(i);
+        Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
 
-            Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
+        UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
 
-            UploadTask task = bookStorageRef.child(key).child(String.valueOf(i)).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+        int width = resizedBitmap.getWidth();
+        int height = resizedBitmap.getHeight();
 
-            int width = resizedBitmap.getWidth();
-            int height = resizedBitmap.getHeight();
-
-            book.addImage(new Image(width, height));
-            task.addOnSuccessListener(taskSnapshot -> {
-                Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
+        book.addImage(new Image(width, height));
+        task.addOnSuccessListener(taskSnapshot -> {
+            Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
 //                    listener.onSuccess();
-            }).addOnFailureListener(e -> listener.onFail());
-        }
+        }).addOnFailureListener(e -> listener.onFail());
         Map<String, Object> bookValue = book.toMap();
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/books/" + key, bookValue);

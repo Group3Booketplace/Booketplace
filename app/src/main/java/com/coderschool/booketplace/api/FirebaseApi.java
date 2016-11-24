@@ -1,6 +1,8 @@
 package com.coderschool.booketplace.api;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.support.v7.graphics.Palette;
 
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
@@ -98,12 +100,13 @@ public class FirebaseApi {
         Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
 
         UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+        int color = Palette.from(resizedBitmap).generate().getVibrantColor(Color.WHITE);
 
         int width = resizedBitmap.getWidth();
         int height = resizedBitmap.getHeight();
 
         task.addOnSuccessListener(taskSnapshot -> {
-            book.addImage(new Image(width, height, taskSnapshot.getDownloadUrl().toString()));
+            book.addImage(new Image(width, height, taskSnapshot.getDownloadUrl().toString(), color));
             Map<String, Object> bookValue = book.toMap();
             Map<String, Object> childUpdate = new HashMap<>();
             childUpdate.put("/books/" + book.getCategory().toLowerCase() + "/" + key, bookValue);

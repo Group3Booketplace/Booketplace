@@ -2,20 +2,19 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.adapters.PhotoAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.User;
@@ -43,8 +42,8 @@ public class DetailFragment extends BaseFragmemt {
     TextView tvName;
     @BindView(R.id.tvPrice)
     TextView tvPrice;
-    @BindView(R.id.rvPhoto)
-    RecyclerView rvPhoto;
+    @BindView(R.id.ivPhoto)
+    ImageView ivPhoto;
     @BindView(R.id.tvDescription)
     TextView tvDescription;
     @BindView(R.id.tvSeller)
@@ -53,10 +52,6 @@ public class DetailFragment extends BaseFragmemt {
     RatingBar ratingBar;
 
     private Book book;
-
-    private LinearLayoutManager mLayoutManager;
-    private PhotoAdapter mAdapter;
-
     public static DetailFragment newInstance(Book book) {
 
         Bundle args = new Bundle();
@@ -86,10 +81,9 @@ public class DetailFragment extends BaseFragmemt {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
         tvDescription.setText(book.getDescription());
-        mAdapter = new PhotoAdapter(mActivity, book.getKey(), 1);
-        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
-        rvPhoto.setAdapter(mAdapter);
-        rvPhoto.setLayoutManager(mLayoutManager);
+        Glide.with(mActivity)
+                .load(book.getImage().getUrl())
+                .into(ivPhoto);
         getUser(book);
     }
 

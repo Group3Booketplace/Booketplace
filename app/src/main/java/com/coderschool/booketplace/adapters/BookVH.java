@@ -12,7 +12,6 @@ import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.DateUtils;
 import com.coderschool.booketplace.utils.Event;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -54,8 +53,7 @@ public class BookVH extends RecyclerView.ViewHolder {
         tvDescription.setText(book.getDescription());
         tvCondition.setText(book.getCondition());
         Glide.with(itemView.getContext())
-                .using(new FirebaseImageLoader())
-                .load(FirebaseApi.getInstance().getBookImageStorage(book.getKey(), 0))
+                .load(book.getImage().getUrl())
                 .into(ivBook);
         FirebaseApi.getInstance().getUserDatabaseRef().child(book.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -35,7 +35,8 @@ public class Book {
     private String publisher;
     private String imageHeader;
     private String key;
-    private String currency;
+    private String category;
+    private String location;
 
     // firebase key
     public static final String AUTHOR = "author";
@@ -54,7 +55,8 @@ public class Book {
     public static final String PUBLISHER = "publisher";
     public static final String KEY = "key";
     public static final String IMAGE_HEADER = "imageHeader";
-
+    public static final String CATEGORY = "category";
+    public static final String LOCATION = "location";
 
     // constructor for firebase
     public Book() {}
@@ -62,7 +64,7 @@ public class Book {
     // construct to create new book
 
 
-    public Book(String author, String condition, String description, String name, String price, String currency, String user) {
+    public Book(String name, String author, String category, String price, String currency, String description, String condition, String location, String user) {
         this.author = author;
         this.condition = condition.toLowerCase();
         this.createdDate = DateUtils.getStringDate();
@@ -72,6 +74,9 @@ public class Book {
         this.sell = false;
         this.images = new ArrayList<>();
         this.user = user;
+        this.category = category;
+        this.location = location;
+
         // mock data
         this.publisher = "NXB Tre";
         this.discount = 99;
@@ -101,6 +106,8 @@ public class Book {
         result.put(ISBN_10, isbn_10);
         result.put(DISCOUNT, discount);
         result.put(IMAGE_HEADER, imageHeader);
+        result.put(LOCATION, location);
+        result.put(CATEGORY, category);
 
         return result;
     }

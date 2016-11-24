@@ -20,6 +20,7 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.BookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.FollowingFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
@@ -187,7 +188,8 @@ public class MainActivity extends BaseActivity {
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case INDEX_HOME:
-                return BookStreamFragment.newInstance(FirebaseApi.BOOKS, "");
+//                return BookStreamFragment.newInstance(FirebaseApi.BOOKS, "");
+                return CategoryFragment.newInstance();
             case INDEX_MESSAGE:
                 return MessengerFragment.newInstance();
             case INDEX_PROFILE: // INDEX_MESSAGE
@@ -374,5 +376,10 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEven(Event.UserClick event) {
         replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.CategoryClick event) {
+        replaceFragment(R.id.frame, BookStreamFragment.newInstance(FirebaseApi.BOOKS, ""), true);
     }
 }

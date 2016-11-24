@@ -49,6 +49,8 @@ public class NewPostActivity extends BaseActivity {
     Spinner spCondition;
     @BindView(R.id.etBookLocation)
     EditText etLocation;
+    @BindView(R.id.spCategory)
+    Spinner spCategory;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     private Bitmap mSelectedBitmap;
@@ -95,13 +97,16 @@ public class NewPostActivity extends BaseActivity {
     public void onSell(View view) {
         if (isFormValid()) {
             Book book = new Book(
-                    etAuthor.getText().toString(),
-                    spCondition.getSelectedItem().toString(),
-                    etDescription.getText().toString(),
                     etName.getText().toString(),
+                    etAuthor.getText().toString(),
+                    spCategory.getSelectedItem().toString(),
                     etPrice.getText().toString(),
                     spCurrency.getSelectedItem().toString(),
-                    FirebaseApi.getInstance().getUser().getUid());
+                    etDescription.getText().toString(),
+                    spCondition.getSelectedItem().toString(),
+                    etLocation.getText().toString(),
+                    FirebaseApi.getInstance().getUser().getUid()
+            );
             FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmap, new FirebaseApi.FirebaseResultListener() {
                 @Override
                 public void onSuccess() {

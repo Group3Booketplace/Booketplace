@@ -86,7 +86,7 @@ public class DetailFragment extends BaseFragmemt {
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
         tvDescription.setText(book.getDescription());
-        mAdapter = new PhotoAdapter(mActivity, book.getKey(), book.getImages().size());
+        mAdapter = new PhotoAdapter(mActivity, book.getKey(), 1);
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         rvPhoto.setAdapter(mAdapter);
         rvPhoto.setLayoutManager(mLayoutManager);

@@ -1,7 +1,6 @@
 package com.coderschool.booketplace.api;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
@@ -99,18 +98,15 @@ public class FirebaseApi {
         int width = resizedBitmap.getWidth();
         int height = resizedBitmap.getHeight();
 
-        book.addImage(new Image(width, height));
         task.addOnSuccessListener(taskSnapshot -> {
-            Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
-//                    listener.onSuccess();
+            book.addImage(new Image(width, height, taskSnapshot.getDownloadUrl().toString()));
+            Map<String, Object> bookValue = book.toMap();
+            Map<String, Object> childUpdate = new HashMap<>();
+            childUpdate.put("/books/" + key, bookValue);
+            childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
+            database.getReference().updateChildren(childUpdate);
         }).addOnFailureListener(e -> listener.onFail());
-        Map<String, Object> bookValue = book.toMap();
-        Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/books/" + key, bookValue);
-        childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
-        database.getReference().updateChildren(childUpdate);
     }
-
 
     public StorageReference getBookImageStorage(String key, int position) {
         return bookStorageRef.child(key).child(String.valueOf(position));

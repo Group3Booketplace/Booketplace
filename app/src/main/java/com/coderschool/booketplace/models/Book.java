@@ -6,7 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import org.parceler.Parcel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class Book {
     private String price;
     private Boolean sell;
     private String user;
-    private ArrayList<Image> images;
+    private Image image;
     private String publishedDate;
     private String publisher;
     private String imageHeader;
@@ -46,7 +45,7 @@ public class Book {
     public static final String NAME = "name";
     public static final String PRICE = "price";
     public static final String SELL = "sell";
-    public static final String IMAGES_URL = "images";
+    public static final String IMAGES_URL = "image";
     public static final String USER = "user";
     public static final String ISBN_10 = "isbn_10";
     public static final String DISCOUNT = "discount";
@@ -72,7 +71,6 @@ public class Book {
         this.name = name;
         this.price = price + " " + currency;
         this.sell = false;
-        this.images = new ArrayList<>();
         this.user = user;
         this.category = category;
         this.location = location;
@@ -98,7 +96,7 @@ public class Book {
         result.put(PRICE, price);
         result.put(SELL, sell);
         result.put(USER, user);
-        result.put(IMAGES_URL, images);
+        result.put(IMAGES_URL, image);
         result.put(KEY, key);
         result.put(MODIFIED_DATE, modifiedDate);
         result.put(PUBLISHED_DATE, publishedDate);
@@ -119,7 +117,7 @@ public class Book {
 //    }
 
     public void addImage(Image image) {
-        this.images.add(image);
+        this.image = image;
     }
     public void setKey(String key) {
         this.key = key;
@@ -153,8 +151,8 @@ public class Book {
         return price;
     }
 
-    public ArrayList<Image> getImages() {
-        return images;
+    public Image getImage() {
+        return image;
     }
 
     public String getIsbn_10() {

@@ -22,4 +22,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="new_post_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@android:color/background_dark</item>
+    </style>
+
 </resources>

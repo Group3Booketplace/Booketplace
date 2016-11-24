@@ -108,27 +108,29 @@ public class NewPostFragment extends BaseFragmemt {
 
     @OnClick(R.id.btn_sell)
     public void onSell(View view) {
-        Book book = new Book(
-                etAuthor.getText().toString(),
-                spCondition.getSelectedItem().toString(),
-                etDescription.getText().toString(),
-                etName.getText().toString(),
-                etPrice.getText().toString(),
-                spCurrency.getSelectedItem().toString(),
-                FirebaseApi.getInstance().getUser().getUid());
-        FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmaps, new FirebaseApi.FirebaseResultListener() {
-            @Override
-            public void onSuccess() {
-                // TODO: finish uploading
-                mActivity.getSupportFragmentManager().beginTransaction().remove(NewPostFragment.this).commit();
-            }
+        if (isFormValid()) {
+            Book book = new Book(
+                    etAuthor.getText().toString(),
+                    spCondition.getSelectedItem().toString(),
+                    etDescription.getText().toString(),
+                    etName.getText().toString(),
+                    etPrice.getText().toString(),
+                    spCurrency.getSelectedItem().toString(),
+                    FirebaseApi.getInstance().getUser().getUid());
+            FirebaseApi.getInstance().writeNewBook(book, mSelectedBitmaps, new FirebaseApi.FirebaseResultListener() {
+                @Override
+                public void onSuccess() {
+                    // TODO: finish uploading
+                    mActivity.getSupportFragmentManager().beginTransaction().remove(NewPostFragment.this).commit();
+                }
 
-            @Override
-            public void onFail() {
-                // TODO: prompt error
-                Toast.makeText(mActivity, "Can't upload", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFail() {
+                    // TODO: prompt error
+                    Toast.makeText(mActivity, "Can't upload", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private boolean isFormValid() {

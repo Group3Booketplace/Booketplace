@@ -5,7 +5,7 @@
     <string name="condition_old">Old</string>
     <string name="price_lo2hi">Low to high</string>
     <string name="price_hi2lo">High to low</string>
-    <string name="vnd">vnd</string>
+    <string name="vnd">đ</string>
 
     <string name="us_dollar">$</string>
     <string name="manga">Manga</string>

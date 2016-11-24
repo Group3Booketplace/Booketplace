@@ -33,8 +33,8 @@ public class BookVH extends RecyclerView.ViewHolder {
     TextView tvName;
     @BindView(R.id.tvPrice)
     TextView tvPrice;
-    @BindView(R.id.tvDescription)
-    TextView tvDescription;
+//    @BindView(R.id.tvDescription)
+//    TextView tvDescription;
     @BindView(R.id.tvCondition)
     TextView tvCondition;
     @BindView(R.id.tvSeller)
@@ -50,7 +50,7 @@ public class BookVH extends RecyclerView.ViewHolder {
         this.book = book;
         tvName.setText(book.getName());
         tvPrice.setText(book.getPrice());
-        tvDescription.setText(book.getDescription());
+//        tvDescription.setText(book.getDescription());
         tvCondition.setText(book.getCondition());
         Glide.with(itemView.getContext())
                 .load(book.getImage().getUrl())

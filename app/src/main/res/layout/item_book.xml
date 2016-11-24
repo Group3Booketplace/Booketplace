@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="4dp"
+    android:layout_margin="8dp"
     android:id="@+id/itemBook"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -13,20 +12,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        >
         <FrameLayout
             android:id="@+id/ivFrame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/ivBook"
-                android:layout_width="@dimen/ivBookWidth"
-                android:layout_height="@dimen/ivBookHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/book_placeholder"/>
@@ -37,47 +35,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Naruto"
-            android:layout_toRightOf="@id/ivFrame"
-            android:textStyle="bold"
+            android:layout_below="@id/ivFrame"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvName"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:layout_toRightOf="@id/ivFrame"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
             android:textColor="@android:color/background_dark"
-            tools:text="Bán Apple iPad Air 2 Wi-fi + Cellular 64Gb... Máy màu vàng (Gold); dung lượng 64Gb; đang dùng iOS 10.1.1 mượt mà. Hàng phân phối cho thị trường" />
-        <TextView
-            android:id="@+id/tvSeller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ivFrame"
-            android:layout_below="@id/tvDescription"
-            tools:text="Sell by Tran Quang Dat Today at 10:30pm "
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/darker_gray"/>
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+        <!--<TextView-->
+            <!--android:id="@+id/tvDescription"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/tvName"-->
+            <!--android:maxLines="3"-->
+            <!--android:ellipsize="end"-->
+            <!--android:layout_toRightOf="@id/ivFrame"-->
+            <!--android:textColor="@android:color/background_dark"-->
+            <!--tools:text="Bán Apple iPad Air 2 Wi-fi + Cellular 64Gb... Máy màu vàng (Gold); dung lượng 64Gb; đang dùng iOS 10.1.1 mượt mà. Hàng phân phối cho thị trường" />-->
+
 
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="99000"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="@android:color/holo_green_dark" />
+            android:layout_below="@id/tvName"
+            android:textStyle="bold"
+            android:layout_alignLeft="@id/tvName"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimary" />
         <TextView
             android:id="@+id/tvCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ivFrame"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/tvName"
             tools:text="7 min ago"
+            android:layout_alignRight="@id/ivFrame"
+            android:layout_marginRight="4dp"
+            android:textColor="@android:color/darker_gray"/>
+        <TextView
+            android:id="@+id/tvSeller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPrice"
+            tools:text="Sell by Tran Quang Dat Today at 10:30pm "
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/darker_gray"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

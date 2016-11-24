@@ -112,9 +112,6 @@ public class FirebaseApi {
         }).addOnFailureListener(e -> listener.onFail());
     }
 
-    public StorageReference getBookImageStorage(String key, int position) {
-        return bookStorageRef.child(key).child(String.valueOf(position));
-    }
 
     public void writeUser(FirebaseUser firebaseUser, AccessToken token) {
         User user = new User(firebaseUser);

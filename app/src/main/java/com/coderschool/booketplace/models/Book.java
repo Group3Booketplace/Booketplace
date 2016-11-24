@@ -186,6 +186,14 @@ public class Book {
     public String getImageHeader() {
         return imageHeader;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }
 
 

@@ -19,7 +19,7 @@ import android.view.View;
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.coderschool.booketplace.fragment.BookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryBookStreamFragment;
 import com.coderschool.booketplace.fragment.CategoryFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.FollowingFragment;
@@ -380,6 +380,6 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.CategoryClick event) {
-        replaceFragment(R.id.frame, BookStreamFragment.newInstance(FirebaseApi.BOOKS, ""), true);
+        replaceFragment(R.id.frame, CategoryBookStreamFragment.newInstance(event.getCategory()), true);
     }
 }

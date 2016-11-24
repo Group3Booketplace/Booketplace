@@ -38,10 +38,12 @@ public class FirebaseApi {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private DatabaseReference userBookDatabaseRef;
     private DatabaseReference bookDatabaseRef;
     private DatabaseReference userDatabaseRef;
     private FirebaseStorage storage;
     private StorageReference bookStorageRef;
+
 
 
     // firebase key
@@ -77,9 +79,11 @@ public class FirebaseApi {
         database = FirebaseDatabase.getInstance();
         bookDatabaseRef = database.getReference().child(BOOKS);
         userDatabaseRef = database.getReference().child(USERS);
+        userBookDatabaseRef = database.getReference().child(USER_BOOKS);
         databaseReference = database.getReference();
         storage = FirebaseStorage.getInstance();
         bookStorageRef = storage.getReference().child(BOOKS);
+
     }
 
     /**
@@ -102,7 +106,7 @@ public class FirebaseApi {
             book.addImage(new Image(width, height, taskSnapshot.getDownloadUrl().toString()));
             Map<String, Object> bookValue = book.toMap();
             Map<String, Object> childUpdate = new HashMap<>();
-            childUpdate.put("/books/" + key, bookValue);
+            childUpdate.put("/books/" + book.getCategory().toLowerCase() + "/" + key, bookValue);
             childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
             database.getReference().updateChildren(childUpdate);
         }).addOnFailureListener(e -> listener.onFail());
@@ -175,6 +179,10 @@ public class FirebaseApi {
 
     public DatabaseReference getUserDatabaseRef() {
         return userDatabaseRef;
+    }
+
+    public DatabaseReference getUserBookDatabaseRef() {
+        return userBookDatabaseRef;
     }
 
     public DatabaseReference getDatabaseReference() {

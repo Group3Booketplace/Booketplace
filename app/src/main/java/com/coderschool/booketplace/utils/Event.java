@@ -40,6 +40,10 @@ public class Event {
         public CategoryClick(String category) {
             this.category = category;
         }
+
+        public String getCategory() {
+            return category;
+        }
     }
 
 }

@@ -81,7 +81,7 @@ public class UserProfileFragment extends BaseFragmemt {
         });
         getChildFragmentManager()
                 .beginTransaction()
-                .add(R.id.containder, BookStreamFragment.newInstance(FirebaseApi.USER_BOOKS, uid), uid)
+                .add(R.id.containder, UserBookStreamFragment.newInstance(uid), UID)
                 .commit();
     }
 

@@ -45,8 +45,11 @@ public class UserProfileFragment extends BaseFragmemt {
     TextView tvName;
     @BindView(R.id.tvLocation)
     TextView tvLocation;
+    @BindView(R.id.ivProfileBackground)
+    ImageView ivProfileBackground;
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
+
 
     @Nullable
     @Override
@@ -69,6 +72,7 @@ public class UserProfileFragment extends BaseFragmemt {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 Picasso.with(mActivity).load(user.getAvatar()).into(ivProfile);
+                Picasso.with(mActivity).load(user.getAvatar()).into(ivProfileBackground);
                 tvName.setText(user.getName());
                 tvLocation.setText(user.getLocation());
                 ratingBar.setRating(user.getRatingOverall());

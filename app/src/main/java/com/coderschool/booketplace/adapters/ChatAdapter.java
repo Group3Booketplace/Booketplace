@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+import static com.coderschool.booketplace.utils.DateUtils.getRelativeTimeAgo;
+
 /**
  * Created by vinh on 11/15/16.
  */
@@ -82,7 +84,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Chat chat = chats.get(position);
         if (chat != null) {
             viewHolder.getTvContent().setText(chat.getContent());
-            viewHolder.getTvDate().setText(chat.getDate());
+            viewHolder.getTvDate().setText(getRelativeTimeAgo(chat.getDate()));
             Glide.with(mContext)
                     .load(chat.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());
@@ -93,7 +95,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Chat chat = chats.get(position);
         if (chat != null) {
             viewHolder.getTvContent().setText(chat.getContent());
-            viewHolder.getTvDate().setText(chat.getDate().toString());
+            viewHolder.getTvDate().setText(getRelativeTimeAgo(chat.getDate()));
             Glide.with(mContext)
                     .load(chat.getUser().getAvatar())
                     .into(viewHolder.getIvAvatar());

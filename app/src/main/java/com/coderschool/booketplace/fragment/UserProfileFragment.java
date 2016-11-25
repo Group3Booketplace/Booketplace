@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by dattran on 11/18/16.
@@ -83,6 +84,16 @@ public class UserProfileFragment extends BaseFragmemt {
                 .beginTransaction()
                 .add(R.id.containder, UserBookStreamFragment.newInstance(uid), UID)
                 .commit();
+    }
+
+    @OnClick(R.id.btnFollow)
+    public void onFollow() {
+
+    }
+
+    @OnClick(R.id.btnChat)
+    public void onChat() {
+
     }
 
 }

@@ -2,6 +2,8 @@ package com.coderschool.booketplace.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +41,8 @@ public class BookVH extends RecyclerView.ViewHolder {
     TextView tvCondition;
     @BindView(R.id.tvSeller)
     TextView tvSeller;
+    @BindView(R.id.ivFrame)
+    FrameLayout ivFrame;
     Book book;
 
     public BookVH(View itemView) {
@@ -52,8 +56,12 @@ public class BookVH extends RecyclerView.ViewHolder {
         tvPrice.setText(book.getPrice());
 //        tvDescription.setText(book.getDescription());
         tvCondition.setText(book.getCondition());
+        ViewGroup.LayoutParams layoutParams = ivBook.getLayoutParams();
+
+
         Glide.with(itemView.getContext())
                 .load(book.getImage().getUrl())
+//                .placeholder(BitmapUtils.placeholder(itemView.getContext(), book.getImage(), itemView.getWidth()))
                 .into(ivBook);
         FirebaseApi.getInstance().getUserDatabaseRef().child(book.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

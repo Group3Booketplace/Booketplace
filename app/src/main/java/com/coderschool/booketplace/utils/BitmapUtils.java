@@ -3,10 +3,12 @@ package com.coderschool.booketplace.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.models.Image;
 
 import java.io.ByteArrayOutputStream;
 
@@ -43,6 +45,14 @@ public class BitmapUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
+    }
+
+    public static Drawable placeholder(Context context, Image image, int frameWidth) {
+        Bitmap bi = Bitmap.createBitmap(1, 1, Bitmap.Config.ALPHA_8);
+        bi.setPixel(0, 0, image.getColor());
+        int frameHeight = frameWidth * image.getHeight() / image.getWidth();
+        Bitmap placeholder = Bitmap.createScaledBitmap(bi, frameWidth, frameHeight, false);
+        return new BitmapDrawable(context.getResources(), placeholder);
     }
 
 }

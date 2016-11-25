@@ -11,8 +11,7 @@
     android:elevation="4dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <FrameLayout
             android:id="@+id/ivFrame"
             android:layout_width="match_parent"
@@ -25,7 +24,7 @@
                 android:id="@+id/ivBook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 tools:src="@drawable/book_placeholder"/>
         </FrameLayout>

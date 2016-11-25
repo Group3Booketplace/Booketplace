@@ -1,5 +1,7 @@
 package com.coderschool.booketplace.adapters;
 
+import android.app.Activity;
+
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.Book;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -10,6 +12,7 @@ import com.google.firebase.database.Query;
  */
 
 public class BookAdapter extends FirebaseRecyclerAdapter<Book, BookVH> {
+    private Activity mActivity;
     public BookAdapter(Query ref) {
         super(Book.class, R.layout.item_book, BookVH.class, ref);
 

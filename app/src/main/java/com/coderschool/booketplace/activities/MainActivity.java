@@ -20,12 +20,12 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.coderschool.booketplace.fragment.BookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryBookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.FollowingFragment;
 import com.coderschool.booketplace.fragment.HomeFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
-import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.SettingFragment;
 import com.coderschool.booketplace.fragment.UserProfileFragment;
 import com.coderschool.booketplace.utils.Event;
@@ -189,7 +189,8 @@ public class MainActivity extends BaseActivity implements FollowingAdapter.OnFol
     private Fragment getHomeFragment() {
         switch (navItemIndex) {
             case INDEX_HOME:
-                return BookStreamFragment.newInstance(FirebaseApi.BOOKS, "");
+//                return BookStreamFragment.newInstance(FirebaseApi.BOOKS, "");
+                return CategoryFragment.newInstance();
             case INDEX_MESSAGE:
                 return MessengerFragment.newInstance();
             case INDEX_PROFILE: // INDEX_MESSAGE
@@ -364,8 +365,7 @@ public class MainActivity extends BaseActivity implements FollowingAdapter.OnFol
             // TODO: show a dialog said that user need to sign in first
             startActivity(LoginActivity.getIntent(this));
         } else {
-            replaceFragment(R.id.frame, NewPostFragment.newInstance(), true);
-            toolbar.setTitle(R.string.manga_sell);
+            startActivity(NewPostActivity.getIntent(this));
         }
     }
 
@@ -389,5 +389,10 @@ public class MainActivity extends BaseActivity implements FollowingAdapter.OnFol
         if (mPendingRunnable != null) {
             mHandler.post(mPendingRunnable);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.CategoryClick event) {
+        replaceFragment(R.id.frame, CategoryBookStreamFragment.newInstance(event.getCategory()), true);
     }
 }

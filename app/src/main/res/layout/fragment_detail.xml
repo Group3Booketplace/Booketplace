@@ -29,12 +29,13 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvPhoto"
+        <ImageView
+            android:id="@+id/ivPhoto"
             android:layout_width="match_parent"
-            android:layout_height="256dp"/>
-
-
+            android:layout_height="256dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center"
+            android:background="@android:color/background_dark"/>
         <TextView
             android:id="@+id/tvSeller"
             android:layout_width="match_parent"

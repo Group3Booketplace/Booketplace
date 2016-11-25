@@ -1,7 +1,8 @@
 package com.coderschool.booketplace.api;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.graphics.Color;
+import android.support.v7.graphics.Palette;
 
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Image;
@@ -19,7 +20,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,10 +40,12 @@ public class FirebaseApi {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    private DatabaseReference userBookDatabaseRef;
     private DatabaseReference bookDatabaseRef;
     private DatabaseReference userDatabaseRef;
     private FirebaseStorage storage;
     private StorageReference bookStorageRef;
+
 
 
     // firebase key
@@ -79,47 +81,40 @@ public class FirebaseApi {
         database = FirebaseDatabase.getInstance();
         bookDatabaseRef = database.getReference().child(BOOKS);
         userDatabaseRef = database.getReference().child(USERS);
+        userBookDatabaseRef = database.getReference().child(USER_BOOKS);
         databaseReference = database.getReference();
         storage = FirebaseStorage.getInstance();
         bookStorageRef = storage.getReference().child(BOOKS);
+
     }
 
     /**
      * Write new book to database
       * @param book
-     * @param bitmaps
+     * @param bitmap
      * @param listener
      */
-    public void writeNewBook(Book book, ArrayList<Bitmap> bitmaps, FirebaseResultListener listener) {
+    public void writeNewBook(Book book, Bitmap bitmap, FirebaseResultListener listener) {
         String key = bookDatabaseRef.push().getKey();
         book.setKey(key);
-        for (int i = 0; i < bitmaps.size(); i++) {
-            Bitmap bitmap = bitmaps.get(i);
+        Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
 
-            Bitmap resizedBitmap = BitmapUtils.resize(bitmap, (float) 0.1);
+        UploadTask task = bookStorageRef.child(key).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+        int color = Palette.from(resizedBitmap).generate().getVibrantColor(Color.WHITE);
 
-            UploadTask task = bookStorageRef.child(key).child(String.valueOf(i)).putBytes(BitmapUtils.steamFromBitmap(resizedBitmap));
+        int width = resizedBitmap.getWidth();
+        int height = resizedBitmap.getHeight();
 
-            int width = resizedBitmap.getWidth();
-            int height = resizedBitmap.getHeight();
-
-            book.addImage(new Image(width, height));
-            task.addOnSuccessListener(taskSnapshot -> {
-                Log.d(TAG, taskSnapshot.getDownloadUrl().toString());
-//                    listener.onSuccess();
-            }).addOnFailureListener(e -> listener.onFail());
-        }
-        Map<String, Object> bookValue = book.toMap();
-        Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/books/" + key, bookValue);
-        childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
-        database.getReference().updateChildren(childUpdate);
+        task.addOnSuccessListener(taskSnapshot -> {
+            book.addImage(new Image(width, height, taskSnapshot.getDownloadUrl().toString(), color));
+            Map<String, Object> bookValue = book.toMap();
+            Map<String, Object> childUpdate = new HashMap<>();
+            childUpdate.put("/books/" + book.getCategory().toLowerCase() + "/" + key, bookValue);
+            childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
+            database.getReference().updateChildren(childUpdate);
+        }).addOnFailureListener(e -> listener.onFail());
     }
 
-
-    public StorageReference getBookImageStorage(String key, int position) {
-        return bookStorageRef.child(key).child(String.valueOf(position));
-    }
 
     public void writeUser(FirebaseUser firebaseUser, AccessToken token) {
         User user = new User(firebaseUser);
@@ -184,6 +179,10 @@ public class FirebaseApi {
 
     public DatabaseReference getUserDatabaseRef() {
         return userDatabaseRef;
+    }
+
+    public DatabaseReference getUserBookDatabaseRef() {
+        return userBookDatabaseRef;
     }
 
     public DatabaseReference getDatabaseReference() {

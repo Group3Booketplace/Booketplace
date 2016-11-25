@@ -5,10 +5,16 @@
     <string name="condition_old">Old</string>
     <string name="price_lo2hi">Low to high</string>
     <string name="price_hi2lo">High to low</string>
-    <string name="vnd">vnd</string>
+    <string name="vnd">đ</string>
+
     <string name="us_dollar">$</string>
-
-
+    <string name="manga">Manga</string>
+    <string name="business">Business</string>
+    <string name="novel">Novel</string>
+    <string name="health">Health</string>
+    <string name="love">Love Story</string>
+    <string name="china">China</string>
+    <string name="self_help">Self Help</string>
 
     <string-array name="spinner_condition">
         <item>@string/condition_new</item>
@@ -19,6 +25,16 @@
     <string-array name="spinner_currency">
         <item>@string/vnd</item>
         <item>@string/us_dollar</item>
+    </string-array>
+
+    <string-array name="spinner_category">
+        <item>@string/manga</item>
+        <item>@string/business</item>
+        <item>@string/novel</item>
+        <item>@string/health</item>
+        <item>@string/love</item>
+        <item>@string/china</item>
+        <item>@string/self_help</item>
     </string-array>
 
     <string-array name="price_entries">

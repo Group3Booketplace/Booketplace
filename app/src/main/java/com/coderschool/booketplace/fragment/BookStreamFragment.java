@@ -2,8 +2,8 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.BookAdapter;
-import com.coderschool.booketplace.api.FirebaseApi;
 import com.google.firebase.database.Query;
 
 import butterknife.BindView;
@@ -22,25 +21,14 @@ import butterknife.ButterKnife;
  * Created by dattran on 11/16/16.
  */
 
-public class BookStreamFragment extends BaseFragmemt {
+public abstract class BookStreamFragment extends BaseFragmemt {
     private static final String PARENT = "parent";
     private static final String CHILD = "child";
 
     @BindView(R.id.rvBooks)
     RecyclerView rvBooks;
     private BookAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
-
-    public static BookStreamFragment newInstance(String parent, String child) {
-
-        Bundle args = new Bundle();
-        args.putString(PARENT, parent);
-        args.putString(CHILD, child);
-
-        BookStreamFragment fragment = new BookStreamFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private StaggeredGridLayoutManager mLayoutManager;
 
     @Override
     public void onResume() {
@@ -62,18 +50,13 @@ public class BookStreamFragment extends BaseFragmemt {
     }
 
     private void setupAdapter() {
-        Bundle bundle = getArguments();
-        Query reference = FirebaseApi
-                .getInstance()
-                .getDatabaseReference()
-                .child(bundle.getString(PARENT))
-                .child(bundle.getString(CHILD));
-//                .endAt("Mon Nov 21 18:49:20 +07:00 2016")
-//                .limitToLast(25);
+        Query reference = getQuery();
         mAdapter = new BookAdapter(reference);
-        mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true);
-        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         rvBooks.setLayoutManager(mLayoutManager);
         rvBooks.setAdapter(mAdapter);
     }
+
+    public abstract Query getQuery();
 }

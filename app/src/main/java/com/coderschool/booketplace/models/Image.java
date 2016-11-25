@@ -17,18 +17,23 @@ public class Image {
     private int width;
     @PropertyName("height")
     private int height;
+    @PropertyName("url")
+    private String url;
+    @PropertyName("color")
+    private int color;
 
     public Image() {}
 
-    public Image(int width, int height) {
-//        this.url = url;
+    public Image(int width, int height, String url, int color) {
+        this.url = url;
         this.width = width;
         this.height = height;
+        this.color = color;
     }
 
-//    public String getUrl() {
-//        return url;
-//    }
+    public String getUrl() {
+        return url;
+    }
 
     public int getWidth() {
         return width;
@@ -36,5 +41,9 @@ public class Image {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

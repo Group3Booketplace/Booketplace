@@ -34,4 +34,16 @@ public class Event {
 
     }
 
+    public static class CategoryClick {
+        String category;
+
+        public CategoryClick(String category) {
+            this.category = category;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+    }
+
 }

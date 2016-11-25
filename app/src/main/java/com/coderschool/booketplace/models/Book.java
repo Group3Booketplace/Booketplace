@@ -6,7 +6,6 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import org.parceler.Parcel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +29,13 @@ public class Book {
     private String price;
     private Boolean sell;
     private String user;
-    private ArrayList<Image> images;
+    private Image image;
     private String publishedDate;
     private String publisher;
     private String imageHeader;
     private String key;
-    private String currency;
+    private String category;
+    private String location;
 
     // firebase key
     public static final String AUTHOR = "author";
@@ -45,7 +45,7 @@ public class Book {
     public static final String NAME = "name";
     public static final String PRICE = "price";
     public static final String SELL = "sell";
-    public static final String IMAGES_URL = "images";
+    public static final String IMAGES_URL = "image";
     public static final String USER = "user";
     public static final String ISBN_10 = "isbn_10";
     public static final String DISCOUNT = "discount";
@@ -54,7 +54,8 @@ public class Book {
     public static final String PUBLISHER = "publisher";
     public static final String KEY = "key";
     public static final String IMAGE_HEADER = "imageHeader";
-
+    public static final String CATEGORY = "category";
+    public static final String LOCATION = "location";
 
     // constructor for firebase
     public Book() {}
@@ -62,7 +63,7 @@ public class Book {
     // construct to create new book
 
 
-    public Book(String author, String condition, String description, String name, String price, String currency, String user) {
+    public Book(String name, String author, String category, String price, String currency, String description, String condition, String location, String user) {
         this.author = author;
         this.condition = condition.toLowerCase();
         this.createdDate = DateUtils.getStringDate();
@@ -70,8 +71,10 @@ public class Book {
         this.name = name;
         this.price = price + " " + currency;
         this.sell = false;
-        this.images = new ArrayList<>();
         this.user = user;
+        this.category = category;
+        this.location = location;
+
         // mock data
         this.publisher = "NXB Tre";
         this.discount = 99;
@@ -93,7 +96,7 @@ public class Book {
         result.put(PRICE, price);
         result.put(SELL, sell);
         result.put(USER, user);
-        result.put(IMAGES_URL, images);
+        result.put(IMAGES_URL, image);
         result.put(KEY, key);
         result.put(MODIFIED_DATE, modifiedDate);
         result.put(PUBLISHED_DATE, publishedDate);
@@ -101,6 +104,8 @@ public class Book {
         result.put(ISBN_10, isbn_10);
         result.put(DISCOUNT, discount);
         result.put(IMAGE_HEADER, imageHeader);
+        result.put(LOCATION, location);
+        result.put(CATEGORY, category);
 
         return result;
     }
@@ -112,7 +117,7 @@ public class Book {
 //    }
 
     public void addImage(Image image) {
-        this.images.add(image);
+        this.image = image;
     }
     public void setKey(String key) {
         this.key = key;
@@ -146,8 +151,8 @@ public class Book {
         return price;
     }
 
-    public ArrayList<Image> getImages() {
-        return images;
+    public Image getImage() {
+        return image;
     }
 
     public String getIsbn_10() {
@@ -180,6 +185,14 @@ public class Book {
 
     public String getImageHeader() {
         return imageHeader;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }
 

@@ -1,22 +1,32 @@
 package com.coderschool.booketplace.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +57,12 @@ public class UserProfileFragment extends BaseFragmemt {
     TextView tvLocation;
     @BindView(R.id.ratingBar)
     RatingBar ratingBar;
+    @BindView(R.id.btnFollow)
+    Button btnFollow;
+
+    boolean isFollowing;
+    String userFollowingKey;
+    DatabaseReference mFollowingDatabaseRef;
 
     @Nullable
     @Override
@@ -73,6 +89,32 @@ public class UserProfileFragment extends BaseFragmemt {
                 tvLocation.setText(user.getLocation());
                 ratingBar.setRating(user.getRatingOverall());
 
+
+                // check following state
+                String ownerUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                mFollowingDatabaseRef = FirebaseDatabase.getInstance()
+                        .getReference()
+                        .child("users-followings")
+                        .child(ownerUid);
+                mFollowingDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot pref : dataSnapshot.getChildren()) {
+                            String userUid = pref.child("uid").getValue().toString();
+                            if (user.getUid().equals(userUid)) {
+                                isFollowing = true;
+                                userFollowingKey = pref.getKey();
+                                btnFollow.setText("Following");
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -86,14 +128,44 @@ public class UserProfileFragment extends BaseFragmemt {
                 .commit();
     }
 
+
+
+
     @OnClick(R.id.btnFollow)
     public void onFollow() {
+        Toast.makeText(mActivity, "follow", Toast.LENGTH_SHORT).show();
 
+        String ownerUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String friendUid = getArguments().getString(UID);
+
+        mFollowingDatabaseRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("users-followings")
+                .child(ownerUid);
+
+        // for following
+        if (!isFollowing) {
+            userFollowingKey = mFollowingDatabaseRef.push().getKey();
+            Map<String, String> newFollowing = new HashMap<>();
+            newFollowing.put("uid", friendUid);
+            Map<String, Object> childUpdate = new HashMap<>();
+            childUpdate.put(userFollowingKey, newFollowing);
+            mFollowingDatabaseRef.updateChildren(childUpdate);
+            isFollowing = true;
+            btnFollow.setText("Following");
+        } else {
+            mFollowingDatabaseRef.child(userFollowingKey).removeValue();
+            isFollowing = false;
+            btnFollow.setText("Follow");
+        }
     }
 
     @OnClick(R.id.btnChat)
     public void onChat() {
-
+        String uid = getArguments().getString(UID);
+        Intent intent = new Intent(getContext(), ChatActivity.class);
+        intent.putExtra("chat", uid);
+        getContext().startActivity(intent);
     }
 
 }

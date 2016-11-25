@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.adapters.MessageItemAdapter;
+import com.coderschool.booketplace.adapters.ChatAdapter;
 import com.coderschool.booketplace.models.Chat;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +27,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.coderschool.booketplace.utils.DateUtils.getStringDate;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -49,7 +51,7 @@ public class ChatActivity extends AppCompatActivity {
 
     String uniqueKey;
     ArrayList<Chat> chats;
-    MessageItemAdapter messageItemAdapter;
+    ChatAdapter messageItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class ChatActivity extends AppCompatActivity {
                 .child(USERS);
 
         chats = new ArrayList<>();
-        messageItemAdapter = new MessageItemAdapter(this, chats);
+        messageItemAdapter = new ChatAdapter(this, chats);
         rvMessageItem.setAdapter(messageItemAdapter);
         rvMessageItem.setLayoutManager(new LinearLayoutManager(this));
         rvMessageItem.scrollToPosition(chats.size() - 1);
@@ -84,7 +86,8 @@ public class ChatActivity extends AppCompatActivity {
                 if (!etChatMessage.getText().toString().equals("")) {
                     Map<String, Object> newChatMessage = (new Chat(user.getUid(),
                             etChatMessage.getText().toString(),
-                            "DateString")).toMap();
+                            getStringDate())
+                    ).toMap();
                     Map<String, Object> childUpdate = new HashMap<>();
                     String key = mChatDatabaseRef.push().getKey();
                     childUpdate.put("/users-chat/" + uniqueKey + "/" + key, newChatMessage);

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.api.FirebaseApi;
 
 /**
  * Created by duongthoai on 10/13/16.
@@ -21,7 +22,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //
-                startHome();
+                if(FirebaseApi.getInstance().getUser() != null) {
+                    startHome();
+                } else {
+                    startLogin();
+                }
             }
         }, 2000);
     }
@@ -32,14 +37,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startHome() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
         //
         finish();
     }
 
     private void startLogin() {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         //
         finish();

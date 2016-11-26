@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity {
         FirebaseApi.getInstance().loginWithFacebook(token, new FirebaseApi.FirebaseResultListener() {
             @Override
             public void onSuccess() {
-                startActivity(MainActivity.getIntent(LoginActivity.this));
+                startActivity(HomeActivity.getIntent(LoginActivity.this));
             }
 
             @Override

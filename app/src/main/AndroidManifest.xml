@@ -39,9 +39,13 @@
 
         <activity
             android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
 
-        </activity>
 
         <activity
             android:name=".activities.MainActivity"

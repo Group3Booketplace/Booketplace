@@ -33,7 +33,7 @@ public abstract class BookStreamFragment extends BaseFragmemt {
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getSupportActionBar().setTitle("Book list");
+//        getBaseActivity().getSupportActionBar().setTitle("Book list");
     }
 
     @Nullable

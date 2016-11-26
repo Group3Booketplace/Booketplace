@@ -48,7 +48,7 @@ public class HomeFragment extends BaseFragmemt {
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getSupportActionBar().setTitle("Home");
+//        getBaseActivity().getSupportActionBar().setTitle("Home");
     }
 
 //    @OnClick(R.id.tvName)

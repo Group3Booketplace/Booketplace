@@ -44,6 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
     DatabaseReference mChatDatabaseRef;
     DatabaseReference mUserDatabaseRef;
+    DatabaseReference mMessengerDatabaseRef;
     FirebaseAuth auth;
     FirebaseUser user;
 
@@ -52,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
     String uniqueKey;
     ArrayList<Chat> chats;
     ChatAdapter messageItemAdapter;
+    String friendUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-        String friendUid = getIntent().getStringExtra("chat");
+        friendUid = getIntent().getStringExtra("chat");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
@@ -73,6 +75,10 @@ public class ChatActivity extends AppCompatActivity {
         mUserDatabaseRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(USERS);
+        mMessengerDatabaseRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("users-messenger")
+                .child(friendUid);
 
         chats = new ArrayList<>();
         messageItemAdapter = new ChatAdapter(this, chats);
@@ -104,7 +110,31 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        mMessengerDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean flag = false;
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (data != null) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    String userMessengerKey = mMessengerDatabaseRef.push().getKey();
+                    Map<String, String> newMessenger = new HashMap<>();
+                    newMessenger.put("uid", auth.getCurrentUser().getUid());
+                    Map<String, Object> childUpdate = new HashMap<>();
+                    childUpdate.put(userMessengerKey, newMessenger);
+                    mMessengerDatabaseRef.updateChildren(childUpdate);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         chatEventListener = new ValueEventListener() {
             @Override

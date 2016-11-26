@@ -82,6 +82,7 @@ public class UserProfileFragment extends BaseFragmemt {
 
     private void setupUser() {
         String uid = getArguments().getString(UID);
+        if (uid == FirebaseApi.getInstance().getUser().getUid()) btnFollow.setVisibility(View.INVISIBLE);
         ratingBar.setNumStars(5);
         FirebaseApi.getInstance().getUserDatabaseRef().child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

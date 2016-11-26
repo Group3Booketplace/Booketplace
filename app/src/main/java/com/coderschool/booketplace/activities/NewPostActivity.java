@@ -53,6 +53,7 @@ public class NewPostActivity extends BaseActivity {
     Spinner spCategory;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
     private Bitmap mSelectedBitmap;
 
     @Override

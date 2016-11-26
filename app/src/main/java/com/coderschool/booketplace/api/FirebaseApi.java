@@ -112,6 +112,7 @@ public class FirebaseApi {
             childUpdate.put("/books/" + book.getCategory().toLowerCase() + "/" + key, bookValue);
             childUpdate.put("/user-books/" + user.getUid() + "/" + key, bookValue);
             database.getReference().updateChildren(childUpdate);
+            listener.onSuccess();
         }).addOnFailureListener(e -> listener.onFail());
     }
 

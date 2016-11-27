@@ -140,7 +140,7 @@ public class ChatActivity extends AppCompatActivity {
                         WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                rvMessageItem.scrollToPosition(chats.size() - 1);
+//                rvMessageItem.scrollToPosition(chats.size() - 1);
             }
         });
 

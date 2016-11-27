@@ -15,7 +15,7 @@
             android:title="Search" />
         <item
             android:id="@+id/nav_new"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_new_post"
             android:title="New" />
 
         <item

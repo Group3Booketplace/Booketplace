@@ -136,23 +136,25 @@ public class NewPostActivity extends BaseActivity {
             result = false;
         }
 
-        if (etAuthor.getText().toString().isEmpty()) {
-            etAuthor.setError(getString(R.string.require));
-            result = false;
-        }
+//        if (etAuthor.getText().toString().isEmpty()) {
+//            etAuthor.setError(getString(R.string.require));
+//            result = false;
+//        }
 
         if (etPrice.getText().toString().isEmpty()) {
             etPrice.setError(getString(R.string.require));
             result = false;
         }
+
         if (etDescription.getText().toString().isEmpty()) {
             etDescription.setError(getString(R.string.require));
             result = false;
         }
-        if (etLocation.getText().toString().isEmpty()) {
-            etLocation.setError(getString(R.string.require));
-            result = false;
-        }
+
+//        if (etLocation.getText().toString().isEmpty()) {
+//            etLocation.setError(getString(R.string.require));
+//            result = false;
+//        }
 
         return result;
     }

@@ -18,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
-        if (count >= 1) {
+        if (count > 1) {
             super.onBackPressed();
         } else {
             finish();

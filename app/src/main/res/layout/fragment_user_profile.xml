@@ -42,7 +42,7 @@
                     android:layout_height="96dp"
                     android:layout_marginTop="16dp"
                     tools:src="@drawable/avatar_placeholder"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp" />
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"

@@ -65,7 +65,7 @@ public class Book {
 
     public Book(String name, String author, String category, String price, String currency, String description, String condition, String location, String user) {
         this.author = author;
-        this.condition = condition.toLowerCase();
+        this.condition = condition;
         this.createdDate = DateUtils.getStringDate();
         this.description = description;
         this.name = name;

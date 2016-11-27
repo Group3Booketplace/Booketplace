@@ -27,6 +27,7 @@ public class CategoryVH extends RecyclerView.ViewHolder implements View.OnClickL
         super(itemView);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
+
     }
 
     @Override

@@ -45,6 +45,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryVH> {
     public void onBindViewHolder(CategoryVH holder, int position) {
         holder.ivCategory.setImageResource(images[position]);
         holder.tvCategory.setText(categories[position]);
+        int width = holder.itemView.getLayoutParams().width;
+        holder.ivCategory.getLayoutParams().height = width;
+        holder.ivCategory.requestLayout();
     }
 
     @Override

@@ -3,20 +3,17 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:icon="@drawable/ic_home_black_24dp" />
         <!--<item-->
             <!--android:id="@+id/nav_notifications"-->
             <!--android:icon="@drawable/ic_photo_library_black_24dp"-->
             <!--android:title="Notifications" />-->
         <item
             android:id="@+id/nav_search"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="Search" />
+            android:icon="@android:drawable/ic_menu_search" />
         <item
             android:id="@+id/nav_new"
-            android:icon="@drawable/ic_new_post"
-            android:title="New" />
+            android:icon="@drawable/ic_new_post" />
 
         <item
             android:id="@+id/nav_messages"
@@ -32,6 +29,5 @@
             <!--android:title="People" />-->
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_account"
-            android:title="Profile" />
+            android:icon="@drawable/ic_account" />
 </menu>

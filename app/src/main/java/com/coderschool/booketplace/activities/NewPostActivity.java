@@ -9,8 +9,10 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -53,6 +55,11 @@ public class NewPostActivity extends BaseActivity {
     Spinner spCategory;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.btnSell)
+    Button btnSell;
+
 
     private Bitmap mSelectedBitmap;
 
@@ -62,6 +69,7 @@ public class NewPostActivity extends BaseActivity {
         setContentView(R.layout.activity_new_post);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public static Intent getIntent(Context context) {
@@ -94,9 +102,11 @@ public class NewPostActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.btn_sell)
+    @OnClick(R.id.btnSell)
     public void onSell(View view) {
         if (isFormValid()) {
+            progressBar.setVisibility(View.VISIBLE);
+            btnSell.setVisibility(View.INVISIBLE);
             Book book = new Book(
                     etName.getText().toString(),
                     etAuthor.getText().toString(),
@@ -112,6 +122,7 @@ public class NewPostActivity extends BaseActivity {
                 @Override
                 public void onSuccess() {
                     // TODO: finish uploading
+                    progressBar.setVisibility(View.INVISIBLE);
                    finish();
                 }
 
@@ -119,6 +130,7 @@ public class NewPostActivity extends BaseActivity {
                 public void onFail() {
                     // TODO: prompt error
                     Toast.makeText(NewPostActivity.this, "Can't upload", Toast.LENGTH_SHORT).show();
+                    btnSell.setVisibility(View.VISIBLE);
                 }
             });
         }

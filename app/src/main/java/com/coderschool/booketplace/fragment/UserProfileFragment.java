@@ -1,20 +1,20 @@
 package com.coderschool.booketplace.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
-import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,8 +57,8 @@ public class UserProfileFragment extends BaseFragmemt {
     TextView tvLocation;
     @BindView(R.id.ivProfileBackground)
     ImageView ivProfileBackground;
-    @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+//    @BindView(R.id.ratingBar)
+//    RatingBar ratingBar;
     @BindView(R.id.btnFollow)
     Button btnFollow;
 
@@ -83,7 +83,7 @@ public class UserProfileFragment extends BaseFragmemt {
     private void setupUser() {
         String uid = getArguments().getString(UID);
         if (uid == FirebaseApi.getInstance().getUser().getUid()) btnFollow.setVisibility(View.INVISIBLE);
-        ratingBar.setNumStars(5);
+//        ratingBar.setNumStars(5);
         FirebaseApi.getInstance().getUserDatabaseRef().child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,7 +92,7 @@ public class UserProfileFragment extends BaseFragmemt {
                 Picasso.with(mActivity).load(user.getAvatar()).into(ivProfileBackground);
                 tvName.setText(user.getName());
                 tvLocation.setText(user.getLocation());
-                ratingBar.setRating(user.getRatingOverall());
+//                ratingBar.setRating(user.getRatingOverall());
 
 
                 // check following state
@@ -165,12 +165,29 @@ public class UserProfileFragment extends BaseFragmemt {
         }
     }
 
-    @OnClick(R.id.btnChat)
-    public void onChat() {
-        String uid = getArguments().getString(UID);
-        Intent intent = new Intent(getContext(), ChatActivity.class);
-        intent.putExtra("chat", uid);
-        getContext().startActivity(intent);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (getArguments().getString(UID) == FirebaseApi.getInstance().getUser().getUid()) {
+            inflater.inflate(R.menu.fragment_user_menu, menu);
+        }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (getArguments().getString(UID) == FirebaseApi.getInstance().getUser().getUid()) {
+            if (item.getItemId() == R.id.action_signout) {
+                FirebaseApi.getInstance().logout();
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //    @OnClick(R.id.btnChat)
+//    public void onChat() {
+//        String uid = getArguments().getString(UID);
+//        Intent intent = new Intent(getContext(), ChatActivity.class);
+//        intent.putExtra("chat", uid);
+//        getContext().startActivity(intent);
+//    }
 
 }

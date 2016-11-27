@@ -9,29 +9,29 @@
     <FrameLayout
         android:id="@+id/ivProfileFrame"
         android:layout_width="match_parent"
-        android:layout_height="296dp">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/ivProfileBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="224dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/avatar_placeholder" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="224dp"
             android:background="#50000000"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
             <ImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 tools:src="@drawable/avatar_placeholder"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="8dp"/>
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
@@ -54,35 +54,41 @@
             <Button
                 android:id="@+id/btnFollow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:text="Follow"
                 android:textColor="@android:color/white"
-                android:background="@color/colorAccent"/>
+                android:background="@color/colorAccent"
+                android:textStyle="bold"
+                android:textSize="8sp"/>
         </LinearLayout>
     </FrameLayout>
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        style="?android:attr/ratingBarStyleIndicator"
-        android:isIndicator="true"
-        android:stepSize=".1"
-        android:layout_marginLeft="16dp"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/btnChat"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:text="Chat" />-->
+
+    <!--<RatingBar-->
+        <!--android:id="@+id/ratingBar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:numStars="5"-->
+        <!--style="?android:attr/ratingBarStyleIndicator"-->
+        <!--android:isIndicator="true"-->
+        <!--android:stepSize=".1"-->
+        <!--android:layout_marginLeft="16dp"/>-->
 
     <FrameLayout
         android:id="@+id/containder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <Button
-        android:id="@+id/btnChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
-        android:text="Chat" />
+
 </LinearLayout>
 

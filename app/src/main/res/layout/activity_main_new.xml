@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:titleTextColor="@android:color/white"
-        android:elevation="6dp"
+        app:titleTextColor="@android:color/white"
+        app:elevation="6dp"
         android:fitsSystemWindows="true"/>
 
     <FrameLayout
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:elevation="6dp"
+        app:elevation="6dp"
         app:menu="@menu/activity_main_bottom_nav" />
 
 </RelativeLayout>

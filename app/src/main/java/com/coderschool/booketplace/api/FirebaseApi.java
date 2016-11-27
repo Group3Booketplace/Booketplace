@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v7.graphics.Palette;
 
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.models.Comment;
 import com.coderschool.booketplace.models.Image;
 import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.BitmapUtils;
@@ -43,6 +44,7 @@ public class FirebaseApi {
     private DatabaseReference userBookDatabaseRef;
     private DatabaseReference bookDatabaseRef;
     private DatabaseReference userDatabaseRef;
+    private DatabaseReference postCommentDatabaseRef;
     private FirebaseStorage storage;
     private StorageReference bookStorageRef;
 
@@ -52,6 +54,7 @@ public class FirebaseApi {
     public static final String BOOKS = "books";
     public static final String USERS = "users";
     public static final String USER_BOOKS = "user-books";
+    public static final String POST_COMMENTS = "post-comments";
 
     /**
      * interface for asynchronous networking
@@ -82,10 +85,10 @@ public class FirebaseApi {
         bookDatabaseRef = database.getReference().child(BOOKS);
         userDatabaseRef = database.getReference().child(USERS);
         userBookDatabaseRef = database.getReference().child(USER_BOOKS);
+        postCommentDatabaseRef = database.getReference().child(POST_COMMENTS);
         databaseReference = database.getReference();
         storage = FirebaseStorage.getInstance();
         bookStorageRef = storage.getReference().child(BOOKS);
-
     }
 
     /**
@@ -134,6 +137,12 @@ public class FirebaseApi {
 
             }
         });
+    }
+
+    public void postComment(Comment comment, String postKey) {
+        String commentKey = postCommentDatabaseRef.child(postKey).push().getKey();
+        postCommentDatabaseRef.child(postKey).child(commentKey).setValue(comment.toMap());
+
     }
 
     /**
@@ -188,5 +197,9 @@ public class FirebaseApi {
 
     public DatabaseReference getDatabaseReference() {
         return databaseReference;
+    }
+
+    public DatabaseReference getPostCommentDatabaseRef() {
+        return postCommentDatabaseRef;
     }
 }

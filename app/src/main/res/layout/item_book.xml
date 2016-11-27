@@ -61,6 +61,7 @@
             android:layout_below="@id/tvName"
             android:textStyle="bold"
             android:layout_alignLeft="@id/tvName"
+            android:layout_marginTop="4dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorPrimary" />
         <TextView
@@ -68,17 +69,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvName"
-            tools:text="7 min ago"
+            tools:text="New"
             android:layout_alignRight="@id/ivFrame"
             android:layout_marginRight="4dp"
+            android:layout_alignTop="@id/tvPrice"
             android:textColor="@android:color/darker_gray"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/tvPrice"
+            android:layout_alignLeft="@id/tvName"
+            android:layout_alignRight="@id/tvCondition"
+            android:layout_marginTop="8dp"/>
         <TextView
             android:id="@+id/tvSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvPrice"
-            tools:text="Sell by Tran Quang Dat Today at 10:30pm "
+            android:layout_below="@id/divider"
+            android:layout_alignLeft="@id/tvName"
+            android:layout_alignRight="@id/tvCondition"
+            android:layout_marginTop="6dp"
+            tools:text="Tran Quang Dat"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/background_dark"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

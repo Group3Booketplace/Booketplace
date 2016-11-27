@@ -12,7 +12,6 @@ import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.User;
-import com.coderschool.booketplace.utils.DateUtils;
 import com.coderschool.booketplace.utils.Event;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,7 +66,8 @@ public class BookVH extends RecyclerView.ViewHolder {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                tvSeller.setText("Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate()));
+//                tvSeller.setText("Sold by " + user.getName() + " " + DateUtils.getRelativeTimeAgo(book.getCreatedDate()));
+                tvSeller.setText(user.getName());
             }
 
             @Override

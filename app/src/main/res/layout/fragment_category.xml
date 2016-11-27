@@ -5,12 +5,12 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <include
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        layout="@layout/toolbar"/>
+    <!--<include-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--layout="@layout/toolbar"/>-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCategory"
         android:layout_width="match_parent"

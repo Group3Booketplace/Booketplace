@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +37,8 @@ public class MessengerFragment extends BaseFragmemt {
 
     @BindView(R.id.rvMessengers)
     RecyclerView rvMessengers;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
 
     DatabaseReference mMessengerDatabaseRef;
@@ -86,7 +85,7 @@ public class MessengerFragment extends BaseFragmemt {
         super.onViewCreated(view, savedInstanceState);
         Toast.makeText(getBaseActivity(), "Messenger", Toast.LENGTH_SHORT).show();
         ButterKnife.bind(this, view);
-        mActivity.setSupportActionBar(toolbar);
+//        mActivity.setSupportActionBar(toolbar);
 
         mUsers = new ArrayList<>();
 

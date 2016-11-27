@@ -61,6 +61,8 @@ public class UserProfileFragment extends BaseFragmemt {
 //    RatingBar ratingBar;
     @BindView(R.id.btnFollow)
     Button btnFollow;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 
     boolean isFollowing;
     String userFollowingKey;
@@ -77,6 +79,7 @@ public class UserProfileFragment extends BaseFragmemt {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+//        mActivity.setSupportActionBar(toolbar);
         setupUser();
     }
 

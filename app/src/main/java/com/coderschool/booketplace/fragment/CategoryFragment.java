@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class CategoryFragment extends BaseFragmemt {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.rvCategory)
     RecyclerView rvCategory;
     private CategoryAdapter mAdapter;
@@ -46,6 +49,7 @@ public class CategoryFragment extends BaseFragmemt {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        mActivity.setSupportActionBar(toolbar);
         mAdapter = new CategoryAdapter(mActivity);
         mLayoutManager = new GridLayoutManager(mActivity, 2, LinearLayoutManager.VERTICAL, false);
         rvCategory.setAdapter(mAdapter);

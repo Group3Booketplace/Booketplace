@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.widget.Toolbar;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
@@ -34,9 +33,6 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
 
     @BindView(R.id.nav_view)
     BottomNavigationView mBottomNavigationMenu;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     private Handler mHandler;
 
     @Override
@@ -44,7 +40,6 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         mHandler = new Handler();
         addFragment(R.id.frame, CategoryFragment.newInstance());
         mBottomNavigationMenu.setOnNavigationItemSelectedListener(item -> {

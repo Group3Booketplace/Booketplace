@@ -58,13 +58,11 @@ public class CategoryDetailFragment extends BaseFragmemt {
     private void setupViewPager(ViewPager viewPager) {
         String[] categories = getResources().getStringArray(R.array.spinner_category);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        //TODO: change fragment here\\\\\
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[0]);
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[1]);
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[2]);
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[3]);
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[4]);
-        adapter.addFragment(CategoryBookStreamFragment.newInstance("manga"), categories[5]);
+        //TODO: change fragment here
+        for (String item : categories) {
+            adapter.addFragment(CategoryBookStreamFragment.newInstance(item.toLowerCase()), item.toLowerCase());
+        }
+
         viewPager.setAdapter(adapter);
         //set selected item
         String category = getArguments().getString(CATEGORY);

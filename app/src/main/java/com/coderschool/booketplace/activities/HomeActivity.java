@@ -6,17 +6,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.coderschool.booketplace.fragment.BookStreamFragment;
-import com.coderschool.booketplace.fragment.FollowingFragment;
-import com.coderschool.booketplace.fragment.HomeFragment;
+import com.coderschool.booketplace.fragment.CategoryBookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryFragment;
+import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
-import com.coderschool.booketplace.fragment.NewPostFragment;
 import com.coderschool.booketplace.fragment.UserProfileFragment;
+import com.coderschool.booketplace.utils.Event;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,10 +30,12 @@ import butterknife.ButterKnife;
  * Created by duongthoai on 11/23/16.
  */
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFollowingUserListener {
 
     @BindView(R.id.nav_view)
     BottomNavigationView mBottomNavigationMenu;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private Handler mHandler;
 
@@ -37,12 +44,13 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         mHandler = new Handler();
-        addFragment(R.id.frame, BookStreamFragment.newInstance(FirebaseApi.BOOKS, ""));
+        addFragment(R.id.frame, CategoryFragment.newInstance());
         mBottomNavigationMenu.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    replaceFragment(R.id.frame, BookStreamFragment.newInstance(FirebaseApi.BOOKS, ""), false);
+                    replaceFragment(R.id.frame, CategoryFragment.newInstance(), false);
                     break;
                 case R.id.nav_profile:
                     replaceFragment(R.id.frame, UserProfileFragment.newInstance(FirebaseApi.getInstance().getUser().getUid()), true);
@@ -51,10 +59,10 @@ public class HomeActivity extends BaseActivity {
                     replaceFragment(R.id.frame, MessengerFragment.newInstance(), true);
                     break;
                 case R.id.nav_search:
-
+                    // TODO: future support
                     break;
-                case R.id.nav_add:
-                    replaceFragment(R.id.frame, NewPostFragment.newInstance(), true);
+                case R.id.nav_new:
+                    startActivity(NewPostActivity.getIntent(this));
                     break;
             }
             return false;
@@ -116,4 +124,43 @@ public class HomeActivity extends BaseActivity {
 //                return HomeFragment.newInstance();
 //        }
 //    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.ItemBookClick event) {
+        replaceFragment(R.id.frame, DetailFragment.newInstance(event.getBook()), true);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEven(Event.UserClick event) {
+        replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
+    }
+
+    @Override
+    public void setFollwingUserSelected(String link) {
+        Runnable mPendingRunnable = () -> {
+            replaceFragment(R.id.frame, UserProfileFragment.newInstance(link), false);
+        };
+
+        // If mPendingRunnable is not null, then add to the message queue
+        if (mPendingRunnable != null) {
+            mHandler.post(mPendingRunnable);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.CategoryClick event) {
+        replaceFragment(R.id.frame, CategoryBookStreamFragment.newInstance(event.getCategory()), true);
+    }
 }

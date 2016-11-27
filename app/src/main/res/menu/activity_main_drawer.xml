@@ -15,7 +15,7 @@
             android:icon="@drawable/ic_local_movies_black_24dp"
             android:title="Messenger" />
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_new"
             android:icon="@drawable/ic_notifications_black_24dp"
             android:title="Your Profile" />
 

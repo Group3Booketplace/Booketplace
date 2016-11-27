@@ -20,7 +20,6 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.coderschool.booketplace.fragment.CategoryBookStreamFragment;
 import com.coderschool.booketplace.fragment.CategoryFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.FollowingFragment;
@@ -227,7 +226,7 @@ public class MainActivity extends BaseActivity implements FollowingAdapter.OnFol
                     navItemIndex = INDEX_MESSAGE;
                     CURRENT_TAG = TAG_MESSAGES;
                     break;
-                case R.id.nav_profile:
+                case R.id.nav_new:
                     navItemIndex = INDEX_PROFILE;
                     CURRENT_TAG = TAG_PROFLE;
                     replaceFragment(R.id.frame,
@@ -393,6 +392,6 @@ public class MainActivity extends BaseActivity implements FollowingAdapter.OnFol
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.CategoryClick event) {
-        replaceFragment(R.id.frame, CategoryBookStreamFragment.newInstance(event.getCategory()), true);
+
     }
 }

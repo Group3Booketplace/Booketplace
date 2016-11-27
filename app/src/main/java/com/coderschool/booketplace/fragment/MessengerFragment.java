@@ -123,7 +123,7 @@ public class MessengerFragment extends BaseFragmemt {
     @Override
     public void onResume() {
         super.onResume();
-        getBaseActivity().getSupportActionBar().setTitle("Messenger");
+//        getBaseActivity().getSupportActionBar().setTitle("Messenger");
     }
 }
 

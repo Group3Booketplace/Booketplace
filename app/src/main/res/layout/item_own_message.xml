@@ -15,18 +15,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp" />
-
-    <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chat Contents"
-        android:layout_alignTop="@+id/ivAvatar"
-        android:layout_toLeftOf="@+id/ivAvatar"
-        android:layout_toStartOf="@+id/ivAvatar"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="19dp"
+        android:visibility="gone"/>
 
     <TextView
         android:text="Date"
@@ -35,6 +25,22 @@
         android:id="@+id/tvDate"
         android:layout_alignBottom="@+id/ivAvatar"
         android:layout_alignRight="@+id/tvContent"
-        android:layout_alignEnd="@+id/tvContent" />
+        android:layout_alignEnd="@+id/tvContent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:maxWidth="250dp"
+        android:background="@drawable/rounded_corner"
+        android:padding="16dp"
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chat Contents"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" />
 
 </RelativeLayout>

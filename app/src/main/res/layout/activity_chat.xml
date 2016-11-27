@@ -10,8 +10,8 @@
         android:id="@+id/rvMessageItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/itemChatBar"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/itemChatBar">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -20,6 +20,7 @@
         layout="@layout/item_chat_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
 

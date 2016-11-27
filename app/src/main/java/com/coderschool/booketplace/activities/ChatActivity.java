@@ -1,10 +1,13 @@
 package com.coderschool.booketplace.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -28,6 +31,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.coderschool.booketplace.utils.DateUtils.convertDateTime;
 import static com.coderschool.booketplace.utils.DateUtils.getStringDate;
 
 public class ChatActivity extends AppCompatActivity {
@@ -86,6 +90,60 @@ public class ChatActivity extends AppCompatActivity {
         rvMessageItem.setLayoutManager(new LinearLayoutManager(this));
         rvMessageItem.scrollToPosition(chats.size() - 1);
 
+//        etChatMessage.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                rvMessageItem.scrollToPosition(chats.size() - 1);
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                rvMessageItem.scrollToPosition(chats.size() - 1);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+
+        etChatMessage.requestFocus();
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+
+        etChatMessage.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                {
+                    rvMessageItem.scrollToPosition(chats.size() - 1);
+                }
+            }
+        });
+
+
+
+//
+//        etChatMessage.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                rvMessageItem.scrollToPosition(chats.size() - 1);
+//                return false;
+//            }
+//        });
+        etChatMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getWindow().setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                rvMessageItem.scrollToPosition(chats.size() - 1);
+            }
+        });
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,34 +194,35 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        chatEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot query : dataSnapshot.getChildren()) {
-                    final Chat chat = query.getValue(Chat.class);
-                    mUserDatabaseRef.child(chat.getUid())
-                            .addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    User user = dataSnapshot.getValue(User.class);
-                                    chat.setUser(user);
-                                    chats.add(chat);
-                                    messageItemAdapter.notifyItemInserted(chats.size() - 1);
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
+//        chatEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot query : dataSnapshot.getChildren()) {
+//                    final Chat chat = query.getValue(Chat.class);
+//                    mUserDatabaseRef.child(chat.getUid())
+//                            .addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    User user = dataSnapshot.getValue(User.class);
+//                                    chat.setUser(user);
+//                                    chats.add(chat);
+//                                    messageItemAdapter.notifyItemInserted(chats.size() - 1);
+//                                    rvMessageItem.scrollToPosition(chats.size() - 1);
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
 
 //        mChatDatabaseRef.addValueEventListener(chatEventListener);
         mChatDatabaseRef.addChildEventListener(new ChildEventListener() {
@@ -176,8 +235,22 @@ public class ChatActivity extends AppCompatActivity {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 User user = dataSnapshot.getValue(User.class);
                                 chat.setUser(user);
-                                chats.add(chat);
-                                messageItemAdapter.notifyItemInserted(chats.size() - 1);
+
+
+
+                                int position = 0;
+                                for (int i = 0; i < chats.size(); i++) {
+                                    String strChat = convertDateTime(chat.getDate());
+                                    String strChats = convertDateTime(chats.get(i).getDate());
+                                    if (strChat.compareTo(strChats) < 0) {
+                                        i = chats.size();
+                                    }
+                                    position++;
+                                }
+
+                                chats.add(position, chat);
+
+                                messageItemAdapter.notifyItemInserted(position);
                                 rvMessageItem.scrollToPosition(chats.size() - 1);
                             }
 
@@ -213,7 +286,13 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mChatDatabaseRef.removeEventListener(chatEventListener);
+    }
+
+    public void showSoftKeyboard(View view){
+        if(view.requestFocus()){
+            InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view,InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }
 

@@ -29,6 +29,7 @@
         android:visibility="gone"/>
 
     <TextView
+        android:textColor="@android:color/white"
         android:maxWidth="250dp"
         android:background="@drawable/rounded_corner"
         android:padding="16dp"

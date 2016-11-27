@@ -51,7 +51,7 @@ public abstract class BookStreamFragment extends BaseFragmemt {
 
     private void setupAdapter() {
         Query reference = getQuery();
-        mAdapter = new BookAdapter(reference);
+        mAdapter = new BookAdapter(mActivity, reference);
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         rvBooks.setLayoutManager(mLayoutManager);

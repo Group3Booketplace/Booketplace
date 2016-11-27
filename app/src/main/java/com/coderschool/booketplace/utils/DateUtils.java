@@ -36,4 +36,18 @@ public class DateUtils {
 
         return relativeDate;
     }
+
+    public static String convertDateTime(String originTimeRaw) {
+        SimpleDateFormat originalFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.getDefault());
+        SimpleDateFormat resultFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+        String dateString = "";
+        Date date = null;
+        try {
+            date = originalFormat.parse(originTimeRaw);
+            dateString = resultFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateString;
+    }
 }

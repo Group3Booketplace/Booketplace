@@ -87,6 +87,8 @@ public class MessengerFragment extends BaseFragmemt {
         ButterKnife.bind(this, view);
 //        mActivity.setSupportActionBar(toolbar);
 
+        mActivity.getSupportActionBar().setTitle("Messenger");
+
         mUsers = new ArrayList<>();
 
         aMessgengers = new MessengerAdapter(getContext(), mUsers);

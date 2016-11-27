@@ -2,17 +2,22 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.adapters.CommentAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.models.Comment;
 import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.Event;
 import com.google.firebase.database.DataSnapshot;
@@ -43,8 +48,15 @@ public class DetailFragment extends BaseFragmemt {
     TextView tvDescription;
     @BindView(R.id.tvSeller)
     TextView tvSeller;
+    @BindView(R.id.etComment)
+    EditText etComment;
+    @BindView(R.id.rvComment)
+    RecyclerView rvComment;
+    private LinearLayoutManager mLinearLayoutManager;
+    private CommentAdapter mAdapter;
 
     private Book book;
+    private User user;
     public static DetailFragment newInstance(Book book) {
 
         Bundle args = new Bundle();
@@ -67,6 +79,14 @@ public class DetailFragment extends BaseFragmemt {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         setupBook();
+        setupComment();
+    }
+
+    private void setupComment() {
+        mLinearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true);
+        mAdapter = new CommentAdapter(FirebaseApi.getInstance().getPostCommentDatabaseRef().child(book.getKey()));
+        rvComment.setLayoutManager(mLinearLayoutManager);
+        rvComment.setAdapter(mAdapter);
     }
 
     private void setupBook() {
@@ -85,6 +105,7 @@ public class DetailFragment extends BaseFragmemt {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                DetailFragment.this.user = user;
                 setUser(user);
             }
 
@@ -115,5 +136,19 @@ public class DetailFragment extends BaseFragmemt {
         EventBus.getDefault().post(new Event.UserClick(book.getUser()));
     }
 
+    @OnClick(R.id.btnChat)
+    public void onChat() {
+
+    }
+
+    @OnClick(R.id.btnComment)
+    public void onComment() {
+        Comment comment = new Comment(
+                etComment.getText().toString(),
+                user.getName(),
+                user.getUid()
+        );
+        FirebaseApi.getInstance().postComment(comment, book.getKey());
+    }
 
 }

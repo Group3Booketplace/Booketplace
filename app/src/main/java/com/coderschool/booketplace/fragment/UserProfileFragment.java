@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.activities.LoginActivity;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +73,7 @@ public class UserProfileFragment extends BaseFragmemt {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
 
@@ -170,17 +172,16 @@ public class UserProfileFragment extends BaseFragmemt {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (getArguments().getString(UID) == FirebaseApi.getInstance().getUser().getUid()) {
-            inflater.inflate(R.menu.fragment_user_menu, menu);
-        }
+        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.fragment_user_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (getArguments().getString(UID) == FirebaseApi.getInstance().getUser().getUid()) {
-            if (item.getItemId() == R.id.action_signout) {
-                FirebaseApi.getInstance().logout();
-            }
+        if (item.getItemId() == R.id.action_signout) {
+            FirebaseApi.getInstance().logout();
+            startActivity(LoginActivity.getIntent(mActivity));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

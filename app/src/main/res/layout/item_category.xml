@@ -30,6 +30,6 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </FrameLayout>
 </android.support.v7.widget.CardView>

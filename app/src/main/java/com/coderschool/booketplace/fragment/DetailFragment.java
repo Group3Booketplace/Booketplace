@@ -115,5 +115,9 @@ public class DetailFragment extends BaseFragmemt {
         EventBus.getDefault().post(new Event.UserClick(book.getUser()));
     }
 
+    @OnClick(R.id.btnChat)
+    public void onChat() {
+
+    }
 
 }

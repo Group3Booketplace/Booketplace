@@ -12,7 +12,7 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
-import com.coderschool.booketplace.fragment.CategoryBookStreamFragment;
+import com.coderschool.booketplace.fragment.CategoryDetailFragment;
 import com.coderschool.booketplace.fragment.CategoryFragment;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
@@ -160,6 +160,6 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.CategoryClick event) {
-        replaceFragment(R.id.frame, CategoryBookStreamFragment.newInstance(event.getCategory()), true);
+        replaceFragment(R.id.frame, CategoryDetailFragment.newInstance(event.getCategory()), true);
     }
 }

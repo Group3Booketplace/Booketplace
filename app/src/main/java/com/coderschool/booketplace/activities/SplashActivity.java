@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.api.FirebaseApi;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by duongthoai on 10/13/16.
@@ -22,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //
-                if(FirebaseApi.getInstance().getUser() != null) {
+                if(FirebaseAuth.getInstance().getCurrentUser() != null) {
                     startHome();
                 } else {
                     startLogin();

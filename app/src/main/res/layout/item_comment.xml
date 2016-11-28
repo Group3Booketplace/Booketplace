@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/rounded_corner"
+        android:layout_marginRight="8dp"
+        tools:src="@drawable/avatar_placeholder"
+        android:adjustViewBounds="true"/>
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"
+        android:layout_toRightOf="@id/ivAvatar"
         android:textColor="@android:color/background_dark"
+        android:layout_marginBottom="8dp"
         tools:text="Tran Quang Dat"/>
     <TextView
         android:id="@+id/tvComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:layout_below="@id/tvName"
         tools:text="De cam on cac bansdalf da dang"/>
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/darker_gray"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:layout_below="@id/tvComment"
+        android:layout_marginTop="8dp"
         tools:text="yesterday"/>
-</LinearLayout>
+</RelativeLayout>

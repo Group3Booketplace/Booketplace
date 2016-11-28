@@ -2,6 +2,7 @@ package com.coderschool.booketplace.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.models.Comment;
 import com.coderschool.booketplace.models.User;
 import com.coderschool.booketplace.utils.Event;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -54,6 +56,8 @@ public class DetailFragment extends BaseFragmemt {
     RecyclerView rvComment;
     private LinearLayoutManager mLinearLayoutManager;
     private CommentAdapter mAdapter;
+    @BindView(R.id.cvComment)
+    CardView cvComment;
 
     private Book book;
     private User user;
@@ -83,7 +87,7 @@ public class DetailFragment extends BaseFragmemt {
     }
 
     private void setupComment() {
-        mLinearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true);
+        mLinearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mAdapter = new CommentAdapter(FirebaseApi.getInstance().getPostCommentDatabaseRef().child(book.getKey()));
         rvComment.setLayoutManager(mLinearLayoutManager);
         rvComment.setAdapter(mAdapter);
@@ -143,10 +147,12 @@ public class DetailFragment extends BaseFragmemt {
 
     @OnClick(R.id.btnComment)
     public void onComment() {
+        FirebaseUser me = FirebaseApi.getInstance().getUser();
         Comment comment = new Comment(
                 etComment.getText().toString(),
-                user.getName(),
-                user.getUid()
+                me.getDisplayName(),
+                me.getUid(),
+                me.getPhotoUrl().toString()
         );
         FirebaseApi.getInstance().postComment(comment, book.getKey());
     }

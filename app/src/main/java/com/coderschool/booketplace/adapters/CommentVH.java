@@ -2,6 +2,7 @@ package com.coderschool.booketplace.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.coderschool.booketplace.R;
@@ -20,6 +21,8 @@ public class CommentVH extends RecyclerView.ViewHolder {
     TextView tvComment;
     @BindView(R.id.tvTime)
     TextView tvTime;
+    @BindView(R.id.ivAvatar)
+    ImageView ivAvatar;
 
     public CommentVH(View itemView) {
         super(itemView);

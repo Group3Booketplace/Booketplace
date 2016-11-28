@@ -32,6 +32,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 /**
  * Created by dattran on 11/18/16.
@@ -93,7 +94,7 @@ public class UserProfileFragment extends BaseFragmemt {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                Picasso.with(mActivity).load(user.getAvatar()).into(ivProfile);
+                Picasso.with(mActivity).load(user.getAvatar()).transform(new CropCircleTransformation()).into(ivProfile);
                 Picasso.with(mActivity).load(user.getAvatar()).into(ivProfileBackground);
                 tvName.setText(user.getName());
                 tvLocation.setText(user.getLocation());

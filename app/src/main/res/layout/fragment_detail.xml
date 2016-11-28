@@ -133,8 +133,13 @@ Máy zin nguyên bản không động chạm, mọi chức năng hoàn hảo. "/
                     android:src="@drawable/ic_condition"
                     android:layout_gravity="center"/>
             </LinearLayout>
-
-
         </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvUserBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

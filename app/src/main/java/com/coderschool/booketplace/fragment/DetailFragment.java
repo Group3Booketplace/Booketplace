@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.adapters.BookAdapter;
 import com.coderschool.booketplace.adapters.CommentAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
@@ -58,6 +60,10 @@ public class DetailFragment extends BaseFragmemt {
     private CommentAdapter mAdapter;
     @BindView(R.id.cvComment)
     CardView cvComment;
+    @BindView(R.id.rvUserBook)
+    RecyclerView rvUserBook;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private BookAdapter mBookAdapter;
 
     private Book book;
     private User user;
@@ -84,6 +90,14 @@ public class DetailFragment extends BaseFragmemt {
         ButterKnife.bind(this, view);
         setupBook();
         setupComment();
+        setupUserBook();
+    }
+
+    private void setupUserBook() {
+        mBookAdapter = new BookAdapter(mActivity, FirebaseApi.getInstance().getUserBookDatabaseRef().child(book.getUser()));
+        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        rvUserBook.setAdapter(mBookAdapter);
+        rvUserBook.setLayoutManager(mStaggeredGridLayoutManager);
     }
 
     private void setupComment() {

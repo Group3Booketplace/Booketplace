@@ -1,5 +1,6 @@
 package com.coderschool.booketplace.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
+import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.adapters.CommentAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.models.Book;
@@ -142,7 +144,9 @@ public class DetailFragment extends BaseFragmemt {
 
     @OnClick(R.id.btnChat)
     public void onChat() {
-
+        Intent intent = new Intent(mActivity, ChatActivity.class);
+        intent.putExtra("chat", user.getUid());
+        startActivity(intent);
     }
 
     @OnClick(R.id.btnComment)

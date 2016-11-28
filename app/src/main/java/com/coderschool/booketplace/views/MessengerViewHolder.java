@@ -21,6 +21,10 @@ public class MessengerViewHolder extends RecyclerView.ViewHolder {
     ImageView ivAvatar;
     @BindView(R.id.tvUsername)
     TextView tvUsername;
+    @BindView(R.id.tvChatContent)
+    TextView tvChatContent;
+    @BindView(R.id.tvDate)
+    TextView tvDate;
 
     private Context context;
 
@@ -38,7 +42,16 @@ public class MessengerViewHolder extends RecyclerView.ViewHolder {
         return tvUsername;
     }
 
-//    @Override
+    public TextView getTvDate() {
+        return tvDate;
+    }
+
+    public TextView getTvChatContent() {
+        return tvChatContent;
+    }
+
+
+    //    @Override
 //    public void onClick(View v) {
 //        int position = getAdapterPosition();
 //        if (position != RecyclerView.NO_POSITION) {

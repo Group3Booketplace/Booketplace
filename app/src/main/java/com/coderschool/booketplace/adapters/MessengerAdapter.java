@@ -17,7 +17,7 @@ import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.models.Messenger;
 import com.coderschool.booketplace.utils.DateUtils;
-import com.coderschool.booketplace.views.MessageViewHolder;
+import com.coderschool.booketplace.views.MessengerViewHolder;
 
 import java.util.ArrayList;
 
@@ -48,18 +48,18 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Context context = parent.getContext();
         View messageView = LayoutInflater.from(context)
                 .inflate(R.layout.item_messenger, parent, false);
-        return new MessageViewHolder(context, messageView);
+        return new MessengerViewHolder(context, messageView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final Messenger messenger = mMessenger.get(position);
 
-        ((MessageViewHolder)viewHolder).getUsername().setText(messenger.getUser().getName());
+        ((MessengerViewHolder)viewHolder).getUsername().setText(messenger.getUser().getName());
 
-        ((MessageViewHolder)viewHolder).getTvChatContent().setText(messenger.getLastMessage());
-        ((MessageViewHolder)viewHolder).getTvDate().setText(DateUtils.getRelativeTimeAgo(messenger.getDate()));
-        ((MessageViewHolder)viewHolder).itemView
+        ((MessengerViewHolder)viewHolder).getTvChatContent().setText(messenger.getLastMessage());
+        ((MessengerViewHolder)viewHolder).getTvDate().setText(DateUtils.getRelativeTimeAgo(messenger.getDate()));
+        ((MessengerViewHolder)viewHolder).itemView
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -73,13 +73,13 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Glide.with(mContext)
                 .load(messenger.getUser().getAvatar())
                 .asBitmap().centerCrop()
-                .into(new BitmapImageViewTarget(((MessageViewHolder)viewHolder).getAvatar()) {
+                .into(new BitmapImageViewTarget(((MessengerViewHolder)viewHolder).getAvatar()) {
                     @Override
                     protected void setResource(Bitmap resource) {
                         RoundedBitmapDrawable circularBitmapDrawable =
                                 RoundedBitmapDrawableFactory.create(mContext.getResources(), resource);
                         circularBitmapDrawable.setCircular(true);
-                        ((MessageViewHolder)viewHolder).getAvatar().setImageDrawable(circularBitmapDrawable);
+                        ((MessengerViewHolder)viewHolder).getAvatar().setImageDrawable(circularBitmapDrawable);
                     }
                 });
     }

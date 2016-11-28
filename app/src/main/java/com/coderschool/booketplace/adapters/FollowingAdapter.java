@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.User;
-import com.coderschool.booketplace.views.MessengerViewHolder;
+import com.coderschool.booketplace.views.FollowingViewHolder;
 
 import java.util.ArrayList;
 
@@ -38,19 +38,19 @@ public class FollowingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Context context = parent.getContext();
         View messageView = LayoutInflater.from(context)
                 .inflate(R.layout.item_following, parent, false);
-        return new MessengerViewHolder(context, messageView);
+        return new FollowingViewHolder(context, messageView);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         final User user = mUsers.get(position);
 
-        ((MessengerViewHolder)viewHolder).getUsername().setText(user.getName());
+        ((FollowingViewHolder)viewHolder).getUsername().setText(user.getName());
         Glide.with(mContext)
                 .load(user.getAvatar())
-                .into(((MessengerViewHolder)viewHolder).getAvatar());
+                .into(((FollowingViewHolder)viewHolder).getAvatar());
 
-        ((MessengerViewHolder)viewHolder).itemView
+        ((FollowingViewHolder)viewHolder).itemView
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

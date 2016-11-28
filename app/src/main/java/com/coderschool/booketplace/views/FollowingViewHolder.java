@@ -15,20 +15,16 @@ import butterknife.ButterKnife;
  * Created by vinh on 11/15/16.
  */
 
-public class MessageViewHolder extends RecyclerView.ViewHolder {
+public class FollowingViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.ivAvatar)
     ImageView ivAvatar;
     @BindView(R.id.tvUsername)
     TextView tvUsername;
-    @BindView(R.id.tvChatContent)
-    TextView tvChatContent;
-    @BindView(R.id.tvDate)
-    TextView tvDate;
 
     private Context context;
 
-    public MessageViewHolder(Context context, View itemView) {
+    public FollowingViewHolder(Context context, View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.context = context;
@@ -42,16 +38,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         return tvUsername;
     }
 
-    public TextView getTvDate() {
-        return tvDate;
-    }
-
-    public TextView getTvChatContent() {
-        return tvChatContent;
-    }
-
-
-    //    @Override
+//    @Override
 //    public void onClick(View v) {
 //        int position = getAdapterPosition();
 //        if (position != RecyclerView.NO_POSITION) {

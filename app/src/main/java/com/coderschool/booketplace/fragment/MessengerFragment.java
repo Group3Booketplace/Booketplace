@@ -92,7 +92,7 @@ public class MessengerFragment extends BaseFragmemt {
 
         mMessengers = new ArrayList<>();
 
-        aMessgengers = new MessengerAdapter(getContext(), mMessengers);
+        aMessgengers = new MessengerAdapter(getContext(), mActivity, mMessengers);
         rvMessengers.setAdapter(aMessgengers);
         rvMessengers.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -125,6 +125,11 @@ public class MessengerFragment extends BaseFragmemt {
 
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     @Override

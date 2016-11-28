@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.activities.ChatActivity;
 import com.coderschool.booketplace.models.Messenger;
@@ -30,9 +31,11 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private ArrayList<Messenger> mMessenger;
     private Context mContext;
+    private BaseActivity mActivity;
 
-    public MessengerAdapter(Context context, ArrayList<Messenger> messengers) {
+    public MessengerAdapter(Context context, BaseActivity activity, ArrayList<Messenger> messengers) {
         this.mContext = context;
+        this.mActivity = activity;
         this.mMessenger = messengers;
     }
 
@@ -60,9 +63,11 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Intent intent = new Intent(getContext(), ChatActivity.class);
                         intent.putExtra(EXTRA_CHAT, messenger.getUid());
                         getContext().startActivity(intent);
+
                     }
                 });
         Glide.with(mContext)

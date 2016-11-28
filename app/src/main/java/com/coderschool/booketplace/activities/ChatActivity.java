@@ -142,17 +142,89 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!etChatMessage.getText().toString().equals("")) {
+                    String date = getStringDate();
+                    String message = etChatMessage.getText().toString();
+                    Map<String, Object> childUpdate = new HashMap<>();
+
                     Map<String, Object> newChatMessage = (new Chat(user.getUid(),
                             etChatMessage.getText().toString(),
-                            getStringDate())
+                            date)
                     ).toMap();
-                    Map<String, Object> childUpdate = new HashMap<>();
+                    childUpdate = new HashMap<>();
                     String key = mChatDatabaseRef.push().getKey();
                     childUpdate.put("/users-chat/" + uniqueKey + "/" + key, newChatMessage);
                     FirebaseDatabase.getInstance()
                             .getReference()
                             .updateChildren(childUpdate);
                     etChatMessage.setText("");
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("users-messenger")
+                            .child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot query : dataSnapshot.getChildren()) {
+                                String uid = query.child("uid").getValue().toString();
+                                if (uid.equals(friendUid)) {
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("users-messenger")
+                                            .child(user.getUid())
+                                            .child(query.getKey())
+                                            .child("date")
+                                            .setValue(date);
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("users-messenger")
+                                            .child(user.getUid())
+                                            .child(query.getKey())
+                                            .child("lastMessage")
+                                            .setValue(message);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("users-messenger")
+                            .child(friendUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot query : dataSnapshot.getChildren()) {
+                                String uid = query.child("uid").getValue().toString();
+                                if (uid.equals(user.getUid())) {
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("users-messenger")
+                                            .child(friendUid)
+                                            .child(query.getKey())
+                                            .child("date")
+                                            .setValue(date);
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("users-messenger")
+                                            .child(friendUid)
+                                            .child(query.getKey())
+                                            .child("lastMessage")
+                                            .setValue(message);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+//                    // update last message for current user
+//                    Map<String, Object> newLastMessage = (
+//                            new Messenger(friendUid, date, etChatMessage.getText().toString()))
+//                            .toMap();
+//                    childUpdate = new HashMap<>();
+//                    childUpdate.put("/users-messenger/" + user.getUid() + "/" + )
+
                 }
             }
         });
@@ -255,7 +327,6 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:

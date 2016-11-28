@@ -1,11 +1,14 @@
 package com.coderschool.booketplace;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.TransitionInflater;
 
 import com.facebook.FacebookSdk;
 
@@ -59,6 +62,13 @@ public class BaseActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if(Build.VERSION.SDK_INT >=  Build.VERSION_CODES.LOLLIPOP ) {
+            android.transition.Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.change_image_transform);
+            android.transition.Transition explodeTransform = TransitionInflater.from(this).
+                    inflateTransition(android.R.transition.explode);
+//              fragment.setSharedElementEnterTransition(transition);
+//            transaction.addSharedElement(ivBookImage,"bookImage");
+        }
 //        if (fragmentManager.findFragmentByTag(fragmentTag) == null) { //fragment not in back stack, create it.
         transaction.setCustomAnimations(android.R.anim.fade_in,
                 android.R.anim.fade_out);

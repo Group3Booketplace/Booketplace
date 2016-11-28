@@ -1,5 +1,6 @@
 package com.coderschool.booketplace.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -160,11 +161,6 @@ public class DetailFragment extends BaseFragmemt {
     public void onUser() {
         EventBus.getDefault().post(new Event.UserClick(book.getUser()));
     }
-
-//    @OnClick(R.id.btnChat)
-//    public void onChat() {
-//
-//    }
 
     @OnClick(R.id.btnComment)
     public void onComment() {

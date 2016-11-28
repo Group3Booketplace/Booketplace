@@ -29,6 +29,7 @@ public class DetailActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.btnChat)
     Button btnChat;
+    private Book book;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class DetailActivity extends BaseActivity {
     private void setupView(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        Book book = Parcels.unwrap(getIntent().getParcelableExtra(BOOK));
+        book = Parcels.unwrap(getIntent().getParcelableExtra(BOOK));
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.containder, DetailFragment.newInstance(book))
@@ -56,7 +57,9 @@ public class DetailActivity extends BaseActivity {
 
     @OnClick(R.id.btnChat)
     public void onChat() {
-
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("chat", book.getUser());
+        startActivity(intent);
     }
 
 

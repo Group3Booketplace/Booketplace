@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.coderschool.booketplace.BaseFragmemt;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.adapters.MessengerAdapter;
+import com.coderschool.booketplace.models.Messenger;
 import com.coderschool.booketplace.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +47,7 @@ public class MessengerFragment extends BaseFragmemt {
     FirebaseAuth auth;
     FirebaseUser user;
 
-    ArrayList<User> mUsers;
+    ArrayList<Messenger> mMessengers;
     MessengerAdapter aMessgengers;
 
     public static MessengerFragment newInstance() {
@@ -89,9 +90,9 @@ public class MessengerFragment extends BaseFragmemt {
 
         mActivity.getSupportActionBar().setTitle("Messenger");
 
-        mUsers = new ArrayList<>();
+        mMessengers = new ArrayList<>();
 
-        aMessgengers = new MessengerAdapter(getContext(), mUsers);
+        aMessgengers = new MessengerAdapter(getContext(), mMessengers);
         rvMessengers.setAdapter(aMessgengers);
         rvMessengers.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -100,14 +101,15 @@ public class MessengerFragment extends BaseFragmemt {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot query : dataSnapshot.getChildren()) {
                     // for current solution with simple object on query
-                    String uid = query.child("uid").getValue().toString();
-                    mUserDatabaseRef.child(uid)
+                    final Messenger messenger = query.getValue(Messenger.class);
+                    mUserDatabaseRef.child(messenger.getUid())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
-                                    mUsers.add(user);
-                                    aMessgengers.notifyItemChanged(mUsers.size() - 1);
+                                    messenger.setUser(user);
+                                    mMessengers.add(messenger);
+                                    aMessgengers.notifyItemChanged(mMessengers.size() - 1);
                                 }
 
                                 @Override

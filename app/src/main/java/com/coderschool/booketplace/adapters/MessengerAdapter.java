@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.activities.ChatActivity;
-import com.coderschool.booketplace.models.User;
+import com.coderschool.booketplace.models.Messenger;
+import com.coderschool.booketplace.utils.DateUtils;
 import com.coderschool.booketplace.views.MessageViewHolder;
 
 import java.util.ArrayList;
@@ -27,12 +28,12 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private static String EXTRA_CHAT = "chat";
 
-    private ArrayList<User> mUsers;
+    private ArrayList<Messenger> mMessenger;
     private Context mContext;
 
-    public MessengerAdapter(Context context, ArrayList<User> users) {
+    public MessengerAdapter(Context context, ArrayList<Messenger> messengers) {
         this.mContext = context;
-        this.mUsers = users;
+        this.mMessenger = messengers;
     }
 
     private Context getContext() {
@@ -49,21 +50,23 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        final User user = mUsers.get(position);
+        final Messenger messenger = mMessenger.get(position);
 
-        ((MessageViewHolder)viewHolder).getUsername().setText(user.getName());
+        ((MessageViewHolder)viewHolder).getUsername().setText(messenger.getUser().getName());
 
+        ((MessageViewHolder)viewHolder).getTvChatContent().setText(messenger.getLastMessage());
+        ((MessageViewHolder)viewHolder).getTvDate().setText(DateUtils.getRelativeTimeAgo(messenger.getDate()));
         ((MessageViewHolder)viewHolder).itemView
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), ChatActivity.class);
-                        intent.putExtra(EXTRA_CHAT, user.getUid());
+                        intent.putExtra(EXTRA_CHAT, messenger.getUid());
                         getContext().startActivity(intent);
                     }
                 });
         Glide.with(mContext)
-                .load(user.getAvatar())
+                .load(messenger.getUser().getAvatar())
                 .asBitmap().centerCrop()
                 .into(new BitmapImageViewTarget(((MessageViewHolder)viewHolder).getAvatar()) {
                     @Override
@@ -78,7 +81,7 @@ public class MessengerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return mMessenger.size();
     }
 }
 

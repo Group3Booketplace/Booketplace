@@ -9,6 +9,8 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+
 /**
  * Created by dattran on 11/27/16.
  */
@@ -26,6 +28,7 @@ public class CommentAdapter extends FirebaseRecyclerAdapter<Comment, CommentVH> 
         holder.tvTime.setText(DateUtils.getRelativeTimeAgo(comment.getTime()));
         Picasso.with(holder.itemView.getContext())
                 .load(comment.getAvatar())
+                .transform(new CropCircleTransformation())
                 .into(holder.ivAvatar);
     }
 

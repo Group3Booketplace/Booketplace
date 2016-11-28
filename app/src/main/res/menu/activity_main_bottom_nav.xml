@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp" />
+            android:icon="@drawable/ic_home_black_24dp"
+            android:enabled="true"
+            app:showAsAction="always"/>
         <!--<item-->
-            <!--android:id="@+id/nav_notifications"-->
-            <!--android:icon="@drawable/ic_photo_library_black_24dp"-->
-            <!--android:title="Notifications" />-->
+        <!--android:id="@+id/nav_notifications"-->
+        <!--android:icon="@drawable/ic_photo_library_black_24dp"-->
+        <!--android:title="Notifications" />-->
         <item
             android:id="@+id/nav_search"
-            android:icon="@android:drawable/ic_menu_search" />
+            android:icon="@android:drawable/ic_menu_search"
+            android:enabled="true"
+            app:showAsAction="always"/>
         <item
             android:id="@+id/nav_new"
-            android:icon="@drawable/ic_new_post" />
+            android:icon="@drawable/ic_new_post"
+            android:enabled="true"
+            app:showAsAction="always"/>
 
         <item
             android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_notifications_black_24dp" />
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:enabled="true"
+            app:showAsAction="always"/>
         <!--<item-->
-            <!--android:id="@+id/nav_subscribe"-->
-            <!--android:icon="@drawable/ic_settings_black_24dp"-->
-            <!--android:title="Subscribe" />-->
+        <!--android:id="@+id/nav_subscribe"-->
+        <!--android:icon="@drawable/ic_settings_black_24dp"-->
+        <!--android:title="Subscribe" />-->
         <!--<item-->
-            <!--android:id="@+id/nav_people"-->
-            <!--android:icon="@drawable/ic_settings_black_24dp"-->
-            <!--android:title="People" />-->
+        <!--android:id="@+id/nav_people"-->
+        <!--android:icon="@drawable/ic_settings_black_24dp"-->
+        <!--android:title="People" />-->
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_account" />
+            android:icon="@drawable/ic_account"
+            android:enabled="true"
+            app:showAsAction="always"/>
 </menu>

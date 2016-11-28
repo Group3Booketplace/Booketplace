@@ -130,9 +130,9 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
     }
 
     @Override
-    protected void onPause() {
+    protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        super.onPause();
+        super.onDestroy();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

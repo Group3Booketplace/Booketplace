@@ -42,7 +42,9 @@
             android:layout_centerVertical="true"
             android:layout_alignLeft="@+id/tvUsername"
             android:layout_alignStart="@+id/tvUsername"
-            android:layout_below="@+id/tvUsername"/>
+            android:layout_below="@+id/tvUsername"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:text="Date"

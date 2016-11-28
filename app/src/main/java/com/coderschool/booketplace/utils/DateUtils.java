@@ -18,6 +18,8 @@ public class DateUtils {
     }
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
+        if (rawJsonDate == null) return null;
+
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
         sf.setLenient(true);

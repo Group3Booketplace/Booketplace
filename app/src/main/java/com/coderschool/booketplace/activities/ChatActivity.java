@@ -234,6 +234,45 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
+//        mMessengerDatabaseRef = FirebaseDatabase.getInstance()
+//                .getReference()
+//                .child("users-messenger")
+//                .child(friendUid);
+
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("users-messenger")
+                .child(auth.getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean flag = false;
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (data.child("uid").getValue().toString().equals(friendUid)) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    String userMessengerKey = mMessengerDatabaseRef.push().getKey();
+                    Map<String, String> newMessenger = new HashMap<>();
+                    newMessenger.put("uid", friendUid);
+                    Map<String, Object> childUpdate = new HashMap<>();
+                    childUpdate.put(userMessengerKey, newMessenger);
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("users-messenger")
+                            .child(auth.getCurrentUser().getUid()).updateChildren(childUpdate);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         mMessengerDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -278,7 +317,8 @@ public class ChatActivity extends AppCompatActivity {
                                     String strChat = convertDateTime(chat.getDate());
                                     String strChats = convertDateTime(chats.get(i).getDate());
                                     if (strChat.compareTo(strChats) < 0) {
-                                        i = chats.size();
+//                                        i = chats.size();
+                                        break;
                                     }
                                     position++;
                                 }

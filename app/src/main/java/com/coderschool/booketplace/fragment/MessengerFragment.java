@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.coderschool.booketplace.utils.DateUtils.convertDateTime;
+
 /**
  * Created by vinh on 11/15/16.
  */
@@ -108,8 +110,28 @@ public class MessengerFragment extends BaseFragmemt {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
                                     messenger.setUser(user);
-                                    mMessengers.add(messenger);
-                                    aMessgengers.notifyItemChanged(mMessengers.size() - 1);
+
+
+                                    int position = 0;
+                                    for (int i = 0; i < mMessengers.size(); i++) {
+                                        String strChat = convertDateTime(messenger.getDate());
+                                        String strChats = convertDateTime(mMessengers.get(i).getDate());
+                                        if (strChat.compareTo(strChats) > 0) {
+//                                            i = mMessengers.size();
+                                            break;
+                                        }
+                                        position++;
+                                    }
+
+                                    mMessengers.add(position, messenger);
+
+                                    aMessgengers.notifyItemInserted(position);
+//                                    rvMessageItem.scrollToPosition(chats.size() - 1);
+//
+//
+//
+//                                    mMessengers.add(messenger);
+//                                    aMessgengers.notifyItemChanged(mMessengers.size() - 1);
                                 }
 
                                 @Override

@@ -1,5 +1,7 @@
 package com.coderschool.booketplace.adapters;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.Comment;
 import com.coderschool.booketplace.utils.DateUtils;
@@ -25,5 +27,10 @@ public class CommentAdapter extends FirebaseRecyclerAdapter<Comment, CommentVH> 
         Picasso.with(holder.itemView.getContext())
                 .load(comment.getAvatar())
                 .into(holder.ivAvatar);
+    }
+
+    @Override
+    public void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {
+        super.registerAdapterDataObserver(observer);
     }
 }

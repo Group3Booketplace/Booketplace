@@ -14,7 +14,6 @@ import com.coderschool.booketplace.adapters.FollowingAdapter;
 import com.coderschool.booketplace.api.FirebaseApi;
 import com.coderschool.booketplace.fragment.CategoryDetailFragment;
 import com.coderschool.booketplace.fragment.CategoryFragment;
-import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.fragment.MessengerFragment;
 import com.coderschool.booketplace.fragment.UserProfileFragment;
 import com.coderschool.booketplace.utils.Event;
@@ -138,7 +137,8 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.ItemBookClick event) {
-        replaceFragment(R.id.frame, DetailFragment.newInstance(event.getBook()), true);
+//        replaceFragment(R.id.frame, DetailFragment.newInstance(event.getBook()), true);
+        startActivity(DetailActivity.getIntent(this, event.getBook()));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

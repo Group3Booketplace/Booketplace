@@ -91,6 +91,13 @@ public class DetailFragment extends BaseFragmemt {
         mAdapter = new CommentAdapter(FirebaseApi.getInstance().getPostCommentDatabaseRef().child(book.getKey()));
         rvComment.setLayoutManager(mLinearLayoutManager);
         rvComment.setAdapter(mAdapter);
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                cvComment.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setupBook() {
@@ -140,10 +147,10 @@ public class DetailFragment extends BaseFragmemt {
         EventBus.getDefault().post(new Event.UserClick(book.getUser()));
     }
 
-    @OnClick(R.id.btnChat)
-    public void onChat() {
-
-    }
+//    @OnClick(R.id.btnChat)
+//    public void onChat() {
+//
+//    }
 
     @OnClick(R.id.btnComment)
     public void onComment() {

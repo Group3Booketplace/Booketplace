@@ -1,4 +1,4 @@
-package com.coderschool.booketplace.adapters;
+package com.coderschool.booketplace.views;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

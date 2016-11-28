@@ -130,9 +130,9 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
         EventBus.getDefault().unregister(this);
-        super.onDestroy();
+        super.onStop();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -141,10 +141,10 @@ public class HomeActivity extends BaseActivity implements FollowingAdapter.OnFol
         startActivity(DetailActivity.getIntent(this, event.getBook()));
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEven(Event.UserClick event) {
-        replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onEven(Event.UserClick event) {
+//        replaceFragment(R.id.frame, UserProfileFragment.newInstance(event.getUser()), true);
+//    }
 
     @Override
     public void setFollwingUserSelected(String link) {

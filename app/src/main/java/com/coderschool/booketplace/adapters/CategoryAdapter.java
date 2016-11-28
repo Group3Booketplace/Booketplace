@@ -15,24 +15,28 @@ import com.coderschool.booketplace.R;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryVH> {
     private static final int[] images = {
             R.drawable.category_manga,
-            R.drawable.category_china,
             R.drawable.category_kinhte,
-            R.drawable.category_ngontinh,
             R.drawable.category_novel,
             R.drawable.category_suckhoe,
+            R.drawable.category_ngontinh,
+            R.drawable.category_china,
+            R.drawable.category_selfhelp
     };
-    private static final int[] categories = {
-            R.string.manga,
-            R.string.china,
-            R.string.business,
-            R.string.love,
-            R.string.novel,
-            R.string.health
-    };
+//    private static final int[] categories = {
+//            R.string.manga,
+//            R.string.china,
+//            R.string.business,
+//            R.string.love,
+//            R.string.novel,
+//            R.string.health
+//    };
+
+    private final String[] categories;
     private Activity mActivity;
 
     public CategoryAdapter(Activity activity) {
         mActivity = activity;
+        categories = mActivity.getResources().getStringArray(R.array.spinner_category);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.views.BookVH;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

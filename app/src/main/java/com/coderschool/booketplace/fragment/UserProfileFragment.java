@@ -65,6 +65,9 @@ public class UserProfileFragment extends BaseFragmemt {
     Button btnFollow;
 //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
+//    @BindView(R.id.pager)
+//    ViewPager viewPager;
+//    private ViewPagerAdapter mAdapter;
 
     boolean isFollowing;
     String userFollowingKey;
@@ -84,7 +87,15 @@ public class UserProfileFragment extends BaseFragmemt {
         ButterKnife.bind(this, view);
 //        mActivity.setSupportActionBar(toolbar);
         setupUser();
+//        setupPager();
     }
+
+//    private void setupPager() {
+//        mAdapter = new ViewPagerAdapter(getChildFragmentManager());
+//        mAdapter.addFragment(UserProfileFragment.newInstance(getArguments().getString(UID)), "Books");
+////        mAdapter.addFragment(FollowingFragment.newInstance(), "Following");
+//        viewPager.setAdapter(mAdapter);
+//    }
 
     private void setupUser() {
         String uid = getArguments().getString(UID);
@@ -138,9 +149,6 @@ public class UserProfileFragment extends BaseFragmemt {
                 .add(R.id.containder, UserBookStreamFragment.newInstance(uid), UID)
                 .commit();
     }
-
-
-
 
     @OnClick(R.id.btnFollow)
     public void onFollow() {

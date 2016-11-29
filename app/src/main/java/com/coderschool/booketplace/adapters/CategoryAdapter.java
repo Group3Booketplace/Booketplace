@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.coderschool.booketplace.R;
+import com.squareup.picasso.Picasso;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by dattran on 11/24/16.
@@ -47,11 +50,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryVH> {
 
     @Override
     public void onBindViewHolder(CategoryVH holder, int position) {
+        Picasso.with(mActivity).load(images[position]).transform(new RoundedCornersTransformation(50, 0)).into(holder.ivCategory);
         holder.ivCategory.setImageResource(images[position]);
         holder.tvCategory.setText(categories[position]);
-        int width = holder.itemView.getLayoutParams().width;
-        holder.ivCategory.getLayoutParams().height = width;
-        holder.ivCategory.requestLayout();
     }
 
     @Override

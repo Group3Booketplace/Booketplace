@@ -82,6 +82,7 @@ public class FirebaseApi {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);
         bookDatabaseRef = database.getReference().child(BOOKS);
         userDatabaseRef = database.getReference().child(USERS);
         userBookDatabaseRef = database.getReference().child(USER_BOOKS);

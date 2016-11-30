@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.DetailFragment;
+import com.coderschool.booketplace.fragment.UserProfileFragment;
 import com.coderschool.booketplace.models.Book;
 import com.coderschool.booketplace.utils.Event;
 
@@ -84,5 +85,10 @@ public class DetailActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.ItemBookClick event) {
         replaceFragment(R.id.containder, DetailFragment.newInstance(event.getBook()), false);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEven(Event.UserClick event) {
+        replaceFragment(R.id.containder, UserProfileFragment.newInstance(event.getUser()), true);
     }
 }

@@ -43,7 +43,7 @@
                     android:layout_height="96dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/big_avatar_corner"
-                    tools:src="@drawable/avatar_placeholder"z/>
+                    tools:src="@drawable/avatar_placeholder"/>
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
@@ -54,15 +54,15 @@
                     android:textColor="@android:color/white"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="8dp"/>
-                <TextView
-                    android:id="@+id/tvLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Ho Chi Minh"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="8dp"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/tvLocation"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--tools:text="Ho Chi Minh"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+                    <!--android:textColor="@android:color/white"-->
+                    <!--android:layout_gravity="center_horizontal"-->
+                    <!--android:layout_marginBottom="8dp"/>-->
                 <Button
                     android:id="@+id/btnFollow"
                     android:layout_width="wrap_content"
@@ -71,7 +71,9 @@
                     android:textColor="@android:color/white"
                     android:background="@color/colorAccent"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
             <!--<FrameLayout-->
                 <!--android:layout_width="match_parent"-->

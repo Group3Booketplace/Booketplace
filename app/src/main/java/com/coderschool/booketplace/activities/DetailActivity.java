@@ -11,7 +11,11 @@ import com.coderschool.booketplace.BaseActivity;
 import com.coderschool.booketplace.R;
 import com.coderschool.booketplace.fragment.DetailFragment;
 import com.coderschool.booketplace.models.Book;
+import com.coderschool.booketplace.utils.Event;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.parceler.Parcels;
 
 import butterknife.BindView;
@@ -62,5 +66,26 @@ public class DetailActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
+    }
+
+    @Override
+    protected void onStop() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+
+        }
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Event.ItemBookClick event) {
+        startActivity(DetailActivity.getIntent(this, event.getBook()));
+    }
 }

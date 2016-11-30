@@ -1,8 +1,9 @@
 package com.coderschool.booketplace.fragment;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +59,8 @@ public class DetailFragment extends BaseFragmemt {
     EditText etComment;
     @BindView(R.id.rvComment)
     RecyclerView rvComment;
+    @BindView(R.id.sv)
+    NestedScrollView sv;
     private LinearLayoutManager mLinearLayoutManager;
     private CommentAdapter mAdapter;
     @BindView(R.id.cvComment)
@@ -89,6 +93,8 @@ public class DetailFragment extends BaseFragmemt {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        sv.setFocusable(true);
+        sv.requestFocus();
         setupBook();
         setupComment();
         setupUserBook();
@@ -171,7 +177,10 @@ public class DetailFragment extends BaseFragmemt {
                 me.getUid(),
                 me.getPhotoUrl().toString()
         );
+        etComment.setText("");
         FirebaseApi.getInstance().postComment(comment, book.getKey());
+        InputMethodManager imm = (InputMethodManager)mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etComment.getWindowToken(), 0);
     }
 
 }

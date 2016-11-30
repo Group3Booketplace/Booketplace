@@ -45,12 +45,9 @@ public class DetailActivity extends BaseActivity {
     private void setupView(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Detail");
         book = Parcels.unwrap(getIntent().getParcelableExtra(BOOK));
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.containder, DetailFragment.newInstance(book))
-                    .commit();
-        }
+        replaceFragment(R.id.containder, DetailFragment.newInstance(book), true);
     }
 
     public static Intent getIntent(Context context, Book book) {
@@ -86,6 +83,6 @@ public class DetailActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Event.ItemBookClick event) {
-        startActivity(DetailActivity.getIntent(this, event.getBook()));
+        replaceFragment(R.id.containder, DetailFragment.newInstance(event.getBook()), false);
     }
 }

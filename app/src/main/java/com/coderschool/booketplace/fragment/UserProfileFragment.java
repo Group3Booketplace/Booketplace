@@ -110,6 +110,7 @@ public class UserProfileFragment extends BaseFragmemt {
                 tvName.setText(user.getName());
                 tvLocation.setText(user.getLocation());
 //                ratingBar.setRating(user.getRatingOverall());
+                mActivity.getSupportActionBar().setTitle(user.getName());
 
 
                 // check following state

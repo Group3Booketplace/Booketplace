@@ -69,6 +69,7 @@ public class NewPostActivity extends BaseActivity {
         setContentView(R.layout.activity_new_post);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("New");
         progressBar.setVisibility(View.INVISIBLE);
     }
 

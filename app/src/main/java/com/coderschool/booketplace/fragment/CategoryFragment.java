@@ -53,5 +53,6 @@ public class CategoryFragment extends BaseFragmemt {
         mLayoutManager = new GridLayoutManager(mActivity, 2, LinearLayoutManager.VERTICAL, false);
         rvCategory.setAdapter(mAdapter);
         rvCategory.setLayoutManager(mLayoutManager);
+        mActivity.getSupportActionBar().setTitle("Category");
     }
 }

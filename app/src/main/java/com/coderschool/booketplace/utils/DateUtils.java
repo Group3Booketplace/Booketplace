@@ -40,6 +40,8 @@ public class DateUtils {
     }
 
     public static String convertDateTime(String originTimeRaw) {
+        if (originTimeRaw == null) return null;
+
         SimpleDateFormat originalFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy", Locale.getDefault());
         SimpleDateFormat resultFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
         String dateString = "";

@@ -43,8 +43,7 @@
                     android:layout_height="96dp"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/big_avatar_corner"
-                    tools:src="@drawable/avatar_placeholder"
-                    android:layout_marginBottom="8dp" />
+                    tools:src="@drawable/avatar_placeholder"z/>
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
@@ -67,12 +66,12 @@
                 <Button
                     android:id="@+id/btnFollow"
                     android:layout_width="wrap_content"
-                    android:layout_height="16dp"
+                    android:layout_height="wrap_content"
                     android:text="Follow"
                     android:textColor="@android:color/white"
                     android:background="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textSize="8sp"/>
+                    android:layout_marginBottom="8dp" />
             </LinearLayout>
             <!--<FrameLayout-->
                 <!--android:layout_width="match_parent"-->
